@@ -1,0 +1,914 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Лучшие AI модели</title>
+<!-- Фавиконка — знак OpenCode (opencode.ai/favicon.svg), вшита как data-URI,
+     чтобы страница работала из файла без лишних файлов рядом. -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' fill='%23131010'/%3E%3Cpath d='M320 224V352H192V224H320Z' fill='%235A5858'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M384 416H128V96H384V416ZM320 160H192V352H320V160Z' fill='%23fff'/%3E%3C/svg%3E" />
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' fill='%23131010'/%3E%3Cpath d='M320 224V352H192V224H320Z' fill='%235A5858'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M384 416H128V96H384V416ZM320 160H192V352H320V160Z' fill='%23fff'/%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;800&display=swap" rel="stylesheet" />
+<script>
+  /* Тема применяется до отрисовки, чтобы не мигало светлым. По умолчанию — тёмная. */
+  (function () {
+    var theme;
+    try { theme = localStorage.getItem("theme"); } catch (e) { theme = null; }
+    if (theme !== "light" && theme !== "dark") theme = "dark";
+    document.documentElement.setAttribute("data-theme", theme);
+  })();
+</script>
+<style>
+  :root {
+    --paper: #ffffff;
+    --shell: #f4f3ef;
+    --ink: #16161a;
+    --ink-soft: #5c5c66;
+    --ink-faint: #97979f;
+    --rule: #e2e1da;
+    --grid: #eae9e2;
+    --track: #f2f1ec;
+    --hover: #fbfbf8;
+    --promo-bg: #fff2d6;
+    --promo-fg: #7a4d00;
+    --ok: #1d6f42;
+    --lead: 332px;
+    /* Три числовых столбца между названием и шкалой + место под число справа от бара. */
+    --col-int: 62px;
+    --col-profit: 86px;
+    --col-limit: 100px;
+    --val-reserve: 112px;
+    --plot-gap: 14px;
+    --plot-left: calc(var(--lead) + var(--col-int) + var(--col-profit) + var(--col-limit));
+    --radius: 3px;
+    --font: "Golos Text", "Segoe UI", system-ui, -apple-system, sans-serif;
+  }
+
+  html[data-theme="dark"] {
+    --paper: #16161a;
+    --shell: #0f0f12;
+    --ink: #f2f1ec;
+    --ink-soft: #a9a9b3;
+    --ink-faint: #6f6f7a;
+    --rule: #2e2e35;
+    --grid: #26262c;
+    --track: #232329;
+    --hover: #1d1d22;
+    --promo-bg: #4a3a12;
+    --promo-fg: #ffd479;
+    --ok: #5fd08a;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+
+  body {
+    background: var(--shell);
+    color: var(--ink);
+    font-family: var(--font);
+    font-size: 15px;
+    line-height: 1.45;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .sheet {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 48px 40px 72px;
+    background: var(--paper);
+    min-height: 100vh;
+  }
+
+  /* ── заголовок ─────────────────────────────────────────────── */
+
+  /* Шапка — сетка 2×2: в первом ряду заголовок и кнопки, во втором —
+     подзаголовок и метаданные. Так шапка занимает заметно меньше высоты. */
+  .head {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "title   actions"
+      "sub     meta";
+    align-items: end;
+    column-gap: 28px;
+    row-gap: 10px;
+    padding-bottom: 22px;
+    border-bottom: 2px solid var(--ink);
+  }
+
+  h1 {
+    grid-area: title;
+    margin: 0;
+    font-size: 40px;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.05;
+  }
+
+  /* Текст под заголовком — одной строкой на широком экране: лист ограничен 1240px,
+     поэтому колонка подзаголовка не шире ~850px, а вся фраза занимает ~600px.
+     Лимит в 76ch оставляет запас на смену чисел в тексте. */
+  .head-sub { grid-area: sub; margin: 0; color: var(--ink-soft); font-size: 14px; max-width: 76ch; }
+  .head-sub a { color: var(--ink-soft); text-decoration: none; border-bottom: 1px solid var(--rule); }
+  .head-sub a:hover { color: var(--ink); border-color: var(--ink); }
+
+  .head-right {
+    grid-area: actions;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .head-actions { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; }
+
+  /* Маленькие служебные кнопки: обновление данных и смена темы. */
+  .ghost {
+    font: inherit;
+    font-size: 12.5px;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 11px;
+    border: 1px solid var(--rule);
+    background: var(--paper);
+    color: var(--ink-soft);
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: background 140ms ease, border-color 140ms ease, color 140ms ease;
+  }
+
+  .ghost:hover { border-color: var(--ink-faint); color: var(--ink); }
+  .ghost:disabled { opacity: 0.5; cursor: default; }
+
+  #theme-toggle { min-width: 36px; justify-content: center; font-size: 14px; padding: 7px 9px; }
+
+  /* Пустая строка статуса не резервирует высоту: шапка не «дышит» зря.
+     Сообщение о обновлении встаёт слева от кнопок и на раскладку не влияет. */
+  .head-status { font-size: 11.5px; color: var(--ink-faint); white-space: nowrap; }
+
+  .head-meta { grid-area: meta; text-align: right; font-size: 12.5px; color: var(--ink-faint); line-height: 1.6; }
+  .head-meta strong { color: var(--ink-soft); font-weight: 600; }
+  .head-meta a { color: var(--ink-soft); text-decoration: none; border-bottom: 1px solid var(--rule); }
+  .head-meta a:hover { color: var(--ink); border-color: var(--ink); }
+
+  /* ── управление сортировкой ────────────────────────────────── */
+
+  .controls { display: flex; flex-wrap: wrap; align-items: baseline; gap: 14px; margin: 26px 0 22px; }
+  .controls-label { font-size: 13px; color: var(--ink-faint); }
+
+  /* Переключатели метрик разбиты на группы: сначала Artificial Analysis
+     (Intelligence, Cost per Intelligence), затем метрики OpenCode.
+     Между группами — вертикальный разделитель с отступами. */
+  .seg { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+  .seg-group { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+
+  .seg-divider {
+    flex: none;
+    align-self: center;
+    width: 1px;
+    height: 34px;
+    margin: 0 8px;
+    background: var(--rule);
+  }
+
+  .seg button {
+    font: inherit;
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1px;
+    padding: 8px 16px 9px;
+    border: 1px solid var(--rule);
+    background: var(--paper);
+    color: var(--ink);
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: background 140ms ease, border-color 140ms ease, color 140ms ease;
+  }
+
+  .seg button:hover { border-color: var(--ink-faint); }
+  .seg button .m-name { font-weight: 600; }
+  .seg button .m-hint { font-size: 11.5px; color: var(--ink-faint); }
+  .seg button[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+  .seg button[aria-pressed="true"] .m-hint { color: var(--paper); opacity: 0.66; }
+
+  :focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+
+  /* ── диаграмма ─────────────────────────────────────────────── */
+
+  .chart { position: relative; }
+
+  .chart-grid { position: absolute; top: 0; bottom: 0; left: calc(var(--plot-left) + var(--plot-gap)); right: var(--val-reserve); pointer-events: none; }
+
+  .chart-grid i {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: repeating-linear-gradient(to bottom, var(--grid) 0 4px, transparent 4px 8px);
+  }
+
+  /* Шапка диаграммы: подписи над тремя числовыми столбцами и над шкалой. */
+  .chart-head {
+    display: grid;
+    grid-template-columns: var(--lead) var(--col-int) var(--col-profit) var(--col-limit) 1fr;
+    align-items: end;
+    padding-bottom: 7px;
+    border-bottom: 1.5px solid var(--ink);
+  }
+
+  .chart-head span {
+    text-align: right;
+    padding-right: 14px;
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--ink-faint);
+    white-space: nowrap;
+  }
+
+  /* Название метрики над шкалой: совпадает с выбранным фильтром.
+     Прижато к левому краю с тем же отступом, что и начало полос. */
+  .chart-head .metric-label {
+    text-align: left;
+    padding-left: var(--plot-gap);
+    padding-right: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: var(--lead) var(--col-int) var(--col-profit) var(--col-limit) 1fr;
+    align-items: center;
+    min-height: 34px;
+  }
+  .row + .row { border-top: 1px solid var(--grid); }
+
+  .row-label { display: flex; align-items: center; gap: 7px; padding-right: 14px; min-width: 0; }
+
+  /* Числовые столбцы: Intelligence, балл эффективности и лимит запросов на 5 ч. */
+  .row-num {
+    text-align: right;
+    padding-right: 14px;
+    font-size: 12.5px;
+    font-variant-numeric: tabular-nums;
+    color: var(--ink-soft);
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .row-num.int { color: var(--ink); font-weight: 600; }
+  .row.out .row-num { color: var(--ink-faint); font-weight: 400; }
+
+  .rank {
+    flex: none;
+    width: 20px;
+    text-align: right;
+    font-size: 11.5px;
+    color: var(--ink-faint);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .dot { flex: none; width: 9px; height: 9px; border-radius: 50%; background: var(--ink-faint); }
+
+  .row-name {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 13.5px;
+    font-weight: 500;
+  }
+
+  /* Модели «вне подписки» приглушаем целиком: тусклый текст, блёклая точка
+     вендора и полоса на 30% прозрачности — чтобы с первого взгляда было видно,
+     кто входит в Go, а кто добавлен для сравнения. */
+  .row.out .row-name { color: var(--ink-faint); font-weight: 400; }
+  .row.out .dot { opacity: 0.5; }
+
+  .badge {
+    flex: none;
+    font-size: 10px;
+    padding: 1px 5px;
+    border-radius: 2px;
+    background: var(--track);
+    color: var(--ink-soft);
+    white-space: nowrap;
+  }
+  .badge.free { background: var(--ok); color: #fff; }
+  .badge.promo { background: var(--promo-bg); color: var(--promo-fg); }
+  .badge.plain { background: transparent; padding: 0; color: var(--ink-faint); }
+  /* Пустой бейдж не должен рисовать «таблетку» нулевой ширины. */
+  .badge:empty { display: none; }
+
+  .track { position: relative; height: 24px; }
+
+  /* Полоса растёт только внутри этой области: справа всегда остаётся место
+     под число, поэтому оно никогда не вылезает за край строки. Слева — воздух
+     между числовыми столбцами и началом шкалы. */
+  .plot { position: absolute; top: 0; bottom: 0; left: var(--plot-gap); right: var(--val-reserve); }
+
+  .bar {
+    position: absolute;
+    left: 0;
+    top: 3px;
+    bottom: 3px;
+    width: 0;
+    border-radius: var(--radius);
+    /* Подложка видна только там, где заливка полупрозрачная (модели вне
+       подписки) или её цвет совпал с фоном страницы. */
+    background: var(--track);
+    transition: width 420ms cubic-bezier(0.22, 0.8, 0.3, 1);
+  }
+
+  /* Заливка полосы отдельным слоем: у моделей вне подписки она гасится
+     прозрачностью, а число рядом остаётся читаемым. */
+  .bar-fill {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    border-radius: inherit;
+    transition: background-color 160ms linear, opacity 160ms linear;
+  }
+
+  /* Число прижато к правому краю полосы (left: 100%), поэтому всегда стоит
+     справа от бара и едет вместе с ним — ни пересчёта в JS, ни рассинхрона. */
+  .bar-val {
+    position: absolute;
+    left: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-left: 9px;
+    color: var(--ink-soft);
+    font-size: 12.5px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .row.out .bar-fill { opacity: 0.3; }
+  .row.out .bar-val { color: var(--ink-faint); }
+
+  /* ── примечания ────────────────────────────────────────────── */
+
+  .notes {
+    margin-top: 46px;
+    padding-top: 22px;
+    border-top: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 22px 34px;
+    font-size: 12.5px;
+    color: var(--ink-soft);
+  }
+
+  .notes h3 { margin: 0 0 6px; font-size: 12.5px; font-weight: 600; color: var(--ink); }
+  .notes p { margin: 0; }
+  .notes code { font-family: inherit; font-weight: 600; background: var(--track); padding: 1px 5px; border-radius: 2px; }
+
+  .fallback { max-width: 560px; margin: 80px auto; text-align: center; color: var(--ink-soft); }
+  .fallback h1 { font-size: 26px; margin-bottom: 10px; }
+  .fallback code { background: var(--track); padding: 1px 5px; border-radius: 2px; font-family: inherit; }
+
+  @media (max-width: 860px) {
+    .sheet { padding: 32px 20px 56px; }
+    h1 { font-size: 28px; }
+    .head {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-areas:
+        "title"
+        "actions"
+        "sub"
+        "meta";
+      align-items: start;
+      row-gap: 12px;
+    }
+    .head-right { flex-direction: column; align-items: flex-start; gap: 6px; }
+    .head-actions { justify-content: flex-start; }
+    .head-meta { text-align: left; }
+    .chart-head { display: none; }
+    .row {
+      grid-template-columns: auto auto auto 1fr;
+      grid-template-areas:
+        "label label label label"
+        "num-int num-profit num-limit track";
+      column-gap: 12px;
+      row-gap: 4px;
+      padding: 8px 0;
+    }
+    .row + .row { border-top: 1px solid var(--rule); }
+    .row-label { grid-area: label; padding-right: 0; }
+    .row-num.int { grid-area: num-int; }
+    .row-num.profit { grid-area: num-profit; }
+    .row-num.limit { grid-area: num-limit; }
+    .row-num { padding-right: 0; text-align: left; }
+    .track { grid-area: track; }
+    .chart-grid { display: none; }
+    .track { height: 20px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bar, .bar-val, .seg button { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <div id="app"></div>
+</div>
+
+<script src="data.js"></script>
+<script>
+(function () {
+  "use strict";
+
+  var root = document.getElementById("app");
+
+  /* Запасные якоря для метрики, если снимок data.js собран старым скриптом.
+     Актуальные значения приходят в DATA.meta.value. */
+  var VALUE_DEFAULTS = { weight: 0.5, iqFloor: 15, iqCeil: 55, limitFloor: 100, limitCeil: 45000 };
+
+  var STATUS = {
+    active: { text: "", cls: "" },
+    unlimited: { text: "без лимита", cls: "free", badge: true },
+    "promo-4x": { text: "×4 на время", cls: "promo", badge: true },
+    "promo-2x": { text: "×2 на время", cls: "promo", badge: true },
+    limited: { text: "временно", cls: "promo", badge: true },
+    "no-limit-data": { text: "нет данных", cls: "" },
+    "not-in-go": { text: "вне подписки", cls: "plain", badge: true }
+  };
+
+  if (!window.AI_DATA || !window.AI_DATA.models) {
+    root.innerHTML =
+      '<div class="fallback">' +
+        '<h1>Файл data.js не найден</h1>' +
+        '<p>Запустите <code>update.cmd</code> в папке с проектом — скрипт соберёт данные ' +
+        'с Artificial Analysis и из документации OpenCode Go, затем обновите страницу.</p>' +
+      '</div>';
+    return;
+  }
+
+  var DATA, MODELS, METRICS, RANGE, current;
+  var chartEl, rowNodes;
+
+  /* ── форматирование ──────────────────────────────────────── */
+
+  var nf1 = new Intl.NumberFormat("ru-RU", { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+  var nf0 = new Intl.NumberFormat("ru-RU", { maximumFractionDigits: 0 });
+
+  function money(v, digits) {
+    if (v == null || !isFinite(v)) return "—";
+    var d = digits == null ? (v < 0.01 ? 4 : v < 1 ? 3 : 2) : digits;
+    return "$" + v.toLocaleString("ru-RU", { minimumFractionDigits: d, maximumFractionDigits: d });
+  }
+
+  function clamp01(v) { return Math.max(0, Math.min(1, v)); }
+
+  /** Тот же расчёт, что и в fetch-data.mjs — нужен только для старых снимков без valueScore. */
+  function computeValueScore(m) {
+    if (m.intelligence == null) return null;
+    var cfg = (DATA.meta && DATA.meta.value) || VALUE_DEFAULTS;
+    var iq = clamp01((m.intelligence - cfg.iqFloor) / (cfg.iqCeil - cfg.iqFloor));
+
+    var generosity;
+    if (m.status === "unlimited") generosity = 1;
+    else if (m.efficiency == null || !isFinite(m.efficiency) || m.efficiency <= 0) return null;
+    else {
+      var lo = Math.log10(cfg.limitFloor);
+      var hi = Math.log10(cfg.limitCeil);
+      generosity = clamp01((Math.log10(m.efficiency) - lo) / (hi - lo));
+    }
+
+    return Math.round(100 * Math.pow(iq, cfg.weight) * Math.pow(generosity, 1 - cfg.weight) * 10) / 10;
+  }
+
+  /** Значение метрики из снимка; если поля нет (старый data.js) — считаем на месте. */
+  function modelValue(m) {
+    return Object.prototype.hasOwnProperty.call(m, "valueScore") ? m.valueScore : computeValueScore(m);
+  }
+
+  function metricValue(model, metric) {
+    if (metric.id === "valueScore") return modelValue(model);
+    return model[metric.id];
+  }
+
+  function formatMetric(v, metric) {
+    if (v === Infinity) return "∞";
+    if (v == null || !isFinite(v)) return "—";
+    if (metric.id === "intelligence") return nf1.format(v);
+    if (metric.id === "costPerTask") return money(v);
+    return nf0.format(v);
+  }
+
+  /* ── шкала ───────────────────────────────────────────────── */
+
+  function scoreRange(metric) {
+    var finite = [];
+    var hasInfinite = false;
+    MODELS.forEach(function (m) {
+      var v = metricValue(m, metric);
+      if (v === Infinity) { hasInfinite = true; return; }
+      if (v != null && isFinite(v)) finite.push(v);
+    });
+    var positive = finite.filter(function (v) { return v > 0; });
+    return {
+      max: finite.length ? Math.max.apply(null, finite) : 1,
+      min: positive.length ? Math.min.apply(null, positive) : 1,
+      hasInfinite: hasInfinite
+    };
+  }
+
+  /**
+   * Длина бара в процентах — «насколько модель хороша по выбранной метрике»,
+   * где 100% — лучшая модель в списке.
+   * Intelligence и цена — линейно (цена обратной пропорцией),
+   * эффективность — уже нормализованный балл 0…100, поэтому тоже линейно.
+   */
+  function barScore(model, metric) {
+    var v = metricValue(model, metric);
+    if (v === Infinity) return 100;
+    if (v == null || !isFinite(v) || v <= 0) return 0;
+    if (metric.id === "costPerTask") return clamp(100 * RANGE.costPerTask.min / v);
+    if (metric.id === "valueScore" || metric.id === "reliability") return clamp(v);
+    return clamp(100 * v / RANGE.intelligence.max);
+  }
+
+  function clamp(v) { return Math.max(1.2, Math.min(100, v)); }
+
+  function sortModels(metric) {
+    var dir = metric.id === "costPerTask" ? 1 : -1;
+    return MODELS.slice().sort(function (a, b) {
+      var av = metricValue(a, metric);
+      var bv = metricValue(b, metric);
+      var aOk = av != null && isFinite(av);
+      var bOk = bv != null && isFinite(bv);
+      if (!aOk && !bOk) return (b.intelligence || 0) - (a.intelligence || 0);
+      if (!aOk) return 1;
+      if (!bOk) return -1;
+      if (av === bv) return (b.intelligence || 0) - (a.intelligence || 0);
+      return (av - bv) * dir;
+    });
+  }
+
+  function esc(s) {
+    return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c];
+    });
+  }
+
+  function updatedAt() {
+    return new Date(DATA.meta.generatedAt).toLocaleString("ru-RU", {
+      day: "numeric", month: "long", year: "numeric", hour: "2-digit", minute: "2-digit"
+    });
+  }
+
+  /* ── разметка: шапка и переключатель ─────────────────────── */
+
+  function headHtml() {
+    var c = DATA.meta.counts;
+    return '' +
+      '<div class="head">' +
+        '<h1>Лучшие AI модели</h1>' +
+        '<div class="head-right">' +
+          '<div class="head-actions">' +
+            '<button type="button" class="ghost" id="refresh-btn" ' +
+              'title="Перечитать data.js и обновить цифры на странице. Чтобы подтянуть свежие данные с сайтов — запустите update.cmd.">' +
+              '&#8635; Обновить</button>' +
+            '<button type="button" class="ghost" id="theme-toggle" aria-label="Сменить тему"></button>' +
+          '</div>' +
+          '<div class="head-status" id="head-status" aria-live="polite"></div>' +
+        '</div>' +
+        '<p class="head-sub">' + c.inGo + ' моделей по подписке ' +
+          '<a href="' + esc(DATA.meta.sources.goDocs) + '" target="_blank" rel="noreferrer">OpenCode Go</a> и ' +
+          c.extraFromAA + ' сильнейших моделей с ' +
+          '<a href="' + esc(DATA.meta.sources.aa) + '" target="_blank" rel="noreferrer">Artificial Analysis</a></p>' +
+        '<div class="head-meta">' +
+          'Данные обновлены <strong>' + esc(updatedAt()) + '</strong>' +
+        '</div>' +
+      '</div>' +
+      '<div class="controls">' +
+        '<div class="seg" role="group" aria-label="Сортировка">' +
+          segmentsHtml() +
+        '</div>' +
+      '</div>';
+  }
+
+  /**
+   * Разметка кнопок сортировки. Метрики идут группами по полю `section`;
+   * на стыке групп вставляется вертикальный разделитель.
+   */
+  function segmentsHtml() {
+    var html = "";
+    var section = null;
+    METRICS.forEach(function (m) {
+      if (section === null) {
+        html += '<div class="seg-group">';
+      } else if (m.section !== section) {
+        html += '</div><span class="seg-divider" aria-hidden="true"></span><div class="seg-group">';
+      }
+      section = m.section;
+      html +=
+        '<button type="button" data-metric="' + m.id + '" aria-pressed="true" title="' + esc(m.note) + '">' +
+          '<span class="m-name">' + esc(m.label) + '</span>' +
+          '<span class="m-hint">' + esc(m.hint) + '</span>' +
+        '</button>';
+    });
+    if (section !== null) html += "</div>";
+    return html;
+  }
+
+  /* ── примечания ──────────────────────────────────────────── */
+
+  function buildNotes() {
+    var el = document.createElement("div");
+    el.className = "notes";
+    el.innerHTML =
+      '<div><h3>Intelligence</h3><p>' + esc(DATA.meta.notes.intelligence) + '</p></div>' +
+      (DATA.meta.notes.reliability
+        ? '<div><h3>Надёжность</h3><p>' + esc(DATA.meta.notes.reliability) + '</p></div>'
+        : "") +
+      '<div><h3>Cost per Intelligence</h3><p>' + esc(DATA.meta.notes.costPerTask) + '</p></div>' +
+      '<div><h3>OpenCode Go Эффективность</h3><p>' + esc(DATA.meta.notes.efficiency) + '</p></div>' +
+      (DATA.meta.notes.free
+        ? '<div><h3>Бесплатно в OpenCode</h3><p>' + esc(DATA.meta.notes.free) + '</p></div>'
+        : "") +
+      (DATA.meta.counts.unmatched
+        ? '<div><h3>Без данных</h3><p>У ' + DATA.meta.counts.unmatched + ' моделей из подписки пока нет карточки ' +
+          'на Artificial Analysis — в списке у них прочерк. Если это ошибка сопоставления, ' +
+          'допишите пару в <code>models.config.js</code>.</p></div>'
+        : "");
+    return el;
+  }
+
+  /* ── диаграмма ───────────────────────────────────────────── */
+
+  function keyOf(m) { return String(m.aaSlug || m.name); }
+
+  /**
+   * Числовой столбец «Go Limit» — официальные данные подписки Go:
+   * сколько запросов укладывается в 5-часовое окно.
+   */
+  function limitShort(m) {
+    if (m.status === "unlimited") return "без лимита";
+    var v = m.efficiency;
+    if (v == null || !isFinite(v)) return "—";
+    return nf0.format(v);
+  }
+
+  function buildChartHead() {
+    var el = document.createElement("div");
+    el.className = "chart-head";
+    el.innerHTML =
+      "<span></span>" +
+      '<span title="' + esc(DATA.meta.notes.intelligence) + '">Int</span>' +
+      '<span title="' + esc(DATA.meta.notes.efficiency) + '">Go Profit</span>' +
+      '<span title="Запросов на 5 ч по подписке Go — официальные данные из документации OpenCode.">Go Limit</span>' +
+      // Название выбранной метрики — текст подставляется в paint().
+      '<span class="metric-label" id="plot-label"></span>';
+    return el;
+  }
+
+  function buildChart() {
+    chartEl = document.createElement("div");
+    chartEl.className = "chart";
+    chartEl.innerHTML =
+      '<div class="chart-grid"><i style="left:25%"></i><i style="left:50%"></i><i style="left:75%"></i></div>';
+
+    MODELS.forEach(function (m) {
+      var row = document.createElement("div");
+      row.className = "row" + (m.inGo ? "" : " out");
+      row.dataset.key = keyOf(m);
+      row.innerHTML =
+        '<div class="row-label">' +
+          '<span class="rank"></span>' +
+          '<span class="dot" style="background:' + esc(m.color) + '" title="' + esc(m.creator) + '"></span>' +
+          '<span class="row-name" title="' + esc(m.name + " · " + m.creator) + '">' + esc(m.name) + '</span>' +
+          '<span class="badge"></span>' +
+          '<span class="badge free"></span>' +
+        '</div>' +
+        '<span class="row-num int"></span>' +
+        '<span class="row-num profit"></span>' +
+        '<span class="row-num limit"></span>' +
+        '<div class="track">' +
+          '<div class="plot">' +
+            '<div class="bar"><span class="bar-fill" style="background:' + esc(m.color) + '"></span>' +
+              '<span class="bar-val"></span></div>' +
+          '</div>' +
+        '</div>';
+      rowNodes.set(keyOf(m), row);
+      chartEl.appendChild(row);
+    });
+
+    return chartEl;
+  }
+
+  function paintRow(row, m, rank, metric, mode, delay) {
+    var score = barScore(m, metric);
+    var raw = metricValue(m, metric);
+    var st = STATUS[m.status] || STATUS.active;
+
+    row.querySelector(".rank").textContent = rank;
+
+    row.querySelector(".row-num.int").textContent = formatMetric(m.intelligence, METRICS[0]);
+    var vs = modelValue(m);
+    row.querySelector(".row-num.profit").textContent = vs == null ? "—" : nf0.format(vs);
+    row.querySelector(".row-num.limit").textContent = limitShort(m);
+
+    var badge = row.querySelector(".badge");
+    badge.textContent = st.badge ? st.text : "";
+    badge.className = "badge " + (st.badge ? st.cls : "");
+
+    // Бесплатная модель OpenCode: бейдж «Free» рядом с названием. Живёт отдельно
+    // от бейджа статуса, чтобы не конфликтовать с «вне подписки» и промо.
+    var freeBadge = row.querySelector(".badge.free");
+    freeBadge.textContent = m.freeInOc ? "Free" : "";
+    freeBadge.title = m.freeInOc ? "Доступна в OpenCode бесплатно — без подписки Go" : "";
+
+    var bar = row.querySelector(".bar");
+    var val = row.querySelector(".bar-val");
+    var label = raw === Infinity ? "без лимита" : formatMetric(raw, metric);
+    val.textContent = label;
+
+    if (mode === "initial") {
+      // Ставим бар на ноль без перехода, фиксируем это значение принудительным reflow
+      // и затем запускаем рост. Так надёжнее, чем через requestAnimationFrame:
+      // в фоновой вкладке он не срабатывает и бары остались бы нулевыми.
+      bar.style.transition = "none";
+      bar.style.width = "0%";
+      void bar.offsetWidth;
+
+      bar.style.transition = "";
+      bar.style.transitionDelay = (delay || 0) + "ms";
+      bar.style.width = score + "%";
+      return;
+    }
+
+    bar.style.width = score + "%";
+  }
+
+  function paint(initial) {
+    var sorted = sortModels(current);
+
+    Array.prototype.forEach.call(root.querySelectorAll(".seg button"), function (b) {
+      b.setAttribute("aria-pressed", String(b.dataset.metric === current.id));
+    });
+
+    // Подпись над шкалой повторяет название выбранной метрики.
+    var plotLabel = root.querySelector("#plot-label");
+    if (plotLabel) plotLabel.textContent = current.label;
+
+    sorted.forEach(function (m, i) {
+      var row = rowNodes.get(keyOf(m));
+      chartEl.appendChild(row);
+      paintRow(row, m, i + 1, current, initial ? "initial" : "update", Math.min(i * 11, 240));
+    });
+
+    if (initial) {
+      window.setTimeout(function () {
+        Array.prototype.forEach.call(chartEl.querySelectorAll(".bar"), function (el) {
+          el.style.transitionDelay = "0ms";
+        });
+      }, 1000);
+    }
+  }
+
+  /* ── тема ────────────────────────────────────────────────── */
+
+  function currentTheme() {
+    return document.documentElement.getAttribute("data-theme") === "light" ? "light" : "dark";
+  }
+
+  function updateThemeButton() {
+    var btn = root.querySelector("#theme-toggle");
+    if (!btn) return;
+    var light = currentTheme() === "light";
+    btn.textContent = light ? "\u263E" : "\u2600"; // ☾ / ☀ — что включится по клику
+    btn.title = light ? "Тёмная тема" : "Светлая тема";
+    btn.setAttribute("aria-label", btn.title);
+  }
+
+  function applyTheme(theme) {
+    document.documentElement.setAttribute("data-theme", theme);
+    try { localStorage.setItem("theme", theme); } catch (e) { /* приватный режим */ }
+    updateThemeButton();
+  }
+
+  function toggleTheme() {
+    applyTheme(currentTheme() === "dark" ? "light" : "dark");
+  }
+
+  /* ── обновление данных ───────────────────────────────────── */
+
+  var statusTimer;
+
+  function setStatus(text) {
+    var el = root.querySelector("#head-status");
+    if (el) el.textContent = text || "";
+  }
+
+  function refreshData() {
+    var btn = root.querySelector("#refresh-btn");
+    if (btn) btn.disabled = true;
+    setStatus("Обновляю…");
+
+    var prev = document.getElementById("data-script");
+    var script = document.createElement("script");
+    script.id = "data-script";
+    script.src = "data.js?t=" + Date.now();
+    script.onload = function () {
+      if (btn) btn.disabled = false;
+      var fresh = window.AI_DATA;
+      if (!fresh || !fresh.models) { setStatus("Не удалось прочитать data.js"); return; }
+      var before = DATA && DATA.meta ? DATA.meta.generatedAt : null;
+      var after = fresh.meta ? fresh.meta.generatedAt : null;
+      render(fresh);
+      setStatus(before === after
+        ? "Уже актуально"
+        : "Обновлено " + new Date(after).toLocaleTimeString("ru-RU", { hour: "2-digit", minute: "2-digit" }));
+      window.clearTimeout(statusTimer);
+      statusTimer = window.setTimeout(function () { setStatus(""); }, 6000);
+    };
+    script.onerror = function () {
+      if (btn) btn.disabled = false;
+      setStatus("Не удалось прочитать data.js");
+    };
+    if (prev && prev.parentNode) prev.parentNode.removeChild(prev);
+    document.body.appendChild(script);
+  }
+
+  /* ── сборка страницы ─────────────────────────────────────── */
+
+  function makeMetrics() {
+    var list = [
+      { id: "intelligence", section: "aa", label: "Intelligence", hint: "общий IQ", note: DATA.meta.notes.intelligence }
+    ];
+
+    // «Надёжность» появилась позже остальных метрик: в старых снимках data.js её
+    // нет, поэтому кнопка добавляется только тогда, когда данные действительно есть.
+    if (DATA.meta.notes.reliability) {
+      list.push({
+        id: "reliability", section: "aa", label: "Надёжность",
+        hint: "сложные задачи и ревью", note: DATA.meta.notes.reliability
+      });
+    }
+
+    list.push(
+      { id: "costPerTask", section: "aa", label: "Cost per Intelligence", hint: "эффективность", note: DATA.meta.notes.costPerTask },
+      { id: "valueScore", section: "oc", label: "OpenCode Go Эффективность", hint: "эффективность по подписке", note: DATA.meta.notes.efficiency }
+    );
+
+    return list;
+  }
+
+  function selectMetric(id) {
+    var next = METRICS.filter(function (m) { return m.id === id; })[0];
+    if (!next || next.id === current.id) return;
+    current = next;
+    paint(false);
+  }
+
+  function render(data) {
+    DATA = data;
+    MODELS = data.models;
+    METRICS = makeMetrics();
+    RANGE = {};
+    METRICS.forEach(function (m) { RANGE[m.id] = scoreRange(m); });
+
+    rowNodes = new Map();
+
+    root.innerHTML = headHtml();
+
+    root.appendChild(buildChartHead());
+    chartEl = buildChart();
+    root.appendChild(chartEl);
+
+    root.appendChild(buildNotes());
+
+    current = METRICS[0];
+    updateThemeButton();
+
+    // Первая отрисовка: бары вырастают из нуля одной волной.
+    paint(true);
+  }
+
+  root.addEventListener("click", function (e) {
+    var t = e.target;
+    if (!t || !t.closest) return;
+    var seg = t.closest(".seg button");
+    if (seg) { selectMetric(seg.dataset.metric); return; }
+    if (t.closest("#theme-toggle")) { toggleTheme(); return; }
+    if (t.closest("#refresh-btn")) { refreshData(); return; }
+  });
+
+  render(window.AI_DATA);
+})();
+</script>
+</body>
+</html>
