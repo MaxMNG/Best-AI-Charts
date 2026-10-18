@@ -5,17 +5,18 @@
 Эти правила действуют, только если сессия запущена в этой папке. Единственный проект
 для работы — эта папка. Её корень:
 
-    F:\Tools GD\AI chart
+    F:\Tools GD\AI chart\Best-AI-Charts
 
 - Работай только с файлами внутри неё: `index.html`, `data.js`, `fetch-data.mjs`,
-  `models.config.js`, `README.md`, `AGENTS.md`, `update.cmd`.
+  `models.config.js`, `README.md`, `AGENTS.md`, `ROADMAP.md`, `update.cmd`,
+  `package.json`, `.gitignore`, `.github/`, `.opencode/skills/`.
 - Не читай, не ищи и не меняй файлы за её пределами. Соседние папки на диске
   (например `F:\GODOT\...`) к задаче не относятся — не открывай их.
 - Не читай `AGENTS.md` других проектов и не ориентируйся на них.
 - Если для задачи реально нужен внешний файл — сначала спроси разрешение.
 - Внешняя активность допустима только сетевая: `artificialanalysis.ai` и `opencode.ai`
   (их дёргает `fetch-data.mjs`), плюс локальный предпросмотр `index.html`.
-- Папка не под git — git-команды здесь не нужны.
+- Папка — git-репозиторий. Без явной просьбы git-команды не выполняй.
 
 ## Правила общения
 
@@ -26,7 +27,10 @@
 
 **Лучшие AI модели** — одна статическая веб-страница (`index.html`), которая показывает:
 какие модели входят в подписку OpenCode Go, насколько они умные и как выгодно их
-использовать. Плюс 20 сильнейших моделей с Artificial Analysis вне подписки — для сравнения.
+использовать. Четыре метрики: Intelligence, Надёжность, Cost per Intelligence и
+OpenCode Go Эффективность (подробности — в `README.md`). Плюс 20 сильнейших моделей с
+Artificial Analysis вне подписки — для сравнения, — и зелёные бейджи «Free» у моделей,
+доступных в OpenCode бесплатно, без подписки.
 
 Никаких сборок, серверов и зависимостей: страница открывается двойным кликом по `index.html`.
 Данные — это снимок в `data.js`, который собирается скриптом из двух сайтов.
@@ -41,6 +45,8 @@
 | `models.config.js` | Настройки сбора: тариф, сопоставление моделей, подсказки по провайдерам, параметры метрики, сколько бесплатных моделей помечать. |
 | `update.cmd` | Запуск обновления двойным кликом. |
 | `README.md` | Подробное описание страницы и метрик. |
+| `ROADMAP.md` | План работ и статус задач. |
+| `.github/workflows/update-data.yml` | Автосборка `data.js` на GitHub по расписанию. |
 
 ## Как обновить данные
 
@@ -48,6 +54,9 @@
 - Скрипт тянет свежие цифры с сайтов и переписывает `data.js`. Если сайты поменяют разметку,
   скрипт сообщит об ошибке и **оставит старый `data.js`** — страница продолжит работать.
 - Кнопка «Обновить» в шапке только перечитывает уже собранный `data.js`, в интернет не ходит.
+- На GitHub снимок собирается сам: `.github/workflows/update-data.yml` ежедневно в 00:00 МСК
+  (и вручную через «Run workflow»), затем коммитит свежий `data.js`. Страница при открытии
+  и по кнопке «Обновить» перечитывает этот файл с обходом кэша.
 
 ## Важное про данные
 
@@ -62,3 +71,18 @@
   добавляются: бейдж встаёт на уже существующую модель из Go (для сравнения нужна Intelligence
   с Artificial Analysis).
 - Ноль хардкода в разметке под данные: числа и тексты метрик берутся из `data.js`.
+
+## UI/UX & Art Style Guidelines
+
+**Область действия — только экспериментальная страница `cyber/` (см. `ROADMAP.md`).**
+К текущим `index.html`, `fetch-data.mjs`, `data.js` и `models.config.js` этот гайдлайн
+не применяется: они остаются на ванильном стеке без сборки и зависимостей.
+
+- **Framework:** Always use Tailwind CSS. Never write raw CSS.
+- **Design System:** Use shadcn/ui styles. Prefer modern Glassmorphism (backdrop-blur, semi-transparent backgrounds).
+- **Animations:** For effects, always use Framer Motion or Tailwind transition/animate utilities (e.g., transition-all duration-300 ease-in-out).
+- **Color Palette:** Cyberpunk / Sci-Fi. Glow effects via box-shadow with neon colors.
+- **Micro-interactions:** Every button MUST have hover:scale-105 active:scale-95 and smooth background transitions.
+
+Дизайн-скилы для этой страницы лежат в `.opencode/skills/` (источники — в
+`.opencode/skills/README.md`).

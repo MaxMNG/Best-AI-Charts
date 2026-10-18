@@ -813,10 +813,11 @@
     if (el) el.textContent = text || "";
   }
 
-  function refreshData() {
+  function refreshData(opts) {
+    var silent = !!(opts && opts.silent);
     var btn = root.querySelector("#refresh-btn");
     if (btn) btn.disabled = true;
-    setStatus("Обновляю…");
+    if (!silent) setStatus("Обновляю…");
 
     var prev = document.getElementById("data-script");
     var script = document.createElement("script");
@@ -825,19 +826,25 @@
     script.onload = function () {
       if (btn) btn.disabled = false;
       var fresh = window.AI_DATA;
-      if (!fresh || !fresh.models) { setStatus("Не удалось прочитать data.js"); return; }
+      if (!fresh || !fresh.models) {
+        if (!silent) setStatus("Не удалось прочитать data.js");
+        return;
+      }
       var before = DATA && DATA.meta ? DATA.meta.generatedAt : null;
       var after = fresh.meta ? fresh.meta.generatedAt : null;
-      render(fresh);
-      setStatus(before === after
-        ? "Уже актуально"
-        : "Обновлено " + new Date(after).toLocaleTimeString("ru-RU", { hour: "2-digit", minute: "2-digit" }));
+      // Снимок не изменился — не перерисовываем: не мигаем и не гоняем анимацию заново.
+      if (before === after) {
+        if (!silent) setStatus("Уже актуально");
+        return;
+      }
+      render(fresh, current ? current.id : null);
+      setStatus("Обновлено " + new Date(after).toLocaleTimeString("ru-RU", { hour: "2-digit", minute: "2-digit" }));
       window.clearTimeout(statusTimer);
       statusTimer = window.setTimeout(function () { setStatus(""); }, 6000);
     };
     script.onerror = function () {
       if (btn) btn.disabled = false;
-      setStatus("Не удалось прочитать data.js");
+      if (!silent) setStatus("Не удалось прочитать data.js");
     };
     if (prev && prev.parentNode) prev.parentNode.removeChild(prev);
     document.body.appendChild(script);
@@ -874,7 +881,7 @@
     paint(false);
   }
 
-  function render(data) {
+  function render(data, preferredId) {
     DATA = data;
     MODELS = data.models;
     METRICS = makeMetrics();
@@ -891,7 +898,8 @@
 
     root.appendChild(buildNotes());
 
-    current = METRICS[0];
+    // Сохраняем выбранную метрику при обновлении данных, иначе откатываемся к первой.
+    current = METRICS.filter(function (m) { return m.id === preferredId; })[0] || METRICS[0];
     updateThemeButton();
 
     // Первая отрисовка: бары вырастают из нуля одной волной.
@@ -908,6 +916,10 @@
   });
 
   render(window.AI_DATA);
+
+  // Сразу при открытии тихо подтягиваем свежий снимок: data.js мог обновиться после
+  // публикации (ежедневная автосборка), а браузер или CDN могли закэшировать старый.
+  window.setTimeout(function () { refreshData({ silent: true }); }, 500);
 })();
 </script>
 </body>
