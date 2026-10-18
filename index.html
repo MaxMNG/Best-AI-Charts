@@ -495,6 +495,8 @@
   }
 
   function metricValue(model, metric) {
+    if (metric.id === "visual") return model.visual != null ? model.visual : model.aesthetics;
+    if (metric.id === "aesthetics") return model.aesthetics != null ? model.aesthetics : model.visual;
     if (metric.id === "valueScore") return modelValue(model);
     return model[metric.id];
   }
@@ -536,7 +538,7 @@
     if (v === Infinity) return 100;
     if (v == null || !isFinite(v) || v <= 0) return 0;
     if (metric.id === "costPerTask") return clamp(100 * RANGE.costPerTask.min / v);
-    if (metric.id === "valueScore" || metric.id === "reliability" || metric.id === "aesthetics") return clamp(v);
+    if (metric.id === "valueScore" || metric.id === "reliability" || metric.id === "aesthetics" || metric.id === "visual") return clamp(v);
     return clamp(100 * v / RANGE.intelligence.max);
   }
 
@@ -635,11 +637,13 @@
         ? '<div><h3>Надёжность</h3><p>' + esc(DATA.meta.notes.reliability) + '</p></div>'
         : "") +
       '<div><h3>Cost per Intelligence</h3><p>' + esc(DATA.meta.notes.costPerTask) + '</p></div>' +
-      (DATA.meta.notes.aesthetics
-        ? '<div><h3>Эстетика</h3><p>' + esc(DATA.meta.notes.aesthetics) +
-          (DATA.meta.aesthetics && DATA.meta.aesthetics.arena && DATA.meta.aesthetics.arena.asOf
-            ? ' Данные арен на ' + esc(DATA.meta.aesthetics.arena.asOf) + '.'
-            : "") +
+      ((DATA.meta.notes.visual || DATA.meta.notes.aesthetics)
+        ? '<div><h3>Визуал</h3><p>' + esc(DATA.meta.notes.visual || DATA.meta.notes.aesthetics) +
+          (function () {
+            var arenaMeta = (DATA.meta.visual && DATA.meta.visual.arena) ||
+              (DATA.meta.aesthetics && DATA.meta.aesthetics.arena);
+            return (arenaMeta && arenaMeta.asOf) ? ' Данные арен на ' + esc(arenaMeta.asOf) + '.' : '';
+          })() +
           '</p></div>'
         : "") +
       '<div><h3>OpenCode Go Эффективность</h3><p>' + esc(DATA.meta.notes.efficiency) + '</p></div>' +
@@ -864,14 +868,17 @@
       { id: "intelligence", section: "aa", label: "Intelligence", hint: "общий IQ", note: DATA.meta.notes.intelligence }
     ];
 
-    // «Эстетика» стоит сразу после Intelligence: обе отвечают на вопрос «насколько
-    // модель хороша», только Intelligence — про ум, а «Эстетика» — про дизайн, UI
-    // и удобство. Данные у неё не с Artificial Analysis, а из арен LMArena —
+    // «Визуал» стоит сразу после Intelligence: обе отвечают на вопрос «насколько
+    // модель хороша», только Intelligence — про ум, а «Визуал» — про зрение,
+    // скриншоты и UI. Данные у неё не с Artificial Analysis, а из арен LMArena —
     // об этом сказано в подсказке и в примечании.
-    if (DATA.meta.notes.aesthetics) {
+    // Старые снимки без visual понимаем через legacy-поле aesthetics.
+    var visualNote = DATA.meta.notes.visual || DATA.meta.notes.aesthetics;
+    var hasVisual = (DATA.meta.visual || DATA.meta.aesthetics) && visualNote;
+    if (hasVisual) {
       list.push({
-        id: "aesthetics", section: "aa", label: "Эстетика",
-        hint: "дизайн, UI, удобство", note: DATA.meta.notes.aesthetics
+        id: DATA.meta.visual ? "visual" : "aesthetics", section: "aa", label: "Визуал",
+        hint: "зрение, скриншоты, UI", note: visualNote
       });
     }
 
