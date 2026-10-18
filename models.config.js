@@ -21,6 +21,10 @@ export const CONFIG = {
     // Прайс-лист OpenCode (Console/Zen): модели со словом Free в колонке Input
     // доступны бесплатно, без подписки.
     ocModels: 'https://opencode.ai/docs/zen/',
+    // Арены LMArena через публичный datasets-server Hugging Face: голоса людей
+    // на фронтенд-задачах и оценка того, насколько удобно работать с моделью.
+    // JSON, без ключа и регистрации. Нужен только для метрики «Эстетика».
+    arenaRows: 'https://datasets-server.huggingface.co/rows',
   },
 
   /**
@@ -103,6 +107,67 @@ export const CONFIG = {
       { key: 'nonHallucination', weight: 0.25, floor: 0, ceil: 0.9 },
       // Проверяет себя и других агентов: диагностика сбоев в системах.
       { key: 'itbenchSre', weight: 0.15, floor: 0.3, ceil: 0.6 },
+    ],
+  },
+
+  /**
+   * Арены LMArena — источник метрики «Эстетика».
+   *
+   * У Artificial Analysis таких бенчмарков нет вообще: в их лидерборде только
+   * знания, математика, код, агенты, длинный контекст и галлюцинации, и почти
+   * все эти поля дублируют Intelligence (Spearman 0.78…0.97). Поэтому «Эстетика»
+   * берёт данные людей из арен LMArena через публичный datasets-server Hugging Face.
+   *
+   * sources: компонент «Эстетики» -> пара (config, field) в датасете.
+   *   webdev       — Code Arena: голоса людей на фронтенд-задачах, ELO (rating).
+   *   steerability — Agent Arena: насколько модель слушается правок (score).
+   *   praise       — Agent Arena: хвалят модель или жалуются на неё (score).
+   *
+   * Сопоставление с моделью идёт по имени на Artificial Analysis (aaName):
+   * сначала полное совпадение, затем — имя без варианта в скобках
+   * («Step 5 Preview» -> «Step 5 Preview (High)»), но только если такой
+   * вариант один. Неоднозначные имена пропускаются, а не угадываются.
+   * Для ручных случаев есть overrides (по образцу aaSlugOverrides).
+   */
+  arena: {
+    dataset: 'lmarena-ai/leaderboard-dataset',
+    split: 'latest',
+    sources: {
+      webdev: { config: 'webdev', field: 'rating' },
+      steerability: { config: 'agent_steerability', field: 'score' },
+      praise: { config: 'agent_praise_complaint', field: 'score' },
+    },
+    // 'Имя модели на AA': 'Имя в арене' — только для реальных расхождений в названии.
+    overrides: {},
+  },
+
+  /**
+   * Настройки метрики «Эстетика» (aestheticsScore).
+   *
+   * Насколько модель хороша в визуальных и дизайнерских задачах: UI, UX,
+   * «удобно» и «приятно». 0…100, как «Надёжность»: каждый компонент приводится
+   * к 0…1 по фиксированным якорям, итог — средневзвешенное, умноженное на 100.
+   *
+   * require — компонент, без которого балла нет. Это webdev: метрика в первую
+   * очередь про интерфейсы, и считать её по одной «приятности» было бы
+   * искажением. Остальные компоненты добавляются к нему, если есть.
+   *
+   * Якоря фиксированные (не min/max по снимку): иначе оценка «плыла» бы при
+   * каждом обновлении состава моделей. Ориентиры по датасету LMArena:
+   * webdev — медиана 1447, p95 1682, максимум 1807; steerability — медиана 0.011,
+   * максимум 0.164; praise — медиана 0.012, максимум 0.399.
+   *
+   * Веса подобраны так, чтобы метрика оставалась про интерфейсы, а «удобство
+   * работы» её лишь уточняло: при 0.2/0.2 агентные компоненты перебивали
+   * разницу по Code Arena (у Muse Spark и Gemini 4 Argon почти равный webdev,
+   * но 25 баллов разницы).
+   */
+  aesthetics: {
+    require: 'webdev',
+    components: [
+      { key: 'webdev', weight: 0.7, floor: 1400, ceil: 1720 },
+      { key: 'steerability', weight: 0.15, floor: -0.05, ceil: 0.16 },
+      { key: 'praise', weight: 0.15, floor: -0.05, ceil: 0.4 },
     ],
   },
 

@@ -536,7 +536,7 @@
     if (v === Infinity) return 100;
     if (v == null || !isFinite(v) || v <= 0) return 0;
     if (metric.id === "costPerTask") return clamp(100 * RANGE.costPerTask.min / v);
-    if (metric.id === "valueScore" || metric.id === "reliability") return clamp(v);
+    if (metric.id === "valueScore" || metric.id === "reliability" || metric.id === "aesthetics") return clamp(v);
     return clamp(100 * v / RANGE.intelligence.max);
   }
 
@@ -635,6 +635,13 @@
         ? '<div><h3>Надёжность</h3><p>' + esc(DATA.meta.notes.reliability) + '</p></div>'
         : "") +
       '<div><h3>Cost per Intelligence</h3><p>' + esc(DATA.meta.notes.costPerTask) + '</p></div>' +
+      (DATA.meta.notes.aesthetics
+        ? '<div><h3>Эстетика</h3><p>' + esc(DATA.meta.notes.aesthetics) +
+          (DATA.meta.aesthetics && DATA.meta.aesthetics.arena && DATA.meta.aesthetics.arena.asOf
+            ? ' Данные арен на ' + esc(DATA.meta.aesthetics.arena.asOf) + '.'
+            : "") +
+          '</p></div>'
+        : "") +
       '<div><h3>OpenCode Go Эффективность</h3><p>' + esc(DATA.meta.notes.efficiency) + '</p></div>' +
       (DATA.meta.notes.free
         ? '<div><h3>Бесплатно в OpenCode</h3><p>' + esc(DATA.meta.notes.free) + '</p></div>'
@@ -856,6 +863,17 @@
     var list = [
       { id: "intelligence", section: "aa", label: "Intelligence", hint: "общий IQ", note: DATA.meta.notes.intelligence }
     ];
+
+    // «Эстетика» стоит сразу после Intelligence: обе отвечают на вопрос «насколько
+    // модель хороша», только Intelligence — про ум, а «Эстетика» — про дизайн, UI
+    // и удобство. Данные у неё не с Artificial Analysis, а из арен LMArena —
+    // об этом сказано в подсказке и в примечании.
+    if (DATA.meta.notes.aesthetics) {
+      list.push({
+        id: "aesthetics", section: "aa", label: "Эстетика",
+        hint: "дизайн, UI, удобство", note: DATA.meta.notes.aesthetics
+      });
+    }
 
     // «Надёжность» появилась позже остальных метрик: в старых снимках data.js её
     // нет, поэтому кнопка добавляется только тогда, когда данные действительно есть.

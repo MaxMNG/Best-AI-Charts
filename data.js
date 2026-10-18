@@ -2,7 +2,7 @@
    Ручные правки будут перезаписаны. Настройки — в models.config.js. */
 window.AI_DATA = {
   "meta": {
-    "generatedAt": "2026-10-18T19:46:19.254Z",
+    "generatedAt": "2026-10-18T20:44:39.615Z",
     "plan": {
       "id": "go",
       "label": "OpenCode Go",
@@ -50,12 +50,55 @@ window.AI_DATA = {
         }
       ]
     },
+    "aesthetics": {
+      "require": "webdev",
+      "components": [
+        {
+          "key": "webdev",
+          "weight": 0.7,
+          "floor": 1400,
+          "ceil": 1720
+        },
+        {
+          "key": "steerability",
+          "weight": 0.15,
+          "floor": -0.05,
+          "ceil": 0.16
+        },
+        {
+          "key": "praise",
+          "weight": 0.15,
+          "floor": -0.05,
+          "ceil": 0.4
+        }
+      ],
+      "arena": {
+        "dataset": "lmarena-ai/leaderboard-dataset",
+        "split": "latest",
+        "sources": {
+          "webdev": {
+            "config": "webdev",
+            "field": "rating"
+          },
+          "steerability": {
+            "config": "agent_steerability",
+            "field": "score"
+          },
+          "praise": {
+            "config": "agent_praise_complaint",
+            "field": "score"
+          }
+        },
+        "asOf": "2026-10-16"
+      }
+    },
     "counts": {
       "total": 49,
       "inGo": 29,
       "extraFromAA": 20,
       "unmatched": 9,
       "withoutIntelligence": 9,
+      "withAesthetics": 27,
       "freeInOc": 3,
       "freeAvailable": 6
     },
@@ -86,11 +129,13 @@ window.AI_DATA = {
       "aa": "https://artificialanalysis.ai/leaderboards/models",
       "goDocs": "https://opencode.ai/docs/go/",
       "goModels": "https://opencode.ai/inference/go/v1/models",
-      "ocModels": "https://opencode.ai/docs/zen/"
+      "ocModels": "https://opencode.ai/docs/zen/",
+      "arenaRows": "https://datasets-server.huggingface.co/rows"
     },
     "notes": {
       "intelligence": "Artificial Analysis Intelligence Index v4.3.2 — сводный балл по 10 независимым тестам: знания, математика, код, агентные задачи, следование инструкциям. Показывает, насколько модель умна; цены и скорость в него не входят. Входит в расчёт «Надёжности» и «OpenCode Go Эффективности». Выше — лучше.",
       "reliability": "Совокупный показатель того, насколько модель хорошо справляется с большими и сложными задачами, не галлюцинирует и хорошо проверяет себя и других агентов. Собран из данных Artificial Analysis: сила модели, реальные задачи, отсутствие галлюцинаций, объём контекста и диагностика сбоев. Выше — лучше.",
+      "aesthetics": "Насколько модель хороша в визуальных и дизайнерских задачах: UI, UX, «удобно» и «приятно». Собран из арен LMArena, где люди сравнивают работы моделей попарно: Code Arena — фронтенд и интерфейсы (вес 70%), Agent Arena — «слушается правок» (15%) и «хвалят или жалуются» (15%). Это голоса людей, а не измерение красоты: у Artificial Analysis бенчмарков про дизайн и UI нет, а их поля почти все повторяют Intelligence. Балла нет, если модели нет в Code Arena. Выше — лучше.",
       "costPerTask": "Artificial Analysis: средняя стоимость одной задачи Intelligence Index по прайсу провайдера, в USD. Это не цена подписки Go. Ниже — лучше.",
       "efficiency": "Показатель учитывающий то насколько модель имеет высокий интеллект и при этом как много лимитов под неё выделяет подписка OpenCode Go. Чем выше показатель — тем целесообразнее использовать модель для постоянной работы.",
       "free": "Помимо подписки OpenCode Go часть моделей доступна бесплатно, без подписки. Самые умные из них по Artificial Analysis — GLM-5.3-Flash Free, DeepSeek V4.1 Flash Free, MiMo-V2.6-Flash Free — отмечены в списке зелёным бейджем «Free». Показатель OpenCode Go Эффективность у этих строк считается по лимитам подписки Go."
@@ -149,6 +194,24 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 67.4,
       "reliability": 75.7,
+      "aesthetics": 47.6,
+      "aestheticsParts": {
+        "webdev": {
+          "value": 1605.474108583022,
+          "rank": 27,
+          "n": 17579
+        },
+        "steerability": {
+          "value": -0.030073849366071492,
+          "rank": 37,
+          "n": 511753
+        },
+        "praise": {
+          "value": -0.011760206640564208,
+          "rank": 30,
+          "n": 28580
+        }
+      },
       "freeInOc": true,
       "status": "active"
     },
@@ -204,6 +267,24 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 31,
       "reliability": 74.9,
+      "aesthetics": 55.8,
+      "aestheticsParts": {
+        "webdev": {
+          "value": 1621.1409439450072,
+          "rank": 23,
+          "n": 9542
+        },
+        "steerability": {
+          "value": 0.003303770151107277,
+          "rank": 31,
+          "n": 333642
+        },
+        "praise": {
+          "value": 0.05734509354827755,
+          "rank": 13,
+          "n": 26337
+        }
+      },
       "freeInOc": false,
       "status": "active"
     },
@@ -255,6 +336,8 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": null,
       "reliability": null,
+      "aesthetics": null,
+      "aestheticsParts": null,
       "freeInOc": false,
       "status": "active"
     },
@@ -310,6 +393,24 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 10.6,
       "reliability": 66.6,
+      "aesthetics": 62.2,
+      "aestheticsParts": {
+        "webdev": {
+          "value": 1655.2114268717892,
+          "rank": 14,
+          "n": 19220
+        },
+        "steerability": {
+          "value": 0.005549220629157858,
+          "rank": 29,
+          "n": 262976
+        },
+        "praise": {
+          "value": 0.022722852758544576,
+          "rank": 24,
+          "n": 39577
+        }
+      },
       "freeInOc": false,
       "status": "active"
     },
@@ -365,6 +466,14 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 33.9,
       "reliability": 24.4,
+      "aesthetics": 23.1,
+      "aestheticsParts": {
+        "webdev": {
+          "value": 1473.7697274981233,
+          "rank": 66,
+          "n": 4966
+        }
+      },
       "freeInOc": false,
       "status": "active"
     },
@@ -420,6 +529,8 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 28.2,
       "reliability": 28,
+      "aesthetics": null,
+      "aestheticsParts": null,
       "freeInOc": false,
       "status": "active"
     },
@@ -471,6 +582,8 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": null,
       "reliability": null,
+      "aesthetics": null,
+      "aestheticsParts": null,
       "freeInOc": false,
       "status": "unlimited"
     },
@@ -526,6 +639,24 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 57.8,
       "reliability": 74.3,
+      "aesthetics": 41,
+      "aestheticsParts": {
+        "webdev": {
+          "value": 1564.981259391035,
+          "rank": 36,
+          "n": 4424
+        },
+        "steerability": {
+          "value": 0.01148392222270278,
+          "rank": 26,
+          "n": 44146
+        },
+        "praise": {
+          "value": -0.03365869642233721,
+          "rank": 36,
+          "n": 2608
+        }
+      },
       "freeInOc": false,
       "status": "promo-4x"
     },
@@ -577,6 +708,8 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 61.9,
       "reliability": 52.3,
+      "aesthetics": null,
+      "aestheticsParts": null,
       "freeInOc": false,
       "status": "unlimited"
     },
@@ -632,6 +765,24 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 73.1,
       "reliability": 63.8,
+      "aesthetics": 61,
+      "aestheticsParts": {
+        "webdev": {
+          "value": 1634.2780091461036,
+          "rank": 17,
+          "n": 5016
+        },
+        "steerability": {
+          "value": 0.050149446594884795,
+          "rank": 17,
+          "n": 68025
+        },
+        "praise": {
+          "value": 0.029188612559255644,
+          "rank": 22,
+          "n": 4034
+        }
+      },
       "freeInOc": true,
       "status": "active"
     },
@@ -687,6 +838,24 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 66.8,
       "reliability": 77,
+      "aesthetics": 58,
+      "aestheticsParts": {
+        "webdev": {
+          "value": 1624.8152158959037,
+          "rank": 20,
+          "n": 4763
+        },
+        "steerability": {
+          "value": 0.023958784700986224,
+          "rank": 20,
+          "n": 90165
+        },
+        "praise": {
+          "value": 0.05555018007489343,
+          "rank": 14,
+          "n": 5257
+        }
+      },
       "freeInOc": false,
       "status": "active"
     },
@@ -742,6 +911,8 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": null,
       "reliability": null,
+      "aesthetics": null,
+      "aestheticsParts": null,
       "freeInOc": false,
       "status": "active"
     },
@@ -797,6 +968,8 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": null,
       "reliability": null,
+      "aesthetics": null,
+      "aestheticsParts": null,
       "freeInOc": false,
       "status": "active"
     },
@@ -852,6 +1025,24 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 44.9,
       "reliability": 61.8,
+      "aesthetics": 18,
+      "aestheticsParts": {
+        "webdev": {
+          "value": 1482.450057987971,
+          "rank": 64,
+          "n": 19499
+        },
+        "steerability": {
+          "value": -0.09144837820262675,
+          "rank": 43,
+          "n": 50482
+        },
+        "praise": {
+          "value": -0.14781264702206076,
+          "rank": 48,
+          "n": 11785
+        }
+      },
       "freeInOc": false,
       "status": "active"
     },
@@ -907,6 +1098,24 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 91,
       "reliability": 70.5,
+      "aesthetics": 67.1,
+      "aestheticsParts": {
+        "webdev": {
+          "value": 1658.4236652176892,
+          "rank": 12,
+          "n": 9068
+        },
+        "steerability": {
+          "value": 0.05485993350615703,
+          "rank": 15,
+          "n": 389656
+        },
+        "praise": {
+          "value": 0.043206108351993566,
+          "rank": 19,
+          "n": 19315
+        }
+      },
       "freeInOc": false,
       "status": "active"
     },
@@ -962,6 +1171,8 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": null,
       "reliability": null,
+      "aesthetics": null,
+      "aestheticsParts": null,
       "freeInOc": false,
       "status": "active"
     },
@@ -1017,6 +1228,24 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 24.2,
       "reliability": 72.7,
+      "aesthetics": 67.1,
+      "aestheticsParts": {
+        "webdev": {
+          "value": 1673.598504927179,
+          "rank": 10,
+          "n": 13812
+        },
+        "steerability": {
+          "value": 0.020175406856956513,
+          "rank": 23,
+          "n": 256807
+        },
+        "praise": {
+          "value": 0.016626371348833158,
+          "rank": 26,
+          "n": 17372
+        }
+      },
       "freeInOc": false,
       "status": "active"
     },
@@ -1072,6 +1301,8 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": null,
       "reliability": null,
+      "aesthetics": null,
+      "aestheticsParts": null,
       "freeInOc": false,
       "status": "active"
     },
@@ -1134,6 +1365,19 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 39.5,
       "reliability": 47.2,
+      "aesthetics": null,
+      "aestheticsParts": {
+        "steerability": {
+          "value": -0.10406825208229487,
+          "rank": 44,
+          "n": 29998
+        },
+        "praise": {
+          "value": -0.09767351766708321,
+          "rank": 43,
+          "n": 6427
+        }
+      },
       "freeInOc": false,
       "status": "active"
     },
@@ -1196,6 +1440,24 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 76.5,
       "reliability": 52.1,
+      "aesthetics": 55.4,
+      "aestheticsParts": {
+        "webdev": {
+          "value": 1618.412357403753,
+          "rank": 24,
+          "n": 3540
+        },
+        "steerability": {
+          "value": 0.01843298906993973,
+          "rank": 24,
+          "n": 852390
+        },
+        "praise": {
+          "value": 0.032012653789263656,
+          "rank": 20,
+          "n": 47204
+        }
+      },
       "freeInOc": true,
       "status": "active"
     },
@@ -1258,6 +1520,8 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 44.9,
       "reliability": 46.3,
+      "aesthetics": null,
+      "aestheticsParts": null,
       "freeInOc": false,
       "status": "active"
     },
@@ -1313,6 +1577,8 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": null,
       "reliability": null,
+      "aesthetics": null,
+      "aestheticsParts": null,
       "freeInOc": false,
       "status": "active"
     },
@@ -1368,6 +1634,24 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 39.8,
       "reliability": 27.1,
+      "aesthetics": 26.7,
+      "aestheticsParts": {
+        "webdev": {
+          "value": 1505.9107483086677,
+          "rank": 58,
+          "n": 6168
+        },
+        "steerability": {
+          "value": 0.000023960577064552346,
+          "rank": 32,
+          "n": 31460
+        },
+        "praise": {
+          "value": -0.06293185511314536,
+          "rank": 42,
+          "n": 4911
+        }
+      },
       "freeInOc": false,
       "status": "active"
     },
@@ -1423,6 +1707,8 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": null,
       "reliability": null,
+      "aesthetics": null,
+      "aestheticsParts": null,
       "freeInOc": false,
       "status": "active"
     },
@@ -1485,6 +1771,24 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 26,
       "reliability": 69.4,
+      "aesthetics": 58.1,
+      "aestheticsParts": {
+        "webdev": {
+          "value": 1638.6701748611626,
+          "rank": 16,
+          "n": 5021
+        },
+        "steerability": {
+          "value": -0.005179943789685448,
+          "rank": 33,
+          "n": 59669
+        },
+        "praise": {
+          "value": 0.029463673625165998,
+          "rank": 21,
+          "n": 3209
+        }
+      },
       "freeInOc": false,
       "status": "active"
     },
@@ -1547,6 +1851,24 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 59.5,
       "reliability": 53.8,
+      "aesthetics": 48.7,
+      "aestheticsParts": {
+        "webdev": {
+          "value": 1578.160478866449,
+          "rank": 35,
+          "n": 20045
+        },
+        "steerability": {
+          "value": 0.05944052140080852,
+          "rank": 13,
+          "n": 702626
+        },
+        "praise": {
+          "value": 0.006985902622833495,
+          "rank": 27,
+          "n": 32331
+        }
+      },
       "freeInOc": false,
       "status": "active"
     },
@@ -1609,6 +1931,8 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": null,
       "reliability": null,
+      "aesthetics": null,
+      "aestheticsParts": null,
       "freeInOc": false,
       "status": "active"
     },
@@ -1671,6 +1995,24 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 65.1,
       "reliability": 73.4,
+      "aesthetics": 48.4,
+      "aestheticsParts": {
+        "webdev": {
+          "value": 1584.698340531561,
+          "rank": 32,
+          "n": 3156
+        },
+        "steerability": {
+          "value": 0.054980034614199924,
+          "rank": 14,
+          "n": 148923
+        },
+        "praise": {
+          "value": -0.03555844358609461,
+          "rank": 37,
+          "n": 5494
+        }
+      },
       "freeInOc": false,
       "status": "active"
     },
@@ -1722,6 +2064,24 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 47.7,
       "reliability": 89.9,
+      "aesthetics": 87.7,
+      "aestheticsParts": {
+        "webdev": {
+          "value": 1678.1872513416483,
+          "rank": 9,
+          "n": 1775
+        },
+        "steerability": {
+          "value": 0.15924814737170073,
+          "rank": 2,
+          "n": 110567
+        },
+        "praise": {
+          "value": 0.305646434587053,
+          "rank": 4,
+          "n": 5824
+        }
+      },
       "freeInOc": false,
       "status": "promo-2x"
     },
@@ -1747,6 +2107,24 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": null,
       "reliability": 73.7,
+      "aesthetics": 100,
+      "aestheticsParts": {
+        "webdev": {
+          "value": 1807.3090427323077,
+          "rank": 1,
+          "n": 2775
+        },
+        "steerability": {
+          "value": 0.16397764771228024,
+          "rank": 1,
+          "n": 17136
+        },
+        "praise": {
+          "value": 0.39927700332345684,
+          "rank": 1,
+          "n": 918
+        }
+      },
       "freeInOc": false,
       "status": "not-in-go"
     },
@@ -1772,6 +2150,19 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": null,
       "reliability": 85.2,
+      "aesthetics": null,
+      "aestheticsParts": {
+        "steerability": {
+          "value": 0.11686155694892547,
+          "rank": 6,
+          "n": 12960
+        },
+        "praise": {
+          "value": 0.18442341825616537,
+          "rank": 7,
+          "n": 711
+        }
+      },
       "freeInOc": false,
       "status": "not-in-go"
     },
@@ -1797,6 +2188,8 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": null,
       "reliability": 93.3,
+      "aesthetics": null,
+      "aestheticsParts": null,
       "freeInOc": false,
       "status": "not-in-go"
     },
@@ -1822,6 +2215,24 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": null,
       "reliability": 72.6,
+      "aesthetics": 94.7,
+      "aestheticsParts": {
+        "webdev": {
+          "value": 1741.4137089213132,
+          "rank": 5,
+          "n": 7503
+        },
+        "steerability": {
+          "value": 0.14549708153634267,
+          "rank": 4,
+          "n": 57432
+        },
+        "praise": {
+          "value": 0.27147018726038774,
+          "rank": 5,
+          "n": 2815
+        }
+      },
       "freeInOc": false,
       "status": "not-in-go"
     },
@@ -1847,6 +2258,24 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": null,
       "reliability": 75,
+      "aesthetics": 96.2,
+      "aestheticsParts": {
+        "webdev": {
+          "value": 1777.179843631321,
+          "rank": 2,
+          "n": 6014
+        },
+        "steerability": {
+          "value": 0.14780540265185405,
+          "rank": 3,
+          "n": 37365
+        },
+        "praise": {
+          "value": 0.31140003826871976,
+          "rank": 3,
+          "n": 2055
+        }
+      },
       "freeInOc": false,
       "status": "not-in-go"
     },
@@ -1872,6 +2301,24 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": null,
       "reliability": 88.4,
+      "aesthetics": 65.2,
+      "aestheticsParts": {
+        "webdev": {
+          "value": 1650.4267673951786,
+          "rank": 15,
+          "n": 1942
+        },
+        "steerability": {
+          "value": 0.05159628892104734,
+          "rank": 16,
+          "n": 36977
+        },
+        "praise": {
+          "value": 0.04409731930198546,
+          "rank": 18,
+          "n": 1864
+        }
+      },
       "freeInOc": false,
       "status": "not-in-go"
     },
@@ -1897,6 +2344,24 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": null,
       "reliability": 75.9,
+      "aesthetics": 95.7,
+      "aestheticsParts": {
+        "webdev": {
+          "value": 1755.4597768759177,
+          "rank": 4,
+          "n": 2863
+        },
+        "steerability": {
+          "value": 0.13849241220789538,
+          "rank": 5,
+          "n": 32675
+        },
+        "praise": {
+          "value": 0.3174904516367012,
+          "rank": 2,
+          "n": 1981
+        }
+      },
       "freeInOc": false,
       "status": "not-in-go"
     },
@@ -1922,6 +2387,24 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": null,
       "reliability": 56.4,
+      "aesthetics": 34.4,
+      "aestheticsParts": {
+        "webdev": {
+          "value": 1521.9055706410982,
+          "rank": 50,
+          "n": 13678
+        },
+        "steerability": {
+          "value": 0.027481900087871936,
+          "rank": 19,
+          "n": 54038
+        },
+        "praise": {
+          "value": 0.01688639884946852,
+          "rank": 25,
+          "n": 7230
+        }
+      },
       "freeInOc": false,
       "status": "not-in-go"
     },
@@ -1947,6 +2430,8 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": null,
       "reliability": 72.2,
+      "aesthetics": null,
+      "aestheticsParts": null,
       "freeInOc": false,
       "status": "not-in-go"
     },
@@ -1972,6 +2457,24 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": null,
       "reliability": 65.1,
+      "aesthetics": 48.7,
+      "aestheticsParts": {
+        "webdev": {
+          "value": 1585.1875723150379,
+          "rank": 31,
+          "n": 10514
+        },
+        "steerability": {
+          "value": 0.02074545342186107,
+          "rank": 22,
+          "n": 155168
+        },
+        "praise": {
+          "value": 0.044484881822673183,
+          "rank": 17,
+          "n": 9751
+        }
+      },
       "freeInOc": false,
       "status": "not-in-go"
     },
@@ -1997,6 +2500,8 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": null,
       "reliability": 60.6,
+      "aesthetics": null,
+      "aestheticsParts": null,
       "freeInOc": false,
       "status": "not-in-go"
     },
@@ -2022,6 +2527,24 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": null,
       "reliability": 58.8,
+      "aesthetics": 53.4,
+      "aestheticsParts": {
+        "webdev": {
+          "value": 1630.3289125780575,
+          "rank": 19,
+          "n": 8083
+        },
+        "steerability": {
+          "value": -0.013493418895361597,
+          "rank": 35,
+          "n": 286422
+        },
+        "praise": {
+          "value": -0.037481641673404176,
+          "rank": 38,
+          "n": 17329
+        }
+      },
       "freeInOc": false,
       "status": "not-in-go"
     },
@@ -2047,6 +2570,14 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": null,
       "reliability": 71.1,
+      "aesthetics": 34.8,
+      "aestheticsParts": {
+        "webdev": {
+          "value": 1511.3260970415822,
+          "rank": 55,
+          "n": 991
+        }
+      },
       "freeInOc": false,
       "status": "not-in-go"
     },
@@ -2072,6 +2603,8 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": null,
       "reliability": 58.8,
+      "aesthetics": null,
+      "aestheticsParts": null,
       "freeInOc": false,
       "status": "not-in-go"
     },
@@ -2097,6 +2630,8 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": null,
       "reliability": 63.8,
+      "aesthetics": null,
+      "aestheticsParts": null,
       "freeInOc": false,
       "status": "not-in-go"
     },
@@ -2122,6 +2657,8 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": null,
       "reliability": 48,
+      "aesthetics": null,
+      "aestheticsParts": null,
       "freeInOc": false,
       "status": "not-in-go"
     },
@@ -2147,6 +2684,8 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": null,
       "reliability": 44.7,
+      "aesthetics": null,
+      "aestheticsParts": null,
       "freeInOc": false,
       "status": "not-in-go"
     },
@@ -2172,6 +2711,24 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": null,
       "reliability": 54.8,
+      "aesthetics": 43.2,
+      "aestheticsParts": {
+        "webdev": {
+          "value": 1593.2035374291577,
+          "rank": 29,
+          "n": 15940
+        },
+        "steerability": {
+          "value": -0.03707648200674929,
+          "rank": 39,
+          "n": 210793
+        },
+        "praise": {
+          "value": -0.054072777056665466,
+          "rank": 40,
+          "n": 15268
+        }
+      },
       "freeInOc": false,
       "status": "not-in-go"
     },
@@ -2197,6 +2754,8 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": null,
       "reliability": 50.3,
+      "aesthetics": null,
+      "aestheticsParts": null,
       "freeInOc": false,
       "status": "not-in-go"
     },
@@ -2222,6 +2781,14 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": null,
       "reliability": 29.6,
+      "aesthetics": 2.1,
+      "aestheticsParts": {
+        "webdev": {
+          "value": 1406.6187574659548,
+          "rank": 89,
+          "n": 2641
+        }
+      },
       "freeInOc": false,
       "status": "not-in-go"
     }

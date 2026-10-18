@@ -1,6 +1,6 @@
 /**
- * Собирает данные с Artificial Analysis и из документации OpenCode Go
- * и записывает снимок в data.js (window.AI_DATA).
+ * Собирает данные с Artificial Analysis, из документации OpenCode Go и из арен
+ * LMArena (метрика «Эстетика») и записывает снимок в data.js (window.AI_DATA).
  *
  * Запуск:  node fetch-data.mjs      или двойной клик по update.cmd
  *
@@ -16,10 +16,27 @@ const AA_ORIGIN = 'https://artificialanalysis.ai';
 const UA =
   'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36';
 
-async function fetchText(url, accept = 'text/html,application/xhtml+xml') {
-  const res = await fetch(url, { headers: { 'user-agent': UA, accept, 'accept-language': 'ru,en;q=0.8' } });
-  if (!res.ok) throw new Error(`HTTP ${res.status} ${res.statusText} — ${url}`);
-  return res.text();
+/**
+ * Сетевые сбои бывают разовыми: прокси и антивирусы с собственным сертификатом
+ * роняют первую попытку (SELF_SIGNED_CERT_IN_CHAIN), а следующая проходит.
+ * Поэтому повторяем — но не на 4xx: там ответ не изменится.
+ */
+async function fetchText(url, accept = 'text/html,application/xhtml+xml', attempts = 5) {
+  let lastError = null;
+
+  for (let attempt = 1; attempt <= attempts; attempt++) {
+    if (attempt > 1) await new Promise((resolve) => setTimeout(resolve, 500 * attempt));
+    try {
+      const res = await fetch(url, { headers: { 'user-agent': UA, accept, 'accept-language': 'ru,en;q=0.8' } });
+      if (res.ok) return await res.text();
+      lastError = new Error(`HTTP ${res.status} ${res.statusText} — ${url}`);
+      if (res.status < 500) break;
+    } catch (err) {
+      lastError = err;
+    }
+  }
+
+  throw lastError;
 }
 
 /* ─────────────────────────── Artificial Analysis ─────────────────────────── */
@@ -330,6 +347,98 @@ function matchAa(goName, index) {
   return index.byFull.get(key) || index.byBase.get(key) || null;
 }
 
+/* ──────────────────────────── Арены (LMArena) ─────────────────────────────── */
+
+/**
+ * Арены LMArena через публичный datasets-server Hugging Face: обычный JSON,
+ * без ключа и регистрации. Нужны только для метрики «Эстетика» — у Artificial
+ * Analysis дизайна, UI и эстетики в бенчмарках нет вообще (там знания,
+ * математика, код, агенты и длинный контекст, и почти всё это дублирует
+ * Intelligence: Spearman 0.78…0.97).
+ *
+ * Даёт { components: { ключ: { byFull, byBase, count } }, asOf }.
+ * Ошибку не глотаем: решение, что делать при недоступности, принимает вызывающий.
+ */
+async function loadArenaData() {
+  const { dataset, split, sources } = CONFIG.arena;
+  const components = {};
+  let asOf = null;
+
+  for (const [key, source] of Object.entries(sources)) {
+    const rows = [];
+    let offset = 0;
+    let total = Infinity;
+
+    // datasets-server отдаёт не больше 100 строк за раз, идём страницами.
+    while (offset < total) {
+      const url =
+        `${CONFIG.urls.arenaRows}?dataset=${encodeURIComponent(dataset)}` +
+        `&config=${encodeURIComponent(source.config)}` +
+        `&split=${encodeURIComponent(split)}&offset=${offset}&length=100`;
+      const page = JSON.parse(await fetchText(url, 'application/json'));
+      const raw = page.rows || [];
+      total = Number.isFinite(page.num_rows_total) ? page.num_rows_total : 0;
+
+      rows.push(
+        ...raw
+          .map((r) => r.row)
+          .filter((r) => r.category === 'overall')
+          .map((r) => ({
+            name: r.model_name,
+            value: num(r[source.field]),
+            rank: num(r.rank),
+            // В аренах это vote_count, в agent-таблицах — observation_count.
+            votes: num(r.vote_count ?? r.observation_count),
+            date: r.leaderboard_publish_date || null,
+          }))
+          .filter((r) => r.name && r.value != null)
+      );
+
+      if (!raw.length) break;
+      offset += raw.length;
+    }
+
+    for (const row of rows) if (row.date && (!asOf || row.date > asOf)) asOf = row.date;
+
+    const byFull = new Map();
+    const byBase = new Map();
+    const ambiguous = new Set();
+
+    for (const row of rows) {
+      const full = norm(row.name);
+      const prev = byFull.get(full);
+      if (!prev || (row.votes ?? 0) > (prev.votes ?? 0)) byFull.set(full, row);
+
+      // Имя без варианта в скобках: «Step 5 Preview» -> «Step 5 Preview (High)».
+      // Если под такое имя подходит несколько разных строк, оно не используется —
+      // лучше прочерк, чем чужая цифра.
+      const base = norm(baseName(row.name));
+      const prevBase = byBase.get(base);
+      if (!prevBase) byBase.set(base, row);
+      else if (prevBase.name !== row.name) ambiguous.add(base);
+    }
+    for (const base of ambiguous) byBase.delete(base);
+
+    components[key] = { byFull, byBase, count: rows.length, ambiguous: ambiguous.size };
+  }
+
+  return { components, asOf };
+}
+
+/** Строка арены для модели: сопоставляем по имени на Artificial Analysis. */
+function arenaValue(arena, component, aaName) {
+  const index = arena && arena.components[component];
+  if (!index || !aaName) return null;
+
+  const override = CONFIG.arena.overrides[aaName];
+  return (
+    (override ? index.byFull.get(norm(override)) : null) ||
+    index.byFull.get(norm(aaName)) ||
+    index.byBase.get(norm(baseName(aaName))) ||
+    null
+  );
+}
+
 /* ────────────────────────────── Расчёты ─────────────────────────── */
 
 function requestCost(prices, mix) {
@@ -390,6 +499,46 @@ function reliabilityScore(model) {
   return weight ? Math.round((100 * sum) / weight * 10) / 10 : null;
 }
 
+/**
+ * «Эстетика» — насколько модель хороша в визуальных и дизайнерских задачах:
+ * UI, UX, «удобно» и «приятно». Средневзвешенное компонентов арен LMArena
+ * по фиксированным якорям (настройки в CONFIG.aesthetics).
+ *
+ * Балла нет, если нет обязательного компонента (webdev): метрика в первую
+ * очередь про интерфейсы, а не про «приятность» в отрыве от них.
+ * Возвращает { score, parts }; parts — сырые строки арен (для тултипов и отладки).
+ */
+function aestheticsScore(arena, aaName) {
+  const parts = {};
+  for (const component of CONFIG.aesthetics.components) {
+    parts[component.key] = arenaValue(arena, component.key, aaName);
+  }
+
+  const { require: required, components } = CONFIG.aesthetics;
+  if (required && parts[required] == null) return { score: null, parts };
+
+  let sum = 0;
+  let weight = 0;
+  for (const component of components) {
+    const row = parts[component.key];
+    const part = normalizeComponent(row ? row.value : null, component);
+    if (part == null) continue;
+    sum += part * component.weight;
+    weight += component.weight;
+  }
+
+  return { score: weight ? Math.round((100 * sum) / weight * 10) / 10 : null, parts };
+}
+
+/** Сырые компоненты «Эстетики» для data.js — без пустых значений. */
+function aestheticsParts(parts) {
+  const out = {};
+  for (const [key, row] of Object.entries(parts)) {
+    if (row) out[key] = { value: row.value, rank: row.rank, n: row.votes };
+  }
+  return Object.keys(out).length ? out : null;
+}
+
 function statusOf({ unlimited, limitNote, promoNote, monthlyLimit, requests5h }) {
   const note = `${limitNote || ''} ${promoNote || ''}`;
   if (unlimited) return 'unlimited';
@@ -415,11 +564,30 @@ function freeNote(top) {
   );
 }
 
+/**
+ * Примечание про метрику «Эстетика». Веса берём из конфига, чтобы текст
+ * на странице не разошёлся с настройками расчёта.
+ */
+function aestheticsNote() {
+  const share = (key) => {
+    const component = CONFIG.aesthetics.components.find((c) => c.key === key);
+    return component ? `${Math.round(component.weight * 100)}%` : '—';
+  };
+  return (
+    'Насколько модель хороша в визуальных и дизайнерских задачах: UI, UX, «удобно» и «приятно». ' +
+    'Собран из арен LMArena, где люди сравнивают работы моделей попарно: Code Arena — фронтенд и интерфейсы ' +
+    `(вес ${share('webdev')}), Agent Arena — «слушается правок» (${share('steerability')}) и ` +
+    `«хвалят или жалуются» (${share('praise')}). ` +
+    'Это голоса людей, а не измерение красоты: у Artificial Analysis бенчмарков про дизайн и UI нет, ' +
+    'а их поля почти все повторяют Intelligence. Балла нет, если модели нет в Code Arena. Выше — лучше.'
+  );
+}
+
 /* ─────────────────────────────── Сборка ─────────────────────────────── */
 
 async function main() {
   console.log('Обновление данных для страницы «Лучшие AI модели»');
-  console.log('Источники: artificialanalysis.ai, opencode.ai/docs/go и opencode.ai/docs/zen\n');
+  console.log('Источники: artificialanalysis.ai, opencode.ai/docs/go, opencode.ai/docs/zen, арены LMArena (HF)\n');
 
   console.log('Artificial Analysis — тянем лидерборд…');
   const aa = await loadArtificialAnalysis();
@@ -436,6 +604,20 @@ async function main() {
   console.log('OpenCode — ищем бесплатные модели…');
   const freeNames = await loadFreeModelNames();
   console.log(`  ✓ бесплатных моделей: ${freeNames.length}`);
+
+  console.log('LMArena — тянем арены для метрики «Эстетика»…');
+  let arena = null;
+  try {
+    arena = await loadArenaData();
+    const coverage = Object.entries(arena.components)
+      .map(([key, value]) => `${key}: ${value.count}`)
+      .join(', ');
+    console.log(`  ✓ строк: ${coverage}${arena.asOf ? `, снимок ${arena.asOf}` : ''}`);
+  } catch (err) {
+    const why = err.message === 'fetch failed' && err.cause ? `${err.message} (${err.cause.code || err.cause.message})` : err.message;
+    console.warn(`  ! Арены LMArena недоступны: ${why}`);
+    console.warn('    «Эстетика» останется с прочерками, остальные данные соберутся как есть.');
+  }
 
   const index = buildAaIndex(aa);
   const usedSlugs = new Set();
@@ -489,6 +671,7 @@ async function main() {
     }
 
     const goModelId = modelIds.get(goName) || null;
+    const aesthetics = aestheticsScore(arena, aaModel?.displayName ?? null);
 
     items.push({
       name: goName,
@@ -536,6 +719,8 @@ async function main() {
       efficiencyProvisional: provisional,
       valueScore: valueScore(aaModel?.intelligence ?? null, requests5h),
       reliability: aaModel ? reliabilityScore(aaModel) : null,
+      aesthetics: aesthetics.score,
+      aestheticsParts: aestheticsParts(aesthetics.parts),
       freeInOc: false,
       status: statusOf({
         unlimited,
@@ -561,31 +746,36 @@ async function main() {
     if (extras.length >= CONFIG.topFromAA) break;
   }
 
-  const extraItems = extras.map((m) => ({
-    name: m.displayName,
-    inGo: false,
-    goModelId: null,
-    inGoApi: false,
-    creator: m.creator,
-    color: m.color,
-    logo: m.logo,
-    aaSlug: m.slug,
-    aaName: m.name,
-    aaUrl: m.url,
-    intelligence: m.intelligence,
-    intelligenceEstimated: m.intelligenceEstimated,
-    costPerTask: m.costPerTask,
-    contextWindow: m.contextWindow,
-    isReasoning: m.isReasoning,
-    isOpenWeights: m.isOpenWeights,
-    go: null,
-    efficiency: null,
-    efficiencyProvisional: false,
-    valueScore: null,
-    reliability: reliabilityScore(m),
-    freeInOc: false,
-    status: 'not-in-go',
-  }));
+  const extraItems = extras.map((m) => {
+    const aesthetics = aestheticsScore(arena, m.displayName);
+    return {
+      name: m.displayName,
+      inGo: false,
+      goModelId: null,
+      inGoApi: false,
+      creator: m.creator,
+      color: m.color,
+      logo: m.logo,
+      aaSlug: m.slug,
+      aaName: m.name,
+      aaUrl: m.url,
+      intelligence: m.intelligence,
+      intelligenceEstimated: m.intelligenceEstimated,
+      costPerTask: m.costPerTask,
+      contextWindow: m.contextWindow,
+      isReasoning: m.isReasoning,
+      isOpenWeights: m.isOpenWeights,
+      go: null,
+      efficiency: null,
+      efficiencyProvisional: false,
+      valueScore: null,
+      reliability: reliabilityScore(m),
+      aesthetics: aesthetics.score,
+      aestheticsParts: aestheticsParts(aesthetics.parts),
+      freeInOc: false,
+      status: 'not-in-go',
+    };
+  });
 
   const all = [...items, ...extraItems];
 
@@ -620,6 +810,8 @@ async function main() {
     }
   }
 
+  const aestheticsCount = all.filter((m) => m.aesthetics != null).length;
+
   const data = {
     meta: {
       generatedAt: new Date().toISOString(),
@@ -627,12 +819,22 @@ async function main() {
       fiveHourShare: CONFIG.fiveHourShare,
       value: CONFIG.value,
       reliability: CONFIG.reliability,
+      aesthetics: {
+        ...CONFIG.aesthetics,
+        arena: {
+          dataset: CONFIG.arena.dataset,
+          split: CONFIG.arena.split,
+          sources: CONFIG.arena.sources,
+          asOf: arena ? arena.asOf : null,
+        },
+      },
       counts: {
         total: all.length,
         inGo: items.length,
         extraFromAA: extraItems.length,
         unmatched: unmatched.length,
         withoutIntelligence: items.filter((i) => i.intelligence == null).length,
+        withAesthetics: all.filter((m) => m.aesthetics != null).length,
         freeInOc: freeBadged.length,
         freeAvailable: freeRanked.length,
       },
@@ -657,6 +859,7 @@ async function main() {
           'Совокупный показатель того, насколько модель хорошо справляется с большими и сложными задачами, ' +
           'не галлюцинирует и хорошо проверяет себя и других агентов. Собран из данных Artificial Analysis: ' +
           'сила модели, реальные задачи, отсутствие галлюцинаций, объём контекста и диагностика сбоев. Выше — лучше.',
+        aesthetics: aestheticsNote(),
         costPerTask:
           'Artificial Analysis: средняя стоимость одной задачи Intelligence Index по прайсу провайдера, в USD. Это не цена подписки Go. Ниже — лучше.',
         efficiency:
@@ -677,6 +880,17 @@ async function main() {
   console.log(`\n✓ Записано: ${path.basename(out)}`);
   console.log(`  моделей всего: ${all.length}`);
   console.log(`  в подписке Go: ${items.length}, добавлено с AA: ${extraItems.length}`);
+  console.log(
+    `  «Эстетика»: есть у ${aestheticsCount} из ${all.length} моделей` +
+      (arena ? `, снимок арен ${arena.asOf}` : ' — арены недоступны')
+  );
+  const noAesthetics = items.filter((i) => i.aesthetics == null);
+  if (noAesthetics.length) {
+    console.log(`  в подписке Go без «Эстетики» (${noAesthetics.length}):`);
+    for (const m of noAesthetics) {
+      console.log(`    · ${m.name}${m.aaName ? '' : ' — нет карточки на Artificial Analysis'}`);
+    }
+  }
   if (unmatched.length) {
     console.log(`\n  Модели Go без данных на Artificial Analysis (${unmatched.length}):`);
     for (const n of unmatched) console.log(`    · ${n}`);
