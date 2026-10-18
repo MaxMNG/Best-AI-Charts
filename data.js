@@ -2,7 +2,7 @@
    Ручные правки будут перезаписаны. Настройки — в models.config.js. */
 window.AI_DATA = {
   "meta": {
-    "generatedAt": "2026-10-17T18:25:46.583Z",
+    "generatedAt": "2026-10-18T19:46:19.254Z",
     "plan": {
       "id": "go",
       "label": "OpenCode Go",
@@ -1150,7 +1150,7 @@ window.AI_DATA = {
       "aaUrl": "https://artificialanalysis.ai/models/deepseek-v4-1-flash",
       "intelligence": 39.456167472527,
       "intelligenceEstimated": false,
-      "costPerTask": 0.26522527009606844,
+      "costPerTask": 0.485662249576018,
       "contextWindow": 1000000,
       "isReasoning": true,
       "isOpenWeights": true,
@@ -2113,7 +2113,7 @@ window.AI_DATA = {
       "aaUrl": "https://artificialanalysis.ai/models/deepseek-v4-flash-vision",
       "intelligence": 34.8390628035969,
       "intelligenceEstimated": false,
-      "costPerTask": 0.314372044499279,
+      "costPerTask": 1.037910627432751,
       "contextWindow": 1000000,
       "isReasoning": true,
       "isOpenWeights": false,
