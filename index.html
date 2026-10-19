@@ -461,7 +461,7 @@
   .note-pop-actions { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 9px; }
   .note-pop-actions .ghost { padding: 6px 9px; }
 
-  /* Блок внизу листа: перенос заметок в файл и заметки вне списка. */
+  /* Блок внизу листа: счётчик заметок, сохранение в notes.js и заметки вне списка. */
   .notes-tools {
     margin-top: 22px;
     padding-top: 20px;
@@ -470,30 +470,11 @@
     color: var(--ink-soft);
   }
 
-  .notes-tools h3 { margin: 0 0 6px; font-size: 12.5px; font-weight: 600; color: var(--ink); }
   .notes-tools p { margin: 0; max-width: 86ch; }
-  .notes-tools code { font-family: inherit; font-weight: 600; background: var(--track); padding: 1px 5px; border-radius: 2px; }
 
-  .notes-tools-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 12px; }
+  .notes-tools-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
   .notes-tools-count,
   .notes-tools-status { color: var(--ink-faint); }
-
-  .notes-tools-import { margin-top: 10px; }
-
-  .notes-tools-import textarea {
-    display: block;
-    width: 100%;
-    min-height: 116px;
-    resize: vertical;
-    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    font-size: 12px;
-    line-height: 1.5;
-    color: var(--ink);
-    background: var(--shell);
-    border: 1px solid var(--rule);
-    border-radius: var(--radius);
-    padding: 9px 10px;
-  }
 
   .notes-tools-orphans { margin-top: 10px; color: var(--ink-faint); }
   .notes-tools-orphans:empty { display: none; }
@@ -607,7 +588,12 @@
      localStorage. Ключ модели тот же, что у строк: aaSlug, а без карточки
      на AA — название. Правило одно: есть локальная правка — показываем её,
      пусто — показываем версию из файла (поэтому удалить заметку из файла
-     со страницы нельзя, только правкой самого файла). */
+     со страницы нельзя, только правкой самого файла).
+
+     Из-за этого правила свежий notes.js не виден в том браузере, где заметку
+     правили руками: локальный слой перекрывает файл. Поэтому внизу страницы
+     есть кнопка «Сохранить заметки»: она пишет файл на диск и очищает локальный
+     слой — после неё страница показывает версию из файла. */
   var NOTES_LS_KEY = "modelNotes";
   var NOTES_FILE_HEADER =
     '/* Личные заметки к моделям («?» у названия на странице).\n' +
@@ -617,6 +603,7 @@
 
   var notesBase = readBaseNotes();
   var notesLocal = loadLocalNotes();
+  var notesFileHandle = null; // выбранный notes.js на текущую вкладку
   var modelByKey = {};
   var noteOpenKey = null;
   var notesStatusTimer;
@@ -814,8 +801,14 @@
     var count = 0;
     MODELS.forEach(function (m) { if (noteFor(keyOf(m))) count++; });
 
+    // Локальные правки перекрывают файл: пока их не перенесли в notes.js,
+    // остальные видят старую версию — поэтому показываем их число рядом со счётчиком.
+    var local = localOnlyNotes();
     var countEl = root.querySelector("#notes-count");
-    if (countEl) countEl.textContent = count ? "Заметок: " + count + " из " + MODELS.length : "Заметок пока нет";
+    if (countEl) {
+      countEl.textContent = (count ? "Заметок: " + count + " из " + MODELS.length : "Заметок пока нет") +
+        (local.length ? " · не в notes.js: " + local.length : "");
+    }
 
     var orphans = orphanNotes();
     var orphEl = root.querySelector("#notes-orphans");
@@ -978,8 +971,32 @@
     setNotesStatus(text ? "Заметка сохранена в этом браузере" : "Заметка пустая — локальная правка убрана");
   }
 
+  /** Все заметки, как они попадут в файл: локальная правка приоритетнее версии из notes.js. */
+  function mergedNotes() {
+    var out = {};
+    [notesBase, notesLocal].forEach(function (src) {
+      Object.keys(src).forEach(function (k) {
+        var v = src[k];
+        if (typeof v === "string" && v.trim()) out[k] = v.trim();
+      });
+    });
+    return out;
+  }
+
+  /** Правки, которых нет в notes.js: пока их не сохранили в файл, их видит только этот браузер. */
+  function localOnlyNotes() {
+    var found = mergedNotes();
+    var list = [];
+    Object.keys(found).forEach(function (k) {
+      var base = typeof notesBase[k] === "string" ? notesBase[k].trim() : "";
+      if (base !== found[k]) list.push(k);
+    });
+    return list;
+  }
+
   /** Готовый текст notes.js с текущими заметками — в порядке списка на странице. */
   function notesSnippet() {
+    var notes = mergedNotes();
     var order = [];
     var seen = {};
     sortModels(current).forEach(function (m) {
@@ -987,14 +1004,13 @@
       if (!seen[k]) { seen[k] = 1; order.push(k); }
     });
     // Заметки вне списка тоже переносим — иначе они потерялись бы при вставке.
-    [notesBase, notesLocal].forEach(function (src) {
-      Object.keys(src).forEach(function (k) { if (!seen[k]) { seen[k] = 1; order.push(k); } });
+    Object.keys(notes).forEach(function (k) {
+      if (!seen[k]) { seen[k] = 1; order.push(k); }
     });
 
     var lines = [];
     order.forEach(function (k) {
-      var note = noteFor(k);
-      if (note) lines.push("  " + JSON.stringify(k) + ": " + JSON.stringify(note.text) + ",");
+      if (notes[k]) lines.push("  " + JSON.stringify(k) + ": " + JSON.stringify(notes[k]) + ",");
     });
 
     return NOTES_FILE_HEADER + "window.AI_NOTES = {\n" + (lines.length ? lines.join("\n") + "\n" : "") + "};\n";
@@ -1027,107 +1043,176 @@
     done(legacyCopy(text));
   }
 
-  function copyAllNotes() {
-    var text = notesSnippet();
-    copyText(text, function (ok) {
-      if (ok) {
-        setNotesStatus("Скопировано — вставьте в notes.js в папке проекта");
-      } else {
-        setNotesStatus("Буфер недоступен: текст показан ниже — скопируйте вручную");
-        showNotesImport(text);
-      }
+  /** Запасной путь, если браузер не умеет писать файл: скачать готовый notes.js. */
+  function downloadNotesFile(text) {
+    try {
+      var blob = new Blob([text], { type: "text/javascript;charset=utf-8" });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement("a");
+      a.href = url;
+      a.download = "notes.js";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+      setNotesStatus("notes.js скачан — замените им файл в папке проекта");
+    } catch (e) {
+      setNotesStatus("Не удалось подготовить notes.js");
+    }
+  }
+
+  /* ── запись notes.js на диск ─────────────────────────────── */
+
+  /* Chrome и Edge разрешают странице писать в выбранный файл (File System
+     Access API). Хендл файла храним в IndexedDB, чтобы в следующий раз писать
+     в тот же notes.js без диалога. Остальным браузерам остаётся буфер обмена
+     или скачанный notes.js — файл на диск они не пишут.
+
+     Ограничение: записать можно только файл на диске. На github.io страница
+     чужая — там кнопка сохранит копию у вас, а не в репозиторий; для публикации
+     открывайте index.html из папки проекта. */
+
+  var NOTES_DB = "modelNotesFile";
+  var NOTES_DB_STORE = "handles";
+  var NOTES_HANDLE_KEY = "notes";
+
+  function canWriteFile() {
+    return typeof window.showSaveFilePicker === "function";
+  }
+
+  function notesDb() {
+    return new Promise(function (resolve, reject) {
+      var req;
+      try { req = window.indexedDB.open(NOTES_DB, 1); } catch (e) { reject(e); return; }
+      req.onupgradeneeded = function () {
+        var db = req.result;
+        if (!db.objectStoreNames.contains(NOTES_DB_STORE)) db.createObjectStore(NOTES_DB_STORE);
+      };
+      req.onsuccess = function () { resolve(req.result); };
+      req.onerror = function () { reject(req.error); };
     });
   }
 
-  function showNotesImport(text) {
-    var box = root.querySelector("#notes-import");
-    var ta = root.querySelector("#notes-import-text");
-    if (!box || !ta) return;
-    box.hidden = false;
-    if (text != null) ta.value = text;
-    ta.focus();
+  /** Сохранённый хендл notes.js, если он уже выбирался в этом браузере. */
+  function readNotesHandle() {
+    return notesDb().then(function (db) {
+      return new Promise(function (resolve) {
+        var tx = db.transaction(NOTES_DB_STORE, "readonly");
+        var req = tx.objectStore(NOTES_DB_STORE).get(NOTES_HANDLE_KEY);
+        req.onsuccess = function () { resolve(req.result || null); };
+        req.onerror = function () { resolve(null); };
+        tx.oncomplete = function () { db.close(); };
+      });
+    }, function () { return null; });
   }
 
-  function toggleNotesImport() {
-    var box = root.querySelector("#notes-import");
-    if (!box) return;
-    if (!box.hidden) { box.hidden = true; setNotesStatus(""); return; }
-    showNotesImport(null);
+  function keepNotesHandle(handle) {
+    return notesDb().then(function (db) {
+      return new Promise(function (resolve) {
+        var tx = db.transaction(NOTES_DB_STORE, "readwrite");
+        tx.objectStore(NOTES_DB_STORE).put(handle, NOTES_HANDLE_KEY);
+        tx.oncomplete = function () { db.close(); resolve(true); };
+        tx.onerror = function () { db.close(); resolve(false); };
+      });
+    }, function () { return false; });
   }
 
-  /**
-   * Разбор вставленного notes.js. Импортируем ровно тот формат, который сами
-   * же экспортировали: это литерал объекта, и уровень доверия у него тот же,
-   * что у notes.js, который страница и так исполняет.
-   *
-   * Импорт заменяет локальный слой целиком, но записи, совпадающие с notes.js,
-   * не дублируются: иначе они навсегда перекрыли бы будущие правки файла.
-   */
-  function parseNotesText(text) {
-    var body = String(text || "").trim();
-    if (!body) return { ok: false, error: "пустой текст" };
+  /** Хендл с правом записи: сначала сохранённый, иначе диалог выбора файла. */
+  function pickNotesHandle() {
+    if (notesFileHandle) return useNotesHandle(notesFileHandle);
+    // IndexedDB на некоторых конфигурациях file:// не отвечает вовсе — тогда
+    // просто спрашиваем файл, а не держим кнопку в состоянии «Записываю…».
+    return withTimeout(readNotesHandle(), 1200, null).then(function (handle) {
+      return handle ? useNotesHandle(handle) : requestNotesHandle();
+    });
+  }
 
-    var assign = body.match(/window\.AI_NOTES\s*=\s*/);
-    if (assign) body = body.slice(assign.index + assign[0].length).replace(/;\s*$/, "");
+  function useNotesHandle(handle) {
+    if (typeof handle.queryPermission !== "function") return Promise.resolve(handle);
+    return handle.queryPermission({ mode: "readwrite" }).then(function (state) {
+      if (state === "granted") return handle;
+      return handle.requestPermission({ mode: "readwrite" }).then(function (next) {
+        return next === "granted" ? handle : requestNotesHandle();
+      });
+    }, function () { return requestNotesHandle(); });
+  }
 
-    var obj;
-    try { obj = (new Function("return (" + body + ");"))(); }
-    catch (e) { return { ok: false, error: "не удалось разобрать текст" }; }
+  /** Обещание с предохранителем: если операция зависла, берём запасное значение. */
+  function withTimeout(promise, ms, fallback) {
+    return new Promise(function (resolve) {
+      var done = false;
+      var timer = window.setTimeout(function () {
+        if (done) return;
+        done = true;
+        resolve(fallback);
+      }, ms);
+      promise.then(function (value) {
+        if (done) return;
+        done = true;
+        window.clearTimeout(timer);
+        resolve(value);
+      }, function () {
+        if (done) return;
+        done = true;
+        window.clearTimeout(timer);
+        resolve(fallback);
+      });
+    });
+  }
 
-    if (!obj || typeof obj !== "object" || Array.isArray(obj)) {
-      return { ok: false, error: 'ожидался объект вида { "ключ": "текст" }' };
+  function requestNotesHandle() {
+    if (typeof window.showSaveFilePicker !== "function") return Promise.resolve(null);
+    return window.showSaveFilePicker({
+      suggestedName: "notes.js",
+      types: [{ description: "notes.js", accept: { "text/javascript": [".js"] } }]
+    }).then(function (handle) { return handle; }, function () { return null; });
+  }
+
+  /** После записи файл становится источником истины — локальный слой убираем. */
+  function adoptSavedNotes(fileName) {
+    notesBase = mergedNotes();
+    notesLocal = {};
+    saveLocalNotes();
+    paintNoteStates();
+    setNotesStatus((fileName || "notes.js") + " записан — теперь git push (или push-notes.cmd)");
+  }
+
+  function saveNotesToFile() {
+    var text = notesSnippet();
+
+    if (!canWriteFile()) {
+      copyText(text, function (ok) {
+        if (ok) setNotesStatus("Браузер не пишет файлы — заметки скопированы, вставьте их в notes.js");
+        else downloadNotesFile(text);
+      });
+      return;
     }
 
-    var next = {};
-    var count = 0;
-    Object.keys(obj).forEach(function (k) {
-      var v = obj[k];
-      if (typeof v !== "string") return;
-      var s = v.trim();
-      if (!s) return;
-      if (typeof notesBase[k] === "string" && notesBase[k] === s) return;
-      next[k] = s;
-      count++;
+    setNotesStatus("Записываю notes.js…");
+
+    pickNotesHandle().then(function (handle) {
+      if (!handle) { setNotesStatus("Файл не выбран — правки остались в браузере"); return null; }
+      return handle.createWritable().then(function (w) {
+        return w.write(text).then(function () { return w.close(); });
+      }).then(function () {
+        notesFileHandle = handle;
+        return withTimeout(keepNotesHandle(handle), 1200, false);
+      }).then(function () {
+        adoptSavedNotes(handle.name);
+      });
+    }).catch(function () {
+      setNotesStatus("Не удалось записать notes.js — правки остались в браузере");
     });
-
-    notesLocal = next;
-    saveLocalNotes();
-    return { ok: true, count: count };
-  }
-
-  function applyNotesImport() {
-    var ta = root.querySelector("#notes-import-text");
-    if (!ta) return;
-    var res = parseNotesText(ta.value);
-    if (!res.ok) { setNotesStatus("Импорт не удался: " + res.error); return; }
-    closeNoteEditor();
-    paintNoteStates();
-    setNotesStatus("Импортировано заметок: " + res.count);
   }
 
   function buildNotesTools() {
     var el = document.createElement("div");
     el.className = "notes-tools";
     el.innerHTML =
-      '<div class="notes-tools-text">' +
-        '<h3>Личные заметки</h3>' +
-        '<p>У каждой модели есть значок <code>?</code>: наведение показывает заметку, клик — правку. ' +
-        'Текст из <code>notes.js</code> виден всем, кто открыл страницу в интернете; правки в браузере ' +
-        'хранятся только у вас. Чтобы перенести их в файл, скопируйте заметки и вставьте ' +
-        'в <code>notes.js</code> в папке проекта.</p>' +
-      '</div>' +
       '<div class="notes-tools-actions">' +
         '<span class="notes-tools-count" id="notes-count"></span>' +
-        '<button type="button" class="ghost" id="notes-copy">Скопировать все заметки как notes.js</button>' +
-        '<button type="button" class="ghost" id="notes-import-toggle">Вставить из notes.js</button>' +
+        '<button type="button" class="ghost" id="notes-save">Сохранить заметки</button>' +
         '<span class="notes-tools-status" id="notes-status" aria-live="polite"></span>' +
-      '</div>' +
-      '<div class="notes-tools-import" id="notes-import" hidden>' +
-        '<textarea id="notes-import-text" spellcheck="false" aria-label="Текст notes.js для импорта" ' +
-          'placeholder="window.AI_NOTES = { }"></textarea>' +
-        '<div class="notes-tools-actions">' +
-          '<button type="button" class="ghost" id="notes-import-apply">Импортировать</button>' +
-        '</div>' +
       '</div>' +
       '<p class="notes-tools-orphans" id="notes-orphans"></p>';
     return el;
@@ -1566,9 +1651,7 @@
     var noteAction = t.closest("[data-note]");
     if (noteAction) { handleNoteAction(noteAction); return; }
 
-    if (t.closest("#notes-copy")) { copyAllNotes(); return; }
-    if (t.closest("#notes-import-toggle")) { toggleNotesImport(); return; }
-    if (t.closest("#notes-import-apply")) { applyNotesImport(); return; }
+    if (t.closest("#notes-save")) { saveNotesToFile(); return; }
   });
 
   // Клик вне поповера и Esc закрывают правку заметки.

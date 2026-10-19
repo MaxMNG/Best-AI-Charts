@@ -8,8 +8,8 @@
     F:\Tools GD\AI chart\Best-AI-Charts
 
 - Работай только с файлами внутри неё: `index.html`, `data.js`, `fetch-data.mjs`,
-  `models.config.js`, `README.md`, `AGENTS.md`, `ROADMAP.md`, `update.cmd`,
-  `package.json`, `.gitignore`, `.github/`, `.opencode/skills/`, `.opencode/plan/`.
+  `models.config.js`, `notes.js`, `push-notes.cmd`, `README.md`, `AGENTS.md`, `ROADMAP.md`,
+  `update.cmd`, `package.json`, `.gitignore`, `.github/`, `.opencode/skills/`, `.opencode/plan/`.
 - Всё, что касается проекта, хранится локально в проекте: статус — в `ROADMAP.md`,
   история — в `.opencode/plan/`, описание — в `README.md`, настройки — в
   `models.config.js`. Внешних документов и трекеров нет — новые решения фиксируй
@@ -46,7 +46,8 @@ Artificial Analysis вне подписки — для сравнения, — �
 | Файл | Что делает |
 | --- | --- |
 | `index.html` | Вся страница: стили, разметка, диаграмма, логика отрисовки. Открывать этот файл. |
-| `notes.js` | Личные заметки к моделям (`window.AI_NOTES`) — текст под значком «?» в строке. Правится вручную или переносится со страницы; `update.cmd` его не трогает. |
+| `notes.js` | Личные заметки к моделям (`window.AI_NOTES`) — текст под значком «?» в строке. Правится вручную или записывается со страницы кнопкой «Сохранить заметки»; `update.cmd` его не трогает. |
+| `push-notes.cmd` | Коммитит и пушит `notes.js` на GitHub после записи файла со страницы. |
 | `data.js` | Снимок данных (`window.AI_DATA`). Создаётся скриптом — руками не править. |
 | `fetch-data.mjs` | Собирает данные с Artificial Analysis, из документации OpenCode Go и из арен LMArena, пишет `data.js`. |
 | `models.config.js` | Настройки сбора: тариф, сопоставление моделей, подсказки по провайдерам, параметры метрик (в т.ч. «Визуала»), сколько бесплатных моделей помечать. |
@@ -111,6 +112,9 @@ Artificial Analysis вне подписки — для сравнения, — �
   База лежит в `notes.js` (`window.AI_NOTES`, ключ — `aaSlug`, а без карточки AA — `name`),
   правки со страницы — в `localStorage['modelNotes']` и приоритетнее файла. Пустое значение
   в браузере означает «показать версию из файла». Файл публичный: на Pages заметки видны всем.
+  Кнопка «Сохранить заметки» пишет файл на диск (File System Access API, хендл в IndexedDB),
+  число правок, которых ещё нет в файле, показывается в счётчике; `push-notes.cmd`
+  коммитит и пушит файл.
   Заметка, чей ключ не совпал ни с одной моделью, показывается внизу страницы как «вне списка».
 
 ## UI/UX & Art Style Guidelines
