@@ -64,6 +64,9 @@
   * { box-sizing: border-box; }
   html, body { margin: 0; }
 
+  /* Атрибут hidden должен побеждать display у кнопок и служебных блоков. */
+  [hidden] { display: none !important; }
+
   body {
     background: var(--shell);
     color: var(--ink);
@@ -356,6 +359,145 @@
   .row.out .bar-fill { opacity: 0.3; }
   .row.out .bar-val { color: var(--ink-faint); }
 
+  /* ── личные заметки ────────────────────────────────────────── */
+
+  /* Значок «?» в конце метки строки: наведение показывает заметку, клик —
+     правку. Бледный — заметки нет, залитый акцентом — заметка есть,
+     поэтому размеченные модели видно с первого взгляда. */
+  .note-wrap {
+    position: relative;
+    flex: none;
+    display: inline-flex;
+    padding: 3px 1px;
+    margin: -3px 0;
+  }
+
+  .note-btn {
+    flex: none;
+    width: 18px;
+    height: 18px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font: inherit;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1;
+    border: 1px solid var(--rule);
+    border-radius: 50%;
+    background: var(--paper);
+    color: var(--ink-faint);
+    cursor: pointer;
+    transition: background 140ms ease, border-color 140ms ease, color 140ms ease;
+  }
+
+  .note-btn:hover { border-color: var(--ink-faint); color: var(--ink); }
+  .note-btn.has-note { border-color: var(--ink); background: var(--ink); color: var(--paper); }
+
+  /* Тултип — фиксированный слой: положение считает JS по координатам значка,
+     поэтому заметка не режется краем строки и не растягивает лист. */
+  .note-tip {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 30;
+    width: max-content;
+    max-width: 340px;
+    padding: 9px 11px;
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    background: var(--paper);
+    color: var(--ink-soft);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.14);
+    font-size: 12.5px;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 120ms ease;
+  }
+
+  .note-tip.on { visibility: visible; opacity: 1; }
+  .note-tip-src { display: block; margin-top: 6px; font-size: 11px; color: var(--ink-faint); }
+
+  /* Поповер правки заметки — раскрывается под значком строки. */
+  .note-pop {
+    position: absolute;
+    left: -6px;
+    top: calc(100% + 8px);
+    z-index: 40;
+    width: 340px;
+    max-width: calc(100vw - 40px);
+    padding: 12px;
+    border: 1px solid var(--ink-faint);
+    border-radius: var(--radius);
+    background: var(--paper);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+    text-align: left;
+  }
+
+  .note-pop-src { font-size: 11px; color: var(--ink-faint); margin-bottom: 7px; }
+
+  /* У последних строк места внизу нет — поповер раскрывается над значком. */
+  .note-pop.up { top: auto; bottom: calc(100% + 8px); }
+
+  .note-pop textarea {
+    display: block;
+    width: 100%;
+    min-height: 92px;
+    resize: vertical;
+    font: inherit;
+    font-size: 12.5px;
+    line-height: 1.5;
+    color: var(--ink);
+    background: var(--shell);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    padding: 8px 9px;
+  }
+
+  .note-pop-actions { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 9px; }
+  .note-pop-actions .ghost { padding: 6px 9px; }
+
+  /* Блок внизу листа: перенос заметок в файл и заметки вне списка. */
+  .notes-tools {
+    margin-top: 22px;
+    padding-top: 20px;
+    border-top: 1px solid var(--rule);
+    font-size: 12.5px;
+    color: var(--ink-soft);
+  }
+
+  .notes-tools h3 { margin: 0 0 6px; font-size: 12.5px; font-weight: 600; color: var(--ink); }
+  .notes-tools p { margin: 0; max-width: 86ch; }
+  .notes-tools code { font-family: inherit; font-weight: 600; background: var(--track); padding: 1px 5px; border-radius: 2px; }
+
+  .notes-tools-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 12px; }
+  .notes-tools-count,
+  .notes-tools-status { color: var(--ink-faint); }
+
+  .notes-tools-import { margin-top: 10px; }
+
+  .notes-tools-import textarea {
+    display: block;
+    width: 100%;
+    min-height: 116px;
+    resize: vertical;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--ink);
+    background: var(--shell);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    padding: 9px 10px;
+  }
+
+  .notes-tools-orphans { margin-top: 10px; color: var(--ink-faint); }
+  .notes-tools-orphans:empty { display: none; }
+
   /* ── примечания ────────────────────────────────────────────── */
 
   .notes {
@@ -424,6 +566,7 @@
   <div id="app"></div>
 </div>
 
+<script src="notes.js"></script>
 <script src="data.js"></script>
 <script>
 (function () {
@@ -457,6 +600,26 @@
 
   var DATA, MODELS, METRICS, RANGE, current;
   var chartEl, rowNodes;
+
+  /* ── личные заметки ──────────────────────────────────────── */
+
+  /* База заметок — файл notes.js (window.AI_NOTES), локальный слой —
+     localStorage. Ключ модели тот же, что у строк: aaSlug, а без карточки
+     на AA — название. Правило одно: есть локальная правка — показываем её,
+     пусто — показываем версию из файла (поэтому удалить заметку из файла
+     со страницы нельзя, только правкой самого файла). */
+  var NOTES_LS_KEY = "modelNotes";
+  var NOTES_FILE_HEADER =
+    '/* Личные заметки к моделям («?» у названия на странице).\n' +
+    '   Ключ — slug модели на Artificial Analysis (поле aaSlug в data.js),\n' +
+    '   для моделей без карточки на AA — название как в списке (поле name).\n' +
+    '   Файл публичный: на GitHub Pages заметки видны всем. */\n';
+
+  var notesBase = readBaseNotes();
+  var notesLocal = loadLocalNotes();
+  var modelByKey = {};
+  var noteOpenKey = null;
+  var notesStatusTimer;
 
   /* ── форматирование ──────────────────────────────────────── */
 
@@ -569,6 +732,405 @@
     return new Date(DATA.meta.generatedAt).toLocaleString("ru-RU", {
       day: "numeric", month: "long", year: "numeric", hour: "2-digit", minute: "2-digit"
     });
+  }
+
+  /* ── личные заметки ──────────────────────────────────────── */
+
+  /** База из notes.js. Файла может не быть — тогда заметок просто нет. */
+  function readBaseNotes() {
+    var raw = window.AI_NOTES;
+    return raw && typeof raw === "object" && !Array.isArray(raw) ? raw : {};
+  }
+
+  function loadLocalNotes() {
+    try {
+      var raw = localStorage.getItem(NOTES_LS_KEY);
+      var obj = raw ? JSON.parse(raw) : null;
+      return obj && typeof obj === "object" && !Array.isArray(obj) ? obj : {};
+    } catch (e) { return {}; }
+  }
+
+  function saveLocalNotes() {
+    try { localStorage.setItem(NOTES_LS_KEY, JSON.stringify(notesLocal)); } catch (e) { /* приватный режим */ }
+  }
+
+  /** Заметка строки: локальная правка приоритетнее версии из notes.js. */
+  function noteFor(key) {
+    var local = notesLocal[key];
+    if (typeof local === "string" && local) return { text: local, source: "local" };
+    var base = notesBase[key];
+    if (typeof base === "string" && base) return { text: base, source: "file" };
+    return null;
+  }
+
+  function noteSourceLabel(key) {
+    if (typeof notesLocal[key] === "string" && notesLocal[key]) return "Локальная правка — хранится только в этом браузере";
+    if (typeof notesBase[key] === "string" && notesBase[key]) return "Из notes.js — правка сохранится только в этом браузере";
+    return "Новая заметка — сохранится в этом браузере";
+  }
+
+  function applyNoteState(row, m) {
+    var key = keyOf(m);
+    var btn = row.querySelector(".note-btn");
+    var tip = row.querySelector(".note-tip");
+    if (!btn || !tip) return;
+
+    var note = noteFor(key);
+    var text = note ? note.text : "";
+    if (text) btn.classList.add("has-note"); else btn.classList.remove("has-note");
+
+    // Заметки нет — тултип подсказывает, что значок кликабельный.
+    tip.innerHTML = text
+      ? '<span class="note-tip-text">' + esc(text) + '</span>' +
+        '<span class="note-tip-src">' +
+        (note.source === "local" ? "Локальная правка — только в этом браузере" : "Из notes.js") +
+        '</span>'
+      : '<span class="note-tip-src">Заметки нет. Нажмите «?», чтобы добавить.</span>';
+  }
+
+  function paintNoteStates() {
+    MODELS.forEach(function (m) {
+      var row = rowNodes.get(keyOf(m));
+      if (row) applyNoteState(row, m);
+    });
+    updateNotesTools();
+  }
+
+  /** Заметки, чьи ключи не совпали ни с одной моделью — например, AA переименовал slug. */
+  function orphanNotes() {
+    var known = {};
+    MODELS.forEach(function (m) { known[keyOf(m)] = true; });
+    var list = [];
+    [notesBase, notesLocal].forEach(function (src) {
+      Object.keys(src).forEach(function (k) {
+        if (known[k] || list.indexOf(k) !== -1) return;
+        if (typeof src[k] === "string" && src[k]) list.push(k);
+      });
+    });
+    return list;
+  }
+
+  function updateNotesTools() {
+    var count = 0;
+    MODELS.forEach(function (m) { if (noteFor(keyOf(m))) count++; });
+
+    var countEl = root.querySelector("#notes-count");
+    if (countEl) countEl.textContent = count ? "Заметок: " + count + " из " + MODELS.length : "Заметок пока нет";
+
+    var orphans = orphanNotes();
+    var orphEl = root.querySelector("#notes-orphans");
+    if (orphEl) {
+      orphEl.textContent = orphans.length
+        ? "Заметок вне списка: " + orphans.length + " (" + orphans.join(", ") + "). " +
+          "Похоже, модель переименовали на Artificial Analysis — поправьте ключ в notes.js."
+        : "";
+    }
+  }
+
+  function setNotesStatus(text) {
+    var el = root.querySelector("#notes-status");
+    if (!el) return;
+    el.textContent = text || "";
+    window.clearTimeout(notesStatusTimer);
+    if (text) {
+      notesStatusTimer = window.setTimeout(function () {
+        var now = root.querySelector("#notes-status");
+        if (now) now.textContent = "";
+      }, 7000);
+    }
+  }
+
+  function hideNoteTips() {
+    Array.prototype.forEach.call(root.querySelectorAll(".note-tip.on"), function (el) {
+      el.classList.remove("on");
+    });
+  }
+
+  function showNoteTip(btn, tip) {
+    var wrap = btn.parentNode;
+    if (!tip.innerHTML || (wrap && wrap.classList.contains("open"))) return;
+
+    tip.classList.add("on");
+    var r = btn.getBoundingClientRect();
+    var vw = document.documentElement.clientWidth;
+    var pad = 10;
+    var w = tip.offsetWidth;
+    var h = tip.offsetHeight;
+    var left = Math.min(Math.max(pad, r.left), Math.max(pad, vw - pad - w));
+    var top = r.bottom + 7;
+    // У нижнего края окна показываем заметку над значком.
+    if (top + h > window.innerHeight - pad) top = Math.max(pad, r.top - 7 - h);
+    tip.style.left = left + "px";
+    tip.style.top = top + "px";
+  }
+
+  function closeNoteEditor(restoreFocus) {
+    var pop = chartEl && chartEl.querySelector(".note-pop");
+    var wrap = pop && pop.parentNode;
+    var key = noteOpenKey;
+    var hadFocus = !!(pop && pop.contains(document.activeElement));
+
+    if (pop && wrap) wrap.removeChild(pop);
+    if (wrap) wrap.classList.remove("open");
+    if (chartEl) {
+      Array.prototype.forEach.call(chartEl.querySelectorAll(".note-btn"), function (b) {
+        b.setAttribute("aria-expanded", "false");
+      });
+    }
+    noteOpenKey = null;
+
+    // Закрыли по Esc или кнопкой — возвращаем фокус на значок строки. При клике
+    // мимо фокус не трогаем: пользователь уже выбрал, куда смотреть.
+    if (restoreFocus && hadFocus && key && rowNodes) {
+      var row = rowNodes.get(key);
+      var btn = row && row.querySelector(".note-btn");
+      if (btn) {
+        try { btn.focus({ preventScroll: true }); } catch (e) { btn.focus(); }
+      }
+    }
+  }
+
+  function openNoteEditor(row, m) {
+    closeNoteEditor();
+
+    var wrap = row.querySelector(".note-wrap");
+    if (!wrap) return;
+
+    var btn = wrap.querySelector(".note-btn");
+    var tip = wrap.querySelector(".note-tip");
+    var key = keyOf(m);
+    var note = noteFor(key);
+    var hasLocal = typeof notesLocal[key] === "string" && !!notesLocal[key];
+
+    var pop = document.createElement("div");
+    pop.className = "note-pop";
+    pop.setAttribute("role", "dialog");
+    pop.setAttribute("aria-modal", "false");
+    pop.setAttribute("aria-label", "Заметка о модели " + m.name);
+    pop.innerHTML =
+      '<div class="note-pop-src">' + esc(noteSourceLabel(key)) + '</div>' +
+      '<textarea spellcheck="false" aria-label="Текст заметки"></textarea>' +
+      '<div class="note-pop-actions">' +
+        '<button type="button" class="ghost" data-note="save">Сохранить</button>' +
+        '<button type="button" class="ghost" data-note="reset"' + (hasLocal ? "" : " hidden") + '>Сбросить к файлу</button>' +
+        '<button type="button" class="ghost" data-note="close">Закрыть</button>' +
+      '</div>';
+
+    var ta = pop.querySelector("textarea");
+    ta.value = note ? note.text : "";
+
+    tip.classList.remove("on");
+    wrap.classList.add("open");
+    wrap.appendChild(pop);
+
+    // Держим поповер в пределах окна: у нижних строк раскрываем его вверх,
+    // на узком экране сдвигаем влево, чтобы не появлялась горизонтальная прокрутка.
+    // clientWidth, а не innerWidth: последний включает ширину вертикального скроллбара.
+    var wr = wrap.getBoundingClientRect();
+    var vw = document.documentElement.clientWidth;
+    var pad = 8;
+    if (wr.bottom + 8 + pop.offsetHeight > window.innerHeight - pad &&
+        wr.top - 8 - pop.offsetHeight > pad) {
+      pop.classList.add("up");
+    }
+    var pr = pop.getBoundingClientRect();
+    var shift = 0;
+    if (pr.right > vw - pad) shift = vw - pad - pr.right;
+    if (pr.left + shift < pad) shift = pad - pr.left;
+    if (shift) pop.style.left = (pop.offsetLeft + shift) + "px";
+
+    btn.setAttribute("aria-expanded", "true");
+    noteOpenKey = key;
+
+    // preventScroll: иначе фокус в поле дёргает страницу к строке с заметкой.
+    try { ta.focus({ preventScroll: true }); } catch (e) { ta.focus(); }
+    ta.setSelectionRange(ta.value.length, ta.value.length);
+  }
+
+  function handleNoteAction(btn) {
+    var pop = btn.closest(".note-pop");
+    var row = btn.closest(".row");
+    if (!pop || !row) return;
+
+    var key = row.dataset.key;
+    var m = modelByKey[key];
+    var act = btn.dataset.note;
+
+    if (act === "close") { closeNoteEditor(true); return; }
+
+    if (act === "reset") {
+      delete notesLocal[key];
+      saveLocalNotes();
+      closeNoteEditor(true);
+      if (m) applyNoteState(row, m);
+      updateNotesTools();
+      setNotesStatus("Локальная правка убрана — показывается версия из notes.js");
+      return;
+    }
+
+    var ta = pop.querySelector("textarea");
+    var text = ta ? ta.value.trim() : "";
+    if (text) notesLocal[key] = text; else delete notesLocal[key];
+    saveLocalNotes();
+    closeNoteEditor(true);
+    if (m) applyNoteState(row, m);
+    updateNotesTools();
+    setNotesStatus(text ? "Заметка сохранена в этом браузере" : "Заметка пустая — локальная правка убрана");
+  }
+
+  /** Готовый текст notes.js с текущими заметками — в порядке списка на странице. */
+  function notesSnippet() {
+    var order = [];
+    var seen = {};
+    sortModels(current).forEach(function (m) {
+      var k = keyOf(m);
+      if (!seen[k]) { seen[k] = 1; order.push(k); }
+    });
+    // Заметки вне списка тоже переносим — иначе они потерялись бы при вставке.
+    [notesBase, notesLocal].forEach(function (src) {
+      Object.keys(src).forEach(function (k) { if (!seen[k]) { seen[k] = 1; order.push(k); } });
+    });
+
+    var lines = [];
+    order.forEach(function (k) {
+      var note = noteFor(k);
+      if (note) lines.push("  " + JSON.stringify(k) + ": " + JSON.stringify(note.text) + ",");
+    });
+
+    return NOTES_FILE_HEADER + "window.AI_NOTES = {\n" + (lines.length ? lines.join("\n") + "\n" : "") + "};\n";
+  }
+
+  /** Копирование через буфер; на file:// буфер может быть недоступен — тогда execCommand. */
+  function legacyCopy(text) {
+    var ta = document.createElement("textarea");
+    ta.value = text;
+    ta.setAttribute("readonly", "");
+    ta.setAttribute("aria-hidden", "true");
+    ta.style.position = "fixed";
+    ta.style.top = "-2000px";
+    document.body.appendChild(ta);
+    ta.select();
+    var ok = false;
+    try { ok = document.execCommand("copy"); } catch (e) { ok = false; }
+    document.body.removeChild(ta);
+    return ok;
+  }
+
+  function copyText(text, done) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(
+        function () { done(true); },
+        function () { done(legacyCopy(text)); }
+      );
+      return;
+    }
+    done(legacyCopy(text));
+  }
+
+  function copyAllNotes() {
+    var text = notesSnippet();
+    copyText(text, function (ok) {
+      if (ok) {
+        setNotesStatus("Скопировано — вставьте в notes.js в папке проекта");
+      } else {
+        setNotesStatus("Буфер недоступен: текст показан ниже — скопируйте вручную");
+        showNotesImport(text);
+      }
+    });
+  }
+
+  function showNotesImport(text) {
+    var box = root.querySelector("#notes-import");
+    var ta = root.querySelector("#notes-import-text");
+    if (!box || !ta) return;
+    box.hidden = false;
+    if (text != null) ta.value = text;
+    ta.focus();
+  }
+
+  function toggleNotesImport() {
+    var box = root.querySelector("#notes-import");
+    if (!box) return;
+    if (!box.hidden) { box.hidden = true; setNotesStatus(""); return; }
+    showNotesImport(null);
+  }
+
+  /**
+   * Разбор вставленного notes.js. Импортируем ровно тот формат, который сами
+   * же экспортировали: это литерал объекта, и уровень доверия у него тот же,
+   * что у notes.js, который страница и так исполняет.
+   *
+   * Импорт заменяет локальный слой целиком, но записи, совпадающие с notes.js,
+   * не дублируются: иначе они навсегда перекрыли бы будущие правки файла.
+   */
+  function parseNotesText(text) {
+    var body = String(text || "").trim();
+    if (!body) return { ok: false, error: "пустой текст" };
+
+    var assign = body.match(/window\.AI_NOTES\s*=\s*/);
+    if (assign) body = body.slice(assign.index + assign[0].length).replace(/;\s*$/, "");
+
+    var obj;
+    try { obj = (new Function("return (" + body + ");"))(); }
+    catch (e) { return { ok: false, error: "не удалось разобрать текст" }; }
+
+    if (!obj || typeof obj !== "object" || Array.isArray(obj)) {
+      return { ok: false, error: 'ожидался объект вида { "ключ": "текст" }' };
+    }
+
+    var next = {};
+    var count = 0;
+    Object.keys(obj).forEach(function (k) {
+      var v = obj[k];
+      if (typeof v !== "string") return;
+      var s = v.trim();
+      if (!s) return;
+      if (typeof notesBase[k] === "string" && notesBase[k] === s) return;
+      next[k] = s;
+      count++;
+    });
+
+    notesLocal = next;
+    saveLocalNotes();
+    return { ok: true, count: count };
+  }
+
+  function applyNotesImport() {
+    var ta = root.querySelector("#notes-import-text");
+    if (!ta) return;
+    var res = parseNotesText(ta.value);
+    if (!res.ok) { setNotesStatus("Импорт не удался: " + res.error); return; }
+    closeNoteEditor();
+    paintNoteStates();
+    setNotesStatus("Импортировано заметок: " + res.count);
+  }
+
+  function buildNotesTools() {
+    var el = document.createElement("div");
+    el.className = "notes-tools";
+    el.innerHTML =
+      '<div class="notes-tools-text">' +
+        '<h3>Личные заметки</h3>' +
+        '<p>У каждой модели есть значок <code>?</code>: наведение показывает заметку, клик — правку. ' +
+        'Текст из <code>notes.js</code> виден всем, кто открыл страницу в интернете; правки в браузере ' +
+        'хранятся только у вас. Чтобы перенести их в файл, скопируйте заметки и вставьте ' +
+        'в <code>notes.js</code> в папке проекта.</p>' +
+      '</div>' +
+      '<div class="notes-tools-actions">' +
+        '<span class="notes-tools-count" id="notes-count"></span>' +
+        '<button type="button" class="ghost" id="notes-copy">Скопировать все заметки как notes.js</button>' +
+        '<button type="button" class="ghost" id="notes-import-toggle">Вставить из notes.js</button>' +
+        '<span class="notes-tools-status" id="notes-status" aria-live="polite"></span>' +
+      '</div>' +
+      '<div class="notes-tools-import" id="notes-import" hidden>' +
+        '<textarea id="notes-import-text" spellcheck="false" aria-label="Текст notes.js для импорта" ' +
+          'placeholder="window.AI_NOTES = { }"></textarea>' +
+        '<div class="notes-tools-actions">' +
+          '<button type="button" class="ghost" id="notes-import-apply">Импортировать</button>' +
+        '</div>' +
+      '</div>' +
+      '<p class="notes-tools-orphans" id="notes-orphans"></p>';
+    return el;
   }
 
   /* ── разметка: шапка и переключатель ─────────────────────── */
@@ -692,7 +1254,8 @@
     chartEl.innerHTML =
       '<div class="chart-grid"><i style="left:25%"></i><i style="left:50%"></i><i style="left:75%"></i></div>';
 
-    MODELS.forEach(function (m) {
+    MODELS.forEach(function (m, index) {
+      var tipId = "note-tip-" + index;
       var row = document.createElement("div");
       row.className = "row" + (m.inGo ? "" : " out");
       row.dataset.key = keyOf(m);
@@ -703,6 +1266,11 @@
           '<span class="row-name" title="' + esc(m.name + " · " + m.creator) + '">' + esc(m.name) + '</span>' +
           '<span class="badge"></span>' +
           '<span class="badge free"></span>' +
+          '<span class="note-wrap">' +
+            '<button type="button" class="note-btn" aria-expanded="false" aria-describedby="' + tipId + '" ' +
+              'aria-label="Заметка о модели ' + esc(m.name) + '">?</button>' +
+            '<span class="note-tip" role="tooltip" id="' + tipId + '"></span>' +
+          '</span>' +
         '</div>' +
         '<span class="row-num int"></span>' +
         '<span class="row-num profit"></span>' +
@@ -714,6 +1282,16 @@
           '</div>' +
         '</div>';
       rowNodes.set(keyOf(m), row);
+
+      // Заметка: наведение и фокус показывают тултип, клик открывает правку.
+      var noteWrap = row.querySelector(".note-wrap");
+      var noteBtn = row.querySelector(".note-btn");
+      var noteTip = row.querySelector(".note-tip");
+      noteWrap.addEventListener("mouseenter", function () { showNoteTip(noteBtn, noteTip); });
+      noteWrap.addEventListener("mouseleave", function () { noteTip.classList.remove("on"); });
+      noteBtn.addEventListener("focus", function () { showNoteTip(noteBtn, noteTip); });
+      noteBtn.addEventListener("blur", function () { noteTip.classList.remove("on"); });
+
       chartEl.appendChild(row);
     });
 
@@ -767,6 +1345,9 @@
   function paint(initial) {
     var sorted = sortModels(current);
 
+    // Смена сортировки переставляет строки — открытый редактор заметки закрываем.
+    closeNoteEditor();
+
     Array.prototype.forEach.call(root.querySelectorAll(".seg button"), function (b) {
       b.setAttribute("aria-pressed", String(b.dataset.metric === current.id));
     });
@@ -780,6 +1361,8 @@
       chartEl.appendChild(row);
       paintRow(row, m, i + 1, current, initial ? "initial" : "update", Math.min(i * 11, 240));
     });
+
+    paintNoteStates();
 
     if (initial) {
       window.setTimeout(function () {
@@ -824,41 +1407,66 @@
     if (el) el.textContent = text || "";
   }
 
+  /** Подключить внешний скрипт с обходом кэша; вернуть признак успеха. */
+  function loadScript(id, src, done) {
+    var prev = document.getElementById(id);
+    var script = document.createElement("script");
+    script.id = id;
+    script.src = src;
+    script.onload = function () {
+      if (prev && prev.parentNode) prev.parentNode.removeChild(prev);
+      done(true);
+    };
+    script.onerror = function () {
+      if (prev && prev.parentNode) prev.parentNode.removeChild(prev);
+      done(false);
+    };
+    document.body.appendChild(script);
+  }
+
   function refreshData(opts) {
     var silent = !!(opts && opts.silent);
     var btn = root.querySelector("#refresh-btn");
     if (btn) btn.disabled = true;
     if (!silent) setStatus("Обновляю…");
 
-    var prev = document.getElementById("data-script");
-    var script = document.createElement("script");
-    script.id = "data-script";
-    script.src = "data.js?t=" + Date.now();
-    script.onload = function () {
-      if (btn) btn.disabled = false;
-      var fresh = window.AI_DATA;
-      if (!fresh || !fresh.models) {
-        if (!silent) setStatus("Не удалось прочитать data.js");
-        return;
-      }
-      var before = DATA && DATA.meta ? DATA.meta.generatedAt : null;
-      var after = fresh.meta ? fresh.meta.generatedAt : null;
-      // Снимок не изменился — не перерисовываем: не мигаем и не гоняем анимацию заново.
-      if (before === after) {
-        if (!silent) setStatus("Уже актуально");
-        return;
-      }
-      render(fresh, current ? current.id : null);
-      setStatus("Обновлено " + new Date(after).toLocaleTimeString("ru-RU", { hour: "2-digit", minute: "2-digit" }));
-      window.clearTimeout(statusTimer);
-      statusTimer = window.setTimeout(function () { setStatus(""); }, 6000);
-    };
-    script.onerror = function () {
-      if (btn) btn.disabled = false;
-      if (!silent) setStatus("Не удалось прочитать data.js");
-    };
-    if (prev && prev.parentNode) prev.parentNode.removeChild(prev);
-    document.body.appendChild(script);
+    var beforeAt = DATA && DATA.meta ? DATA.meta.generatedAt : null;
+    var beforeNotes = JSON.stringify(notesBase);
+
+    loadScript("data-script", "data.js?t=" + Date.now(), function (okData) {
+      // Заметки могли поправить в файле — перечитываем их вместе с данными.
+      loadScript("notes-script", "notes.js?t=" + Date.now(), function (okNotes) {
+        if (okNotes) notesBase = readBaseNotes();
+        if (btn) btn.disabled = false;
+
+        if (!okData) {
+          if (!silent) setStatus("Не удалось прочитать data.js");
+          return;
+        }
+        var fresh = window.AI_DATA;
+        if (!fresh || !fresh.models) {
+          if (!silent) setStatus("Не удалось прочитать data.js");
+          return;
+        }
+
+        var afterAt = fresh.meta ? fresh.meta.generatedAt : null;
+        var notesChanged = JSON.stringify(notesBase) !== beforeNotes;
+
+        // Снимок не изменился — не перерисовываем список, но заметки из файла
+        // обновляем: их правят руками, и это единственный способ увидеть правку
+        // без перезагрузки вкладки.
+        if (beforeAt === afterAt) {
+          if (notesChanged) paintNoteStates();
+          if (!silent) setStatus(notesChanged ? "Заметки обновлены" : "Уже актуально");
+          return;
+        }
+
+        render(fresh, current ? current.id : null);
+        setStatus("Обновлено " + new Date(afterAt).toLocaleTimeString("ru-RU", { hour: "2-digit", minute: "2-digit" }));
+        window.clearTimeout(statusTimer);
+        statusTimer = window.setTimeout(function () { setStatus(""); }, 6000);
+      });
+    });
   }
 
   /* ── сборка страницы ─────────────────────────────────────── */
@@ -914,6 +1522,9 @@
     METRICS.forEach(function (m) { RANGE[m.id] = scoreRange(m); });
 
     rowNodes = new Map();
+    modelByKey = {};
+    MODELS.forEach(function (m) { modelByKey[keyOf(m)] = m; });
+    noteOpenKey = null;
 
     root.innerHTML = headHtml();
 
@@ -922,6 +1533,7 @@
     root.appendChild(chartEl);
 
     root.appendChild(buildNotes());
+    root.appendChild(buildNotesTools());
 
     // Сохраняем выбранную метрику при обновлении данных, иначе откатываемся к первой.
     current = METRICS.filter(function (m) { return m.id === preferredId; })[0] || METRICS[0];
@@ -938,7 +1550,49 @@
     if (seg) { selectMetric(seg.dataset.metric); return; }
     if (t.closest("#theme-toggle")) { toggleTheme(); return; }
     if (t.closest("#refresh-btn")) { refreshData(); return; }
+
+    // Заметки: значок в строке открывает правку, кнопки в поповере — действия.
+    var noteBtn = t.closest(".note-btn");
+    if (noteBtn) {
+      var row = noteBtn.closest(".row");
+      var model = row && modelByKey[row.dataset.key];
+      if (row && model) {
+        if (noteOpenKey === row.dataset.key) closeNoteEditor();
+        else openNoteEditor(row, model);
+      }
+      return;
+    }
+
+    var noteAction = t.closest("[data-note]");
+    if (noteAction) { handleNoteAction(noteAction); return; }
+
+    if (t.closest("#notes-copy")) { copyAllNotes(); return; }
+    if (t.closest("#notes-import-toggle")) { toggleNotesImport(); return; }
+    if (t.closest("#notes-import-apply")) { applyNotesImport(); return; }
   });
+
+  // Клик вне поповера и Esc закрывают правку заметки.
+  document.addEventListener("mousedown", function (e) {
+    if (!noteOpenKey) return;
+    var el = e.target;
+    if (el && el.closest && (el.closest(".note-pop") || el.closest(".note-btn"))) return;
+    closeNoteEditor();
+  });
+
+  document.addEventListener("keydown", function (e) {
+    if (!noteOpenKey) return;
+    if (e.key === "Escape") { closeNoteEditor(true); return; }
+    if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
+      e.preventDefault();
+      var save = chartEl.querySelector('.note-pop [data-note="save"]');
+      if (save) handleNoteAction(save);
+    }
+  });
+
+  // Тултип заметки зафиксирован в окне: при прокрутке и ресайзе его прячем,
+  // иначе он «отрывается» от значка.
+  window.addEventListener("scroll", hideNoteTips, true);
+  window.addEventListener("resize", hideNoteTips);
 
   render(window.AI_DATA);
 

@@ -10,6 +10,10 @@
 - Работай только с файлами внутри неё: `index.html`, `data.js`, `fetch-data.mjs`,
   `models.config.js`, `README.md`, `AGENTS.md`, `ROADMAP.md`, `update.cmd`,
   `package.json`, `.gitignore`, `.github/`, `.opencode/skills/`, `.opencode/plan/`.
+- Всё, что касается проекта, хранится локально в проекте: статус — в `ROADMAP.md`,
+  история — в `.opencode/plan/`, описание — в `README.md`, настройки — в
+  `models.config.js`. Внешних документов и трекеров нет — новые решения фиксируй
+  в этих файлах.
 - Не читай, не ищи и не меняй файлы за её пределами. Соседние папки на диске
   (например `F:\GODOT\...`) к задаче не относятся — не открывай их.
 - Не читай `AGENTS.md` других проектов и не ориентируйся на них.
@@ -42,6 +46,7 @@ Artificial Analysis вне подписки — для сравнения, — �
 | Файл | Что делает |
 | --- | --- |
 | `index.html` | Вся страница: стили, разметка, диаграмма, логика отрисовки. Открывать этот файл. |
+| `notes.js` | Личные заметки к моделям (`window.AI_NOTES`) — текст под значком «?» в строке. Правится вручную или переносится со страницы; `update.cmd` его не трогает. |
 | `data.js` | Снимок данных (`window.AI_DATA`). Создаётся скриптом — руками не править. |
 | `fetch-data.mjs` | Собирает данные с Artificial Analysis, из документации OpenCode Go и из арен LMArena, пишет `data.js`. |
 | `models.config.js` | Настройки сбора: тариф, сопоставление моделей, подсказки по провайдерам, параметры метрик (в т.ч. «Визуала»), сколько бесплатных моделей помечать. |
@@ -50,6 +55,25 @@ Artificial Analysis вне подписки — для сравнения, — �
 | `ROADMAP.md` | План работ и статус задач. |
 | `.opencode/plan/` | Согласованные планы (например, исторический план первой очереди). |
 | `.github/workflows/update-data.yml` | Автосборка `data.js` на GitHub по расписанию. |
+| `cyber/`, `cyber-app/` | Эксперимент в стиле киберпанк: готовая страница (`cyber/index.html`) и её исходники. |
+| `hi-tech/` | Эксперимент hi-tech: собранная статика React-версии страницы (коммитится). |
+| `hitech-app/` | Исходники `hi-tech/`: Vite + React + Tailwind, `DESIGN.md` — дизайн-система. |
+
+## Эксперимент `hi-tech/`
+
+- Сборка: `npm install`, затем `npm run build` в `hitech-app/` — вывод идёт в `hi-tech/`
+  (там же `base: './'`). `npm run dev` — живой предпросмотр.
+- Сборка склеивается в **один самодостаточный `hi-tech/index.html`** (`scripts/inline.mjs`
+  вшивает JS и CSS, папки `assets/` нет) — как `cyber/index.html`, страница открывается
+  двойным кликом: внешний `<script type="module">` Chrome с `file://` не грузит.
+- Данные те же: на http(s) страница читает корневой `../data.js` с обходом кэша, а в сборку
+  вшит снимок (`hitech-app/src/data/snapshot.json`, генерируется `prebuild`-скриптом,
+  в репозиторий не коммитится). После `update.cmd` пересобирать `hi-tech/` не обязательно,
+  но полезно, чтобы вшитый снимок тоже обновился.
+- Логика метрик портирована из `index.html` в `hitech-app/src/lib/metrics.ts` — при правке
+  расчётов менять обе реализации и сверять порядок и длины полос.
+- Стиль и токены — в `hitech-app/DESIGN.md`; гайдлайн из раздела UI/UX ниже действует
+  на `cyber/` и `hi-tech/`, но у каждого своя трактовка (неон против минимализма).
 
 ## Как обновить данные
 
@@ -83,18 +107,23 @@ Artificial Analysis вне подписки — для сравнения, — �
   добавляются: бейдж встаёт на уже существующую модель из Go (для сравнения нужна Intelligence
   с Artificial Analysis).
 - Ноль хардкода в разметке под данные: числа и тексты метрик берутся из `data.js`.
+- Личные заметки к моделям не хранятся в `data.js` — его перезаписывает `fetch-data.mjs`.
+  База лежит в `notes.js` (`window.AI_NOTES`, ключ — `aaSlug`, а без карточки AA — `name`),
+  правки со страницы — в `localStorage['modelNotes']` и приоритетнее файла. Пустое значение
+  в браузере означает «показать версию из файла». Файл публичный: на Pages заметки видны всем.
+  Заметка, чей ключ не совпал ни с одной моделью, показывается внизу страницы как «вне списка».
 
 ## UI/UX & Art Style Guidelines
 
-**Область действия — только экспериментальная страница `cyber/` (см. `ROADMAP.md`).**
+**Область действия — только экспериментальные страницы `cyber/` и `hi-tech/` (см. `ROADMAP.md`).**
 К текущим `index.html`, `fetch-data.mjs`, `data.js` и `models.config.js` этот гайдлайн
 не применяется: они остаются на ванильном стеке без сборки и зависимостей.
 
 - **Framework:** Always use Tailwind CSS. Never write raw CSS.
 - **Design System:** Use shadcn/ui styles. Prefer modern Glassmorphism (backdrop-blur, semi-transparent backgrounds).
 - **Animations:** For effects, always use Framer Motion or Tailwind transition/animate utilities (e.g., transition-all duration-300 ease-in-out).
-- **Color Palette:** Cyberpunk / Sci-Fi. Glow effects via box-shadow with neon colors.
+- **Color Palette:** `cyber/` — Cyberpunk / Sci-Fi, glow через box-shadow с неоном; `hi-tech/` — сдержанный hi-tech минимализм, читаемость цифр важнее эффектов.
 - **Micro-interactions:** Every button MUST have hover:scale-105 active:scale-95 and smooth background transitions.
 
-Дизайн-скилы для этой страницы лежат в `.opencode/skills/` (источники — в
+Дизайн-скилы для этих страниц лежат в `.opencode/skills/` (источники — в
 `.opencode/skills/README.md`).

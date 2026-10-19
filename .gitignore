@@ -43,6 +43,10 @@ out/
 .yarn/install-state.gz
 .pnp.*
 
+### Проект
+# Снимок для сборки hi-tech: генерируется prebuild-скриптом из корневого data.js
+hitech-app/src/data/snapshot.json
+
 ### Windows
 # Windows thumbnail cache files
 Thumbs.db
