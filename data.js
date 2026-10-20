@@ -2,7 +2,7 @@
    Ручные правки будут перезаписаны. Настройки — в models.config.js. */
 window.AI_DATA = {
   "meta": {
-    "generatedAt": "2026-10-18T22:43:01.169Z",
+    "generatedAt": "2026-10-20T00:04:46.640Z",
     "plan": {
       "id": "go",
       "label": "OpenCode Go",
@@ -95,34 +95,34 @@ window.AI_DATA = {
             "category": "overall"
           }
         },
-        "asOf": "2026-10-16"
+        "asOf": "2026-10-18"
       }
     },
     "counts": {
       "total": 49,
       "inGo": 29,
       "extraFromAA": 20,
-      "unmatched": 9,
-      "withoutIntelligence": 9,
-      "withVisual": 28,
-      "withAesthetics": 28,
-      "freeInOc": 3,
+      "unmatched": 10,
+      "withoutIntelligence": 10,
+      "withVisual": 26,
+      "withAesthetics": 26,
+      "freeInOc": 4,
       "freeAvailable": 6
     },
     "free": {
       "topN": 3,
       "top": [
         {
+          "name": "MiniMax M3.1 Flash Free",
+          "base": "MiniMax M3.1 Flash",
+          "intelligence": 42.3811052132362,
+          "aaSlug": "minimax-m3-1-flash"
+        },
+        {
           "name": "GLM-5.3-Flash Free",
           "base": "GLM-5.3-Flash",
           "intelligence": 41.807466113455,
           "aaSlug": "glm-5-3-flash"
-        },
-        {
-          "name": "DeepSeek V4.1 Flash Free",
-          "base": "DeepSeek V4.1 Flash",
-          "intelligence": 39.456167472527,
-          "aaSlug": "deepseek-v4-1-flash"
         },
         {
           "name": "MiMo-V2.6-Flash Free",
@@ -146,7 +146,7 @@ window.AI_DATA = {
       "aesthetics": "Насколько модель в целом хорошо работает с визуалом: смотрит скриншоты, понимает, что такое красиво, собирает UI/UX. Собран из арен LMArena, где люди сравнивают работы моделей попарно: повтор по скриншотам image_to_webdev (вес 40%), общее качество UI webdev overall (30%) и зрение vision overall (30%). Это голоса людей, а не измерение красоты: у Artificial Analysis бенчмарков про дизайн, UI и зрение в Intelligence Index нет. Балла нет без верстки; зрение уточняет балл, когда оно измерено (арены отстают от релизов). Состав балла виден в подсказке строки. Выше — лучше. 2D приоритетно, 3D отдельным сигналом не меряем.",
       "costPerTask": "Artificial Analysis: средняя стоимость одной задачи Intelligence Index по прайсу провайдера, в USD. Это не цена подписки Go. Ниже — лучше.",
       "efficiency": "Показатель учитывающий то насколько модель имеет высокий интеллект и при этом как много лимитов под неё выделяет подписка OpenCode Go. Чем выше показатель — тем целесообразнее использовать модель для постоянной работы.",
-      "free": "Помимо подписки OpenCode Go часть моделей доступна бесплатно, без подписки. Самые умные из них по Artificial Analysis — GLM-5.3-Flash Free, DeepSeek V4.1 Flash Free, MiMo-V2.6-Flash Free — отмечены в списке зелёным бейджем «Free». Показатель OpenCode Go Эффективность у этих строк считается по лимитам подписки Go."
+      "free": "Помимо подписки OpenCode Go часть моделей доступна бесплатно, без подписки. Самые умные из них по Artificial Analysis — MiniMax M3.1 Flash Free, GLM-5.3-Flash Free, MiMo-V2.6-Flash Free — отмечены в списке зелёным бейджем «Free». Показатель OpenCode Go Эффективность у этих строк считается по лимитам подписки Go."
     }
   },
   "models": [
@@ -202,7 +202,7 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 67.4,
       "reliability": 75.7,
-      "visual": 69.2,
+      "visual": 69.3,
       "visualParts": {
         "img2web": {
           "value": 1580.658477049375,
@@ -210,9 +210,9 @@ window.AI_DATA = {
           "n": 4315
         },
         "webdev": {
-          "value": 1605.474108583022,
-          "rank": 27,
-          "n": 17579
+          "value": 1606.8561501371667,
+          "rank": 28,
+          "n": 18002
         },
         "vision": {
           "value": 1296.0254962766658,
@@ -220,7 +220,7 @@ window.AI_DATA = {
           "n": 11157
         }
       },
-      "aesthetics": 69.2,
+      "aesthetics": 69.3,
       "aestheticsParts": {
         "img2web": {
           "value": 1580.658477049375,
@@ -228,9 +228,9 @@ window.AI_DATA = {
           "n": 4315
         },
         "webdev": {
-          "value": 1605.474108583022,
-          "rank": 27,
-          "n": 17579
+          "value": 1606.8561501371667,
+          "rank": 28,
+          "n": 18002
         },
         "vision": {
           "value": 1296.0254962766658,
@@ -293,20 +293,20 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 31,
       "reliability": 74.9,
-      "visual": 69.1,
+      "visual": 69.3,
       "visualParts": {
         "webdev": {
-          "value": 1621.1409439450072,
+          "value": 1621.6072635401647,
           "rank": 23,
-          "n": 9542
+          "n": 9729
         }
       },
-      "aesthetics": 69.1,
+      "aesthetics": 69.3,
       "aestheticsParts": {
         "webdev": {
-          "value": 1621.1409439450072,
+          "value": 1621.6072635401647,
           "rank": 23,
-          "n": 9542
+          "n": 9729
         }
       },
       "freeInOc": false,
@@ -419,7 +419,7 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 10.6,
       "reliability": 66.6,
-      "visual": 66.2,
+      "visual": 66.1,
       "visualParts": {
         "img2web": {
           "value": 1579.1654480337347,
@@ -427,12 +427,12 @@ window.AI_DATA = {
           "n": 3504
         },
         "webdev": {
-          "value": 1655.2114268717892,
-          "rank": 14,
-          "n": 19220
+          "value": 1654.5825189422653,
+          "rank": 15,
+          "n": 19426
         }
       },
-      "aesthetics": 66.2,
+      "aesthetics": 66.1,
       "aestheticsParts": {
         "img2web": {
           "value": 1579.1654480337347,
@@ -440,9 +440,9 @@ window.AI_DATA = {
           "n": 3504
         },
         "webdev": {
-          "value": 1655.2114268717892,
-          "rank": 14,
-          "n": 19220
+          "value": 1654.5825189422653,
+          "rank": 15,
+          "n": 19426
         }
       },
       "freeInOc": false,
@@ -500,7 +500,7 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 33.9,
       "reliability": 24.4,
-      "visual": 30.1,
+      "visual": 30,
       "visualParts": {
         "img2web": {
           "value": 1513.0404947426737,
@@ -508,12 +508,12 @@ window.AI_DATA = {
           "n": 921
         },
         "webdev": {
-          "value": 1473.7697274981233,
-          "rank": 66,
-          "n": 4966
+          "value": 1473.6353961234063,
+          "rank": 67,
+          "n": 4963
         }
       },
-      "aesthetics": 30.1,
+      "aesthetics": 30,
       "aestheticsParts": {
         "img2web": {
           "value": 1513.0404947426737,
@@ -521,9 +521,9 @@ window.AI_DATA = {
           "n": 921
         },
         "webdev": {
-          "value": 1473.7697274981233,
-          "rank": 66,
-          "n": 4966
+          "value": 1473.6353961234063,
+          "rank": 67,
+          "n": 4963
         }
       },
       "freeInOc": false,
@@ -703,9 +703,9 @@ window.AI_DATA = {
           "n": 1880
         },
         "webdev": {
-          "value": 1564.981259391035,
-          "rank": 36,
-          "n": 4424
+          "value": 1565.4926489488507,
+          "rank": 37,
+          "n": 4603
         },
         "vision": {
           "value": 1267.4200834554836,
@@ -721,9 +721,9 @@ window.AI_DATA = {
           "n": 1880
         },
         "webdev": {
-          "value": 1564.981259391035,
-          "rank": 36,
-          "n": 4424
+          "value": 1565.4926489488507,
+          "rank": 37,
+          "n": 4603
         },
         "vision": {
           "value": 1267.4200834554836,
@@ -841,7 +841,7 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 73.1,
       "reliability": 63.8,
-      "visual": 69.8,
+      "visual": 69.7,
       "visualParts": {
         "img2web": {
           "value": 1596.746487125431,
@@ -849,9 +849,9 @@ window.AI_DATA = {
           "n": 1930
         },
         "webdev": {
-          "value": 1634.2780091461036,
-          "rank": 17,
-          "n": 5016
+          "value": 1633.2710813942238,
+          "rank": 18,
+          "n": 5195
         },
         "vision": {
           "value": 1259.2283364806044,
@@ -859,7 +859,7 @@ window.AI_DATA = {
           "n": 2908
         }
       },
-      "aesthetics": 69.8,
+      "aesthetics": 69.7,
       "aestheticsParts": {
         "img2web": {
           "value": 1596.746487125431,
@@ -867,9 +867,9 @@ window.AI_DATA = {
           "n": 1930
         },
         "webdev": {
-          "value": 1634.2780091461036,
-          "rank": 17,
-          "n": 5016
+          "value": 1633.2710813942238,
+          "rank": 18,
+          "n": 5195
         },
         "vision": {
           "value": 1259.2283364806044,
@@ -932,7 +932,7 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 66.8,
       "reliability": 77,
-      "visual": 69.2,
+      "visual": 69.3,
       "visualParts": {
         "img2web": {
           "value": 1594.9631947586013,
@@ -940,9 +940,9 @@ window.AI_DATA = {
           "n": 2199
         },
         "webdev": {
-          "value": 1624.8152158959037,
-          "rank": 20,
-          "n": 4763
+          "value": 1625.7002701442289,
+          "rank": 21,
+          "n": 4959
         },
         "vision": {
           "value": 1264.0437391212997,
@@ -950,7 +950,7 @@ window.AI_DATA = {
           "n": 1778
         }
       },
-      "aesthetics": 69.2,
+      "aesthetics": 69.3,
       "aestheticsParts": {
         "img2web": {
           "value": 1594.9631947586013,
@@ -958,9 +958,9 @@ window.AI_DATA = {
           "n": 2199
         },
         "webdev": {
-          "value": 1624.8152158959037,
-          "rank": 20,
-          "n": 4763
+          "value": 1625.7002701442289,
+          "rank": 21,
+          "n": 4959
         },
         "vision": {
           "value": 1264.0437391212997,
@@ -1090,6 +1090,61 @@ window.AI_DATA = {
       "status": "active"
     },
     {
+      "name": "MiniMax M3.1 Flash Free",
+      "inGo": true,
+      "goModelId": "minimax-m3.1-flash-free",
+      "inGoApi": true,
+      "creator": "MiniMax",
+      "color": "#EB3568",
+      "logo": null,
+      "aaSlug": null,
+      "aaName": null,
+      "aaUrl": null,
+      "intelligence": null,
+      "intelligenceEstimated": false,
+      "costPerTask": null,
+      "contextWindow": null,
+      "isReasoning": null,
+      "isOpenWeights": null,
+      "go": {
+        "input": 0,
+        "output": 0,
+        "cachedRead": 0,
+        "cachedWrite": null,
+        "monthlyLimit": null,
+        "limitRaw": "Unlimited",
+        "limitNote": "limited time",
+        "tiers": [
+          {
+            "label": null,
+            "input": 0,
+            "output": 0,
+            "cachedRead": 0,
+            "monthlyLimit": null
+          }
+        ],
+        "requests5h": null,
+        "requestsWeek": null,
+        "requestsMonth": null,
+        "unlimited": true,
+        "mix": null,
+        "tokensPerRequest": null,
+        "costPerRequest": null,
+        "limit5hUsd": null,
+        "tokensPer5h": null
+      },
+      "efficiency": null,
+      "efficiencyProvisional": false,
+      "valueScore": null,
+      "reliability": null,
+      "visual": null,
+      "visualParts": null,
+      "aesthetics": null,
+      "aestheticsParts": null,
+      "freeInOc": true,
+      "status": "unlimited"
+    },
+    {
       "name": "MiniMax M3",
       "inGo": true,
       "goModelId": "minimax-m3",
@@ -1149,9 +1204,9 @@ window.AI_DATA = {
           "n": 5514
         },
         "webdev": {
-          "value": 1482.450057987971,
-          "rank": 64,
-          "n": 19499
+          "value": 1482.2824617747178,
+          "rank": 65,
+          "n": 19670
         },
         "vision": {
           "value": 1253.1100912254556,
@@ -1167,9 +1222,9 @@ window.AI_DATA = {
           "n": 5514
         },
         "webdev": {
-          "value": 1482.450057987971,
-          "rank": 64,
-          "n": 19499
+          "value": 1482.2824617747178,
+          "rank": 65,
+          "n": 19670
         },
         "vision": {
           "value": 1253.1100912254556,
@@ -1240,9 +1295,9 @@ window.AI_DATA = {
           "n": 4688
         },
         "webdev": {
-          "value": 1658.4236652176892,
-          "rank": 12,
-          "n": 9068
+          "value": 1659.0466952399227,
+          "rank": 13,
+          "n": 9279
         },
         "vision": {
           "value": 1309.3498415967074,
@@ -1258,9 +1313,9 @@ window.AI_DATA = {
           "n": 4688
         },
         "webdev": {
-          "value": 1658.4236652176892,
-          "rank": 12,
-          "n": 9068
+          "value": 1659.0466952399227,
+          "rank": 13,
+          "n": 9279
         },
         "vision": {
           "value": 1309.3498415967074,
@@ -1390,9 +1445,9 @@ window.AI_DATA = {
           "n": 1164
         },
         "webdev": {
-          "value": 1673.598504927179,
+          "value": 1674.0406223211605,
           "rank": 10,
-          "n": 13812
+          "n": 14199
         },
         "vision": {
           "value": 1313.5990241962058,
@@ -1408,9 +1463,9 @@ window.AI_DATA = {
           "n": 1164
         },
         "webdev": {
-          "value": 1673.598504927179,
+          "value": 1674.0406223211605,
           "rank": 10,
-          "n": 13812
+          "n": 14199
         },
         "vision": {
           "value": 1313.5990241962058,
@@ -1565,16 +1620,16 @@ window.AI_DATA = {
       "inGoApi": true,
       "creator": "DeepSeek",
       "color": "#2243e6",
-      "logo": "https://artificialanalysis.ai/img/logos/deepseek.svg",
-      "aaSlug": "deepseek-v4-1-flash",
-      "aaName": "DeepSeek V4.1 Flash (Max)",
-      "aaUrl": "https://artificialanalysis.ai/models/deepseek-v4-1-flash",
-      "intelligence": 39.456167472527,
+      "logo": null,
+      "aaSlug": null,
+      "aaName": null,
+      "aaUrl": null,
+      "intelligence": null,
       "intelligenceEstimated": false,
-      "costPerTask": 0.485662249576018,
-      "contextWindow": 1000000,
-      "isReasoning": true,
-      "isOpenWeights": true,
+      "costPerTask": null,
+      "contextWindow": null,
+      "isReasoning": null,
+      "isOpenWeights": null,
       "go": {
         "input": 0.15,
         "output": 0.6,
@@ -1615,45 +1670,13 @@ window.AI_DATA = {
       },
       "efficiency": 34670,
       "efficiencyProvisional": false,
-      "valueScore": 76.5,
-      "reliability": 52.1,
-      "visual": 71.8,
-      "visualParts": {
-        "img2web": {
-          "value": 1608.867298267899,
-          "rank": 12,
-          "n": 766
-        },
-        "webdev": {
-          "value": 1618.412357403753,
-          "rank": 24,
-          "n": 3540
-        },
-        "vision": {
-          "value": 1276.6353190733412,
-          "rank": 39,
-          "n": 3559
-        }
-      },
-      "aesthetics": 71.8,
-      "aestheticsParts": {
-        "img2web": {
-          "value": 1608.867298267899,
-          "rank": 12,
-          "n": 766
-        },
-        "webdev": {
-          "value": 1618.412357403753,
-          "rank": 24,
-          "n": 3540
-        },
-        "vision": {
-          "value": 1276.6353190733412,
-          "rank": 39,
-          "n": 3559
-        }
-      },
-      "freeInOc": true,
+      "valueScore": null,
+      "reliability": null,
+      "visual": null,
+      "visualParts": null,
+      "aesthetics": null,
+      "aestheticsParts": null,
+      "freeInOc": false,
       "status": "active"
     },
     {
@@ -1833,81 +1856,22 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 39.8,
       "reliability": 27.1,
-      "visual": 33.1,
+      "visual": 33.3,
       "visualParts": {
         "webdev": {
-          "value": 1505.9107483086677,
-          "rank": 58,
-          "n": 6168
+          "value": 1506.5955641646904,
+          "rank": 59,
+          "n": 6201
         }
       },
-      "aesthetics": 33.1,
+      "aesthetics": 33.3,
       "aestheticsParts": {
         "webdev": {
-          "value": 1505.9107483086677,
-          "rank": 58,
-          "n": 6168
+          "value": 1506.5955641646904,
+          "rank": 59,
+          "n": 6201
         }
       },
-      "freeInOc": false,
-      "status": "active"
-    },
-    {
-      "name": "Space Bunny",
-      "inGo": true,
-      "goModelId": "space-bunny",
-      "inGoApi": true,
-      "creator": "—",
-      "color": "#8A8A93",
-      "logo": null,
-      "aaSlug": null,
-      "aaName": null,
-      "aaUrl": null,
-      "intelligence": null,
-      "intelligenceEstimated": false,
-      "costPerTask": null,
-      "contextWindow": null,
-      "isReasoning": null,
-      "isOpenWeights": null,
-      "go": {
-        "input": 0.15,
-        "output": 0.6,
-        "cachedRead": 0.03,
-        "cachedWrite": null,
-        "monthlyLimit": 30,
-        "limitRaw": "$30",
-        "limitNote": null,
-        "tiers": [
-          {
-            "label": null,
-            "input": 0.15,
-            "output": 0.6,
-            "cachedRead": 0.03,
-            "monthlyLimit": 30
-          }
-        ],
-        "requests5h": 3130,
-        "requestsWeek": 7810,
-        "requestsMonth": 15630,
-        "unlimited": false,
-        "mix": {
-          "input": 1000,
-          "cached": 55000,
-          "output": 200
-        },
-        "tokensPerRequest": 56200,
-        "costPerRequest": 0.00192,
-        "limit5hUsd": 6,
-        "tokensPer5h": 175906000
-      },
-      "efficiency": 3130,
-      "efficiencyProvisional": false,
-      "valueScore": null,
-      "reliability": null,
-      "visual": null,
-      "visualParts": null,
-      "aesthetics": null,
-      "aestheticsParts": null,
       "freeInOc": false,
       "status": "active"
     },
@@ -1978,9 +1942,9 @@ window.AI_DATA = {
           "n": 796
         },
         "webdev": {
-          "value": 1638.6701748611626,
-          "rank": 16,
-          "n": 5021
+          "value": 1638.1677903077173,
+          "rank": 17,
+          "n": 5172
         },
         "vision": {
           "value": 1227.972376028224,
@@ -1996,9 +1960,9 @@ window.AI_DATA = {
           "n": 796
         },
         "webdev": {
-          "value": 1638.6701748611626,
-          "rank": 16,
-          "n": 5021
+          "value": 1638.1677903077173,
+          "rank": 17,
+          "n": 5172
         },
         "vision": {
           "value": 1227.972376028224,
@@ -2068,7 +2032,7 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 59.5,
       "reliability": 53.8,
-      "visual": 56.5,
+      "visual": 56.4,
       "visualParts": {
         "img2web": {
           "value": 1570.160993942166,
@@ -2076,9 +2040,9 @@ window.AI_DATA = {
           "n": 3000
         },
         "webdev": {
-          "value": 1578.160478866449,
-          "rank": 35,
-          "n": 20045
+          "value": 1576.5785437285665,
+          "rank": 36,
+          "n": 20845
         },
         "vision": {
           "value": 1216.887891804328,
@@ -2086,7 +2050,7 @@ window.AI_DATA = {
           "n": 2833
         }
       },
-      "aesthetics": 56.5,
+      "aesthetics": 56.4,
       "aestheticsParts": {
         "img2web": {
           "value": 1570.160993942166,
@@ -2094,9 +2058,9 @@ window.AI_DATA = {
           "n": 3000
         },
         "webdev": {
-          "value": 1578.160478866449,
-          "rank": 35,
-          "n": 20045
+          "value": 1576.5785437285665,
+          "rank": 36,
+          "n": 20845
         },
         "vision": {
           "value": 1216.887891804328,
@@ -2232,20 +2196,20 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 65.1,
       "reliability": 73.4,
-      "visual": 57.7,
+      "visual": 58.1,
       "visualParts": {
         "webdev": {
-          "value": 1584.698340531561,
+          "value": 1585.9907931480423,
           "rank": 32,
-          "n": 3156
+          "n": 3376
         }
       },
-      "aesthetics": 57.7,
+      "aesthetics": 58.1,
       "aestheticsParts": {
         "webdev": {
-          "value": 1584.698340531561,
+          "value": 1585.9907931480423,
           "rank": 32,
-          "n": 3156
+          "n": 3376
         }
       },
       "freeInOc": false,
@@ -2302,17 +2266,17 @@ window.AI_DATA = {
       "visual": 86.9,
       "visualParts": {
         "webdev": {
-          "value": 1678.1872513416483,
+          "value": 1678.1422029716816,
           "rank": 9,
-          "n": 1775
+          "n": 1773
         }
       },
       "aesthetics": 86.9,
       "aestheticsParts": {
         "webdev": {
-          "value": 1678.1872513416483,
+          "value": 1678.1422029716816,
           "rank": 9,
-          "n": 1775
+          "n": 1773
         }
       },
       "freeInOc": false,
@@ -2348,9 +2312,9 @@ window.AI_DATA = {
           "n": 493
         },
         "webdev": {
-          "value": 1807.3090427323077,
+          "value": 1806.1951256724408,
           "rank": 1,
-          "n": 2775
+          "n": 2870
         },
         "vision": {
           "value": 1320.5355101775008,
@@ -2366,9 +2330,9 @@ window.AI_DATA = {
           "n": 493
         },
         "webdev": {
-          "value": 1807.3090427323077,
+          "value": 1806.1951256724408,
           "rank": 1,
-          "n": 2775
+          "n": 2870
         },
         "vision": {
           "value": 1320.5355101775008,
@@ -2401,7 +2365,7 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": null,
       "reliability": 85.2,
-      "visual": 95.7,
+      "visual": 95.5,
       "visualParts": {
         "img2web": {
           "value": 1740.047478213904,
@@ -2409,9 +2373,9 @@ window.AI_DATA = {
           "n": 1074
         },
         "webdev": {
-          "value": 1710.9791303311154,
+          "value": 1709.2667011267456,
           "rank": 6,
-          "n": 4914
+          "n": 5105
         },
         "vision": {
           "value": 1288.576910862408,
@@ -2419,7 +2383,7 @@ window.AI_DATA = {
           "n": 2068
         }
       },
-      "aesthetics": 95.7,
+      "aesthetics": 95.5,
       "aestheticsParts": {
         "img2web": {
           "value": 1740.047478213904,
@@ -2427,9 +2391,9 @@ window.AI_DATA = {
           "n": 1074
         },
         "webdev": {
-          "value": 1710.9791303311154,
+          "value": 1709.2667011267456,
           "rank": 6,
-          "n": 4914
+          "n": 5105
         },
         "vision": {
           "value": 1288.576910862408,
@@ -2499,9 +2463,9 @@ window.AI_DATA = {
           "n": 2470
         },
         "webdev": {
-          "value": 1741.4137089213132,
+          "value": 1742.2899749914925,
           "rank": 5,
-          "n": 7503
+          "n": 7684
         },
         "vision": {
           "value": 1318.2396207991617,
@@ -2517,9 +2481,9 @@ window.AI_DATA = {
           "n": 2470
         },
         "webdev": {
-          "value": 1741.4137089213132,
+          "value": 1742.2899749914925,
           "rank": 5,
-          "n": 7503
+          "n": 7684
         },
         "vision": {
           "value": 1318.2396207991617,
@@ -2560,9 +2524,9 @@ window.AI_DATA = {
           "n": 2739
         },
         "webdev": {
-          "value": 1777.179843631321,
+          "value": 1775.652262790731,
           "rank": 2,
-          "n": 6014
+          "n": 6172
         },
         "vision": {
           "value": 1281.3541584800787,
@@ -2578,9 +2542,9 @@ window.AI_DATA = {
           "n": 2739
         },
         "webdev": {
-          "value": 1777.179843631321,
+          "value": 1775.652262790731,
           "rank": 2,
-          "n": 6014
+          "n": 6172
         },
         "vision": {
           "value": 1281.3541584800787,
@@ -2613,20 +2577,20 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": null,
       "reliability": 88.4,
-      "visual": 78.3,
+      "visual": 78.2,
       "visualParts": {
         "webdev": {
-          "value": 1650.4267673951786,
-          "rank": 15,
-          "n": 1942
+          "value": 1650.2960151290167,
+          "rank": 16,
+          "n": 2158
         }
       },
-      "aesthetics": 78.3,
+      "aesthetics": 78.2,
       "aestheticsParts": {
         "webdev": {
-          "value": 1650.4267673951786,
-          "rank": 15,
-          "n": 1942
+          "value": 1650.2960151290167,
+          "rank": 16,
+          "n": 2158
         }
       },
       "freeInOc": false,
@@ -2662,9 +2626,9 @@ window.AI_DATA = {
           "n": 1430
         },
         "webdev": {
-          "value": 1755.4597768759177,
+          "value": 1754.3426826713885,
           "rank": 4,
-          "n": 2863
+          "n": 3021
         },
         "vision": {
           "value": 1288.1896630416024,
@@ -2680,9 +2644,9 @@ window.AI_DATA = {
           "n": 1430
         },
         "webdev": {
-          "value": 1755.4597768759177,
+          "value": 1754.3426826713885,
           "rank": 4,
-          "n": 2863
+          "n": 3021
         },
         "vision": {
           "value": 1288.1896630416024,
@@ -2691,6 +2655,64 @@ window.AI_DATA = {
         }
       },
       "freeInOc": false,
+      "status": "not-in-go"
+    },
+    {
+      "name": "DeepSeek V4.1 Flash 1017 (Max)",
+      "inGo": false,
+      "goModelId": null,
+      "inGoApi": false,
+      "creator": "DeepSeek",
+      "color": "#2243e6",
+      "logo": "https://artificialanalysis.ai/img/logos/deepseek.svg",
+      "aaSlug": "deepseek-v4-1-flash-1017",
+      "aaName": "DeepSeek V4.1 Flash 1017 (Max)",
+      "aaUrl": "https://artificialanalysis.ai/models/deepseek-v4-1-flash-1017",
+      "intelligence": 45.0965048681912,
+      "intelligenceEstimated": false,
+      "costPerTask": 0.2620484273114172,
+      "contextWindow": 1000000,
+      "isReasoning": true,
+      "isOpenWeights": true,
+      "go": null,
+      "efficiency": null,
+      "efficiencyProvisional": false,
+      "valueScore": null,
+      "reliability": 68.4,
+      "visual": null,
+      "visualParts": null,
+      "aesthetics": null,
+      "aestheticsParts": null,
+      "freeInOc": false,
+      "status": "not-in-go"
+    },
+    {
+      "name": "MiniMax-M3.1-Flash",
+      "inGo": false,
+      "goModelId": null,
+      "inGoApi": false,
+      "creator": "MiniMax",
+      "color": "#EB3568",
+      "logo": "https://artificialanalysis.ai/img/logos/minimax.svg",
+      "aaSlug": "minimax-m3-1-flash",
+      "aaName": "MiniMax-M3.1-Flash",
+      "aaUrl": "https://artificialanalysis.ai/models/minimax-m3-1-flash",
+      "intelligence": 42.3811052132362,
+      "intelligenceEstimated": false,
+      "costPerTask": 0.2201135746720313,
+      "contextWindow": 1000000,
+      "isReasoning": true,
+      "isOpenWeights": false,
+      "go": null,
+      "efficiency": null,
+      "efficiencyProvisional": false,
+      "valueScore": null,
+      "reliability": 52.7,
+      "visual": null,
+      "visualParts": null,
+      "aesthetics": null,
+      "aestheticsParts": null,
+      "freeInOc": true,
       "status": "not-in-go"
     },
     {
@@ -2715,7 +2737,7 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": null,
       "reliability": 56.4,
-      "visual": 53.6,
+      "visual": 53.5,
       "visualParts": {
         "img2web": {
           "value": 1540.4638245149708,
@@ -2723,9 +2745,9 @@ window.AI_DATA = {
           "n": 4331
         },
         "webdev": {
-          "value": 1521.9055706410982,
-          "rank": 50,
-          "n": 13678
+          "value": 1521.7642333914368,
+          "rank": 52,
+          "n": 13878
         },
         "vision": {
           "value": 1271.072526496708,
@@ -2733,7 +2755,7 @@ window.AI_DATA = {
           "n": 11020
         }
       },
-      "aesthetics": 53.6,
+      "aesthetics": 53.5,
       "aestheticsParts": {
         "img2web": {
           "value": 1540.4638245149708,
@@ -2741,9 +2763,9 @@ window.AI_DATA = {
           "n": 4331
         },
         "webdev": {
-          "value": 1521.9055706410982,
-          "rank": 50,
-          "n": 13678
+          "value": 1521.7642333914368,
+          "rank": 52,
+          "n": 13878
         },
         "vision": {
           "value": 1271.072526496708,
@@ -2805,7 +2827,7 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": null,
       "reliability": 65.1,
-      "visual": 70.8,
+      "visual": 70.9,
       "visualParts": {
         "img2web": {
           "value": 1593.067219021476,
@@ -2813,9 +2835,9 @@ window.AI_DATA = {
           "n": 2015
         },
         "webdev": {
-          "value": 1585.1875723150379,
-          "rank": 31,
-          "n": 10514
+          "value": 1585.7106274356925,
+          "rank": 33,
+          "n": 10730
         },
         "vision": {
           "value": 1314.0797890897727,
@@ -2823,7 +2845,7 @@ window.AI_DATA = {
           "n": 3792
         }
       },
-      "aesthetics": 70.8,
+      "aesthetics": 70.9,
       "aestheticsParts": {
         "img2web": {
           "value": 1593.067219021476,
@@ -2831,9 +2853,9 @@ window.AI_DATA = {
           "n": 2015
         },
         "webdev": {
-          "value": 1585.1875723150379,
-          "rank": 31,
-          "n": 10514
+          "value": 1585.7106274356925,
+          "rank": 33,
+          "n": 10730
         },
         "vision": {
           "value": 1314.0797890897727,
@@ -2895,20 +2917,20 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": null,
       "reliability": 58.8,
-      "visual": 72,
+      "visual": 71.6,
       "visualParts": {
         "webdev": {
-          "value": 1630.3289125780575,
-          "rank": 19,
-          "n": 8083
+          "value": 1628.9811891761062,
+          "rank": 20,
+          "n": 8278
         }
       },
-      "aesthetics": 72,
+      "aesthetics": 71.6,
       "aestheticsParts": {
         "webdev": {
-          "value": 1630.3289125780575,
-          "rank": 19,
-          "n": 8083
+          "value": 1628.9811891761062,
+          "rank": 20,
+          "n": 8278
         }
       },
       "freeInOc": false,
@@ -2936,20 +2958,20 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": null,
       "reliability": 71.1,
-      "visual": 34.8,
+      "visual": 38.7,
       "visualParts": {
         "webdev": {
-          "value": 1511.3260970415822,
-          "rank": 55,
-          "n": 991
+          "value": 1523.9409813114835,
+          "rank": 50,
+          "n": 1337
         }
       },
-      "aesthetics": 34.8,
+      "aesthetics": 38.7,
       "aestheticsParts": {
         "webdev": {
-          "value": 1511.3260970415822,
-          "rank": 55,
-          "n": 991
+          "value": 1523.9409813114835,
+          "rank": 50,
+          "n": 1337
         }
       },
       "freeInOc": false,
@@ -3092,8 +3114,8 @@ window.AI_DATA = {
       "efficiency": null,
       "efficiencyProvisional": false,
       "valueScore": null,
-      "reliability": 54.8,
-      "visual": 64.7,
+      "reliability": 54.7,
+      "visual": 64.6,
       "visualParts": {
         "img2web": {
           "value": 1576.135585479396,
@@ -3101,9 +3123,9 @@ window.AI_DATA = {
           "n": 5117
         },
         "webdev": {
-          "value": 1593.2035374291577,
-          "rank": 29,
-          "n": 15940
+          "value": 1592.0325374196455,
+          "rank": 30,
+          "n": 16172
         },
         "vision": {
           "value": 1271.392668035682,
@@ -3111,7 +3133,7 @@ window.AI_DATA = {
           "n": 7013
         }
       },
-      "aesthetics": 64.7,
+      "aesthetics": 64.6,
       "aestheticsParts": {
         "img2web": {
           "value": 1576.135585479396,
@@ -3119,94 +3141,14 @@ window.AI_DATA = {
           "n": 5117
         },
         "webdev": {
-          "value": 1593.2035374291577,
-          "rank": 29,
-          "n": 15940
+          "value": 1592.0325374196455,
+          "rank": 30,
+          "n": 16172
         },
         "vision": {
           "value": 1271.392668035682,
           "rank": 42,
           "n": 7013
-        }
-      },
-      "freeInOc": false,
-      "status": "not-in-go"
-    },
-    {
-      "name": "Motif 3",
-      "inGo": false,
-      "goModelId": null,
-      "inGoApi": false,
-      "creator": "Motif Technologies",
-      "color": "#6a93eb",
-      "logo": "https://artificialanalysis.ai/img/logos/motif.svg",
-      "aaSlug": "motif-3",
-      "aaName": "Motif 3",
-      "aaUrl": "https://artificialanalysis.ai/models/motif-3",
-      "intelligence": 33.566562209723,
-      "intelligenceEstimated": true,
-      "costPerTask": null,
-      "contextWindow": 262144,
-      "isReasoning": true,
-      "isOpenWeights": true,
-      "go": null,
-      "efficiency": null,
-      "efficiencyProvisional": false,
-      "valueScore": null,
-      "reliability": 50.3,
-      "visual": null,
-      "visualParts": null,
-      "aesthetics": null,
-      "aestheticsParts": null,
-      "freeInOc": false,
-      "status": "not-in-go"
-    },
-    {
-      "name": "GPT-5.3 Codex (Xhigh)",
-      "inGo": false,
-      "goModelId": null,
-      "inGoApi": false,
-      "creator": "OpenAI",
-      "color": "#1f1f1f",
-      "logo": "https://artificialanalysis.ai/img/logos/openai.svg",
-      "aaSlug": "gpt-5-3-codex",
-      "aaName": "GPT-5.3 Codex (Xhigh)",
-      "aaUrl": "https://artificialanalysis.ai/models/gpt-5-3-codex",
-      "intelligence": 32.5028174368983,
-      "intelligenceEstimated": true,
-      "costPerTask": null,
-      "contextWindow": 400000,
-      "isReasoning": true,
-      "isOpenWeights": false,
-      "go": null,
-      "efficiency": null,
-      "efficiencyProvisional": false,
-      "valueScore": null,
-      "reliability": 29.6,
-      "visual": 8.7,
-      "visualParts": {
-        "img2web": {
-          "value": 1443.5742476557307,
-          "rank": 50,
-          "n": 2670
-        },
-        "webdev": {
-          "value": 1406.6187574659548,
-          "rank": 89,
-          "n": 2641
-        }
-      },
-      "aesthetics": 8.7,
-      "aestheticsParts": {
-        "img2web": {
-          "value": 1443.5742476557307,
-          "rank": 50,
-          "n": 2670
-        },
-        "webdev": {
-          "value": 1406.6187574659548,
-          "rank": 89,
-          "n": 2641
         }
       },
       "freeInOc": false,
