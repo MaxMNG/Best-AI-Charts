@@ -2,7 +2,7 @@
    Ручные правки будут перезаписаны. Настройки — в models.config.js. */
 window.AI_DATA = {
   "meta": {
-    "generatedAt": "2026-10-20T23:35:48.969Z",
+    "generatedAt": "2026-10-21T23:52:42.301Z",
     "plan": {
       "id": "go",
       "label": "OpenCode Go",
@@ -102,10 +102,10 @@ window.AI_DATA = {
       "total": 49,
       "inGo": 29,
       "extraFromAA": 20,
-      "unmatched": 10,
-      "withoutIntelligence": 10,
-      "withVisual": 28,
-      "withAesthetics": 28,
+      "unmatched": 11,
+      "withoutIntelligence": 11,
+      "withVisual": 27,
+      "withAesthetics": 27,
       "freeInOc": 4,
       "freeAvailable": 6
     },
@@ -665,21 +665,21 @@ window.AI_DATA = {
         "output": 2.7,
         "cachedRead": 0.1,
         "cachedWrite": null,
-        "monthlyLimit": 60,
-        "limitRaw": "$60",
-        "limitNote": "4x · Limited time",
+        "monthlyLimit": 15,
+        "limitRaw": "$15",
+        "limitNote": null,
         "tiers": [
           {
             "label": null,
             "input": 1,
             "output": 2.7,
             "cachedRead": 0.1,
-            "monthlyLimit": 60
+            "monthlyLimit": 15
           }
         ],
-        "requests5h": 1720,
-        "requestsWeek": 4280,
-        "requestsMonth": 8520,
+        "requests5h": 430,
+        "requestsWeek": 1070,
+        "requestsMonth": 2130,
         "unlimited": false,
         "mix": {
           "input": 1000,
@@ -688,12 +688,12 @@ window.AI_DATA = {
         },
         "tokensPerRequest": 56200,
         "costPerRequest": 0.00704,
-        "limit5hUsd": 12,
-        "tokensPer5h": 96664000
+        "limit5hUsd": 3,
+        "tokensPer5h": 24166000
       },
-      "efficiency": 1720,
+      "efficiency": 430,
       "efficiencyProvisional": false,
-      "valueScore": 57.8,
+      "valueScore": 41.4,
       "reliability": 74.3,
       "visual": 58.3,
       "visualParts": {
@@ -732,7 +732,7 @@ window.AI_DATA = {
         }
       },
       "freeInOc": false,
-      "status": "promo-4x"
+      "status": "active"
     },
     {
       "name": "Beam Free",
@@ -747,7 +747,7 @@ window.AI_DATA = {
       "aaUrl": "https://artificialanalysis.ai/models/reflection-beam",
       "intelligence": 30.3334426348039,
       "intelligenceEstimated": false,
-      "costPerTask": 0.5657163841991104,
+      "costPerTask": 0.22624169286047544,
       "contextWindow": 1048576,
       "isReasoning": true,
       "isOpenWeights": true,
@@ -1242,16 +1242,16 @@ window.AI_DATA = {
       "inGoApi": true,
       "creator": "Meta",
       "color": "#0089f4",
-      "logo": "https://artificialanalysis.ai/img/logos/meta.svg",
-      "aaSlug": "muse-spark-1-3",
-      "aaName": "Muse Spark 1.3 (Max)",
-      "aaUrl": "https://artificialanalysis.ai/models/muse-spark-1-3",
-      "intelligence": 48.0923107719685,
+      "logo": null,
+      "aaSlug": null,
+      "aaName": null,
+      "aaUrl": null,
+      "intelligence": null,
       "intelligenceEstimated": false,
-      "costPerTask": 1.6048932100125866,
-      "contextWindow": 1000000,
-      "isReasoning": true,
-      "isOpenWeights": false,
+      "costPerTask": null,
+      "contextWindow": null,
+      "isReasoning": null,
+      "isOpenWeights": null,
       "go": {
         "input": 0.1,
         "output": 0.2,
@@ -1285,44 +1285,12 @@ window.AI_DATA = {
       },
       "efficiency": 45300,
       "efficiencyProvisional": false,
-      "valueScore": 91,
-      "reliability": 70.5,
-      "visual": 83.1,
-      "visualParts": {
-        "img2web": {
-          "value": 1640.3894130603526,
-          "rank": 8,
-          "n": 5679
-        },
-        "webdev": {
-          "value": 1659.2578923655815,
-          "rank": 14,
-          "n": 9407
-        },
-        "vision": {
-          "value": 1308.414166200037,
-          "rank": 12,
-          "n": 5392
-        }
-      },
-      "aesthetics": 83.1,
-      "aestheticsParts": {
-        "img2web": {
-          "value": 1640.3894130603526,
-          "rank": 8,
-          "n": 5679
-        },
-        "webdev": {
-          "value": 1659.2578923655815,
-          "rank": 14,
-          "n": 9407
-        },
-        "vision": {
-          "value": 1308.414166200037,
-          "rank": 12,
-          "n": 5392
-        }
-      },
+      "valueScore": null,
+      "reliability": null,
+      "visual": null,
+      "visualParts": null,
+      "aesthetics": null,
+      "aestheticsParts": null,
       "freeInOc": false,
       "status": "active"
     },
@@ -2031,7 +1999,7 @@ window.AI_DATA = {
       "efficiency": 4230,
       "efficiencyProvisional": false,
       "valueScore": 59.5,
-      "reliability": 53.8,
+      "reliability": 53.7,
       "visual": 56.5,
       "visualParts": {
         "img2web": {
@@ -2527,7 +2495,7 @@ window.AI_DATA = {
       "efficiency": null,
       "efficiencyProvisional": false,
       "valueScore": null,
-      "reliability": 75,
+      "reliability": 74.9,
       "visual": 95.5,
       "visualParts": {
         "img2web": {
@@ -3022,7 +2990,7 @@ window.AI_DATA = {
       "efficiency": null,
       "efficiencyProvisional": false,
       "valueScore": null,
-      "reliability": 58.8,
+      "reliability": 58.7,
       "visual": null,
       "visualParts": null,
       "aesthetics": null,
