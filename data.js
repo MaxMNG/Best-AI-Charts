@@ -2,7 +2,7 @@
    Ручные правки будут перезаписаны. Настройки — в models.config.js. */
 window.AI_DATA = {
   "meta": {
-    "generatedAt": "2026-10-21T23:52:42.301Z",
+    "generatedAt": "2026-10-22T23:50:36.249Z",
     "plan": {
       "id": "go",
       "label": "OpenCode Go",
@@ -102,22 +102,16 @@ window.AI_DATA = {
       "total": 49,
       "inGo": 29,
       "extraFromAA": 20,
-      "unmatched": 11,
-      "withoutIntelligence": 11,
+      "unmatched": 10,
+      "withoutIntelligence": 10,
       "withVisual": 27,
       "withAesthetics": 27,
-      "freeInOc": 4,
-      "freeAvailable": 6
+      "freeInOc": 3,
+      "freeAvailable": 5
     },
     "free": {
       "topN": 3,
       "top": [
-        {
-          "name": "MiniMax M3.1 Flash Free",
-          "base": "MiniMax M3.1 Flash",
-          "intelligence": 42.7057475126235,
-          "aaSlug": "minimax-m3-1-flash"
-        },
         {
           "name": "GLM-5.3-Flash Free",
           "base": "GLM-5.3-Flash",
@@ -129,6 +123,12 @@ window.AI_DATA = {
           "base": "MiMo-V2.6-Flash",
           "intelligence": 37.8843590141754,
           "aaSlug": "mimo-v2-6-flash"
+        },
+        {
+          "name": "Beam Free",
+          "base": "Beam",
+          "intelligence": 30.3334426348039,
+          "aaSlug": "reflection-beam"
         }
       ]
     },
@@ -146,7 +146,7 @@ window.AI_DATA = {
       "aesthetics": "Насколько модель в целом хорошо работает с визуалом: смотрит скриншоты, понимает, что такое красиво, собирает UI/UX. Собран из арен LMArena, где люди сравнивают работы моделей попарно: повтор по скриншотам image_to_webdev (вес 40%), общее качество UI webdev overall (30%) и зрение vision overall (30%). Это голоса людей, а не измерение красоты: у Artificial Analysis бенчмарков про дизайн, UI и зрение в Intelligence Index нет. Балла нет без верстки; зрение уточняет балл, когда оно измерено (арены отстают от релизов). Состав балла виден в подсказке строки. Выше — лучше. 2D приоритетно, 3D отдельным сигналом не меряем.",
       "costPerTask": "Artificial Analysis: средняя стоимость одной задачи Intelligence Index по прайсу провайдера, в USD. Это не цена подписки Go. Ниже — лучше.",
       "efficiency": "Показатель учитывающий то насколько модель имеет высокий интеллект и при этом как много лимитов под неё выделяет подписка OpenCode Go. Чем выше показатель — тем целесообразнее использовать модель для постоянной работы.",
-      "free": "Помимо подписки OpenCode Go часть моделей доступна бесплатно, без подписки. Самые умные из них по Artificial Analysis — MiniMax M3.1 Flash Free, GLM-5.3-Flash Free, MiMo-V2.6-Flash Free — отмечены в списке зелёным бейджем «Free». Показатель OpenCode Go Эффективность у этих строк считается по лимитам подписки Go."
+      "free": "Помимо подписки OpenCode Go часть моделей доступна бесплатно, без подписки. Самые умные из них по Artificial Analysis — GLM-5.3-Flash Free, MiMo-V2.6-Flash Free, Beam Free — отмечены в списке зелёным бейджем «Free». Показатель OpenCode Go Эффективность у этих строк считается по лимитам подписки Go."
     }
   },
   "models": [
@@ -499,7 +499,7 @@ window.AI_DATA = {
       "efficiency": 1350,
       "efficiencyProvisional": false,
       "valueScore": 33.9,
-      "reliability": 24.4,
+      "reliability": 24.3,
       "visual": 30,
       "visualParts": {
         "img2web": {
@@ -592,7 +592,7 @@ window.AI_DATA = {
       "name": "LongCat 2.5 Preview Free",
       "inGo": true,
       "goModelId": "longcat-2.5-preview-free",
-      "inGoApi": true,
+      "inGoApi": false,
       "creator": "Meituan",
       "color": "#8A8A93",
       "logo": null,
@@ -786,7 +786,7 @@ window.AI_DATA = {
       "visualParts": null,
       "aesthetics": null,
       "aestheticsParts": null,
-      "freeInOc": false,
+      "freeInOc": true,
       "status": "unlimited"
     },
     {
@@ -1090,59 +1090,75 @@ window.AI_DATA = {
       "status": "active"
     },
     {
-      "name": "MiniMax M3.1 Flash Free",
+      "name": "MiniMax M3.1 Flash",
       "inGo": true,
-      "goModelId": "minimax-m3.1-flash-free",
+      "goModelId": "minimax-m3.1-flash",
       "inGoApi": true,
       "creator": "MiniMax",
       "color": "#EB3568",
-      "logo": null,
-      "aaSlug": null,
-      "aaName": null,
-      "aaUrl": null,
-      "intelligence": null,
+      "logo": "https://artificialanalysis.ai/img/logos/minimax.svg",
+      "aaSlug": "minimax-m3-1-flash",
+      "aaName": "MiniMax-M3.1-Flash",
+      "aaUrl": "https://artificialanalysis.ai/models/minimax-m3-1-flash",
+      "intelligence": 42.7057475126235,
       "intelligenceEstimated": false,
-      "costPerTask": null,
-      "contextWindow": null,
-      "isReasoning": null,
-      "isOpenWeights": null,
+      "costPerTask": 0.2201135746720313,
+      "contextWindow": 1000000,
+      "isReasoning": true,
+      "isOpenWeights": false,
       "go": {
-        "input": 0,
-        "output": 0,
-        "cachedRead": 0,
+        "input": 0.15,
+        "output": 0.6,
+        "cachedRead": 0.015,
         "cachedWrite": null,
-        "monthlyLimit": null,
-        "limitRaw": "Unlimited",
-        "limitNote": "limited time",
+        "monthlyLimit": 20,
+        "limitRaw": "$20",
+        "limitNote": null,
         "tiers": [
           {
             "label": null,
-            "input": 0,
-            "output": 0,
-            "cachedRead": 0,
-            "monthlyLimit": null
+            "input": 0.15,
+            "output": 0.6,
+            "cachedRead": 0.015,
+            "monthlyLimit": 20
           }
         ],
-        "requests5h": null,
-        "requestsWeek": null,
-        "requestsMonth": null,
-        "unlimited": true,
-        "mix": null,
-        "tokensPerRequest": null,
-        "costPerRequest": null,
-        "limit5hUsd": null,
-        "tokensPer5h": null
+        "requests5h": 3880,
+        "requestsWeek": 9690,
+        "requestsMonth": 19380,
+        "unlimited": false,
+        "mix": {
+          "input": 500,
+          "cached": 49400,
+          "output": 360
+        },
+        "tokensPerRequest": 50260,
+        "costPerRequest": 0.001032,
+        "limit5hUsd": 4,
+        "tokensPer5h": 195008800
       },
-      "efficiency": null,
+      "efficiency": 3880,
       "efficiencyProvisional": false,
-      "valueScore": null,
-      "reliability": null,
-      "visual": null,
-      "visualParts": null,
-      "aesthetics": null,
-      "aestheticsParts": null,
-      "freeInOc": true,
-      "status": "unlimited"
+      "valueScore": 64.4,
+      "reliability": 53,
+      "visual": 58.6,
+      "visualParts": {
+        "webdev": {
+          "value": 1587.4766779108527,
+          "rank": 33,
+          "n": 1853
+        }
+      },
+      "aesthetics": 58.6,
+      "aestheticsParts": {
+        "webdev": {
+          "value": 1587.4766779108527,
+          "rank": 33,
+          "n": 1853
+        }
+      },
+      "freeInOc": false,
+      "status": "active"
     },
     {
       "name": "MiniMax M3",
@@ -1561,7 +1577,7 @@ window.AI_DATA = {
       "efficiency": 4300,
       "efficiencyProvisional": false,
       "valueScore": 39.5,
-      "reliability": 47.2,
+      "reliability": 47.1,
       "visual": null,
       "visualParts": {
         "vision": {
@@ -2667,44 +2683,32 @@ window.AI_DATA = {
       "status": "not-in-go"
     },
     {
-      "name": "MiniMax-M3.1-Flash",
+      "name": "Ling 3.1 Flash 1019",
       "inGo": false,
       "goModelId": null,
       "inGoApi": false,
-      "creator": "MiniMax",
-      "color": "#EB3568",
-      "logo": "https://artificialanalysis.ai/img/logos/minimax.svg",
-      "aaSlug": "minimax-m3-1-flash",
-      "aaName": "MiniMax-M3.1-Flash",
-      "aaUrl": "https://artificialanalysis.ai/models/minimax-m3-1-flash",
-      "intelligence": 42.7057475126235,
+      "creator": "InclusionAI",
+      "color": "#4fb5ff",
+      "logo": "https://artificialanalysis.ai/img/logos/inclusionai.jpg",
+      "aaSlug": "ling-3-1-flash-1019",
+      "aaName": "Ling 3.1 Flash 1019",
+      "aaUrl": "https://artificialanalysis.ai/models/ling-3-1-flash-1019",
+      "intelligence": 43.8973584978265,
       "intelligenceEstimated": false,
-      "costPerTask": 0.2201135746720313,
-      "contextWindow": 1000000,
+      "costPerTask": 1.4886425967752979,
+      "contextWindow": 1048576,
       "isReasoning": true,
       "isOpenWeights": false,
       "go": null,
       "efficiency": null,
       "efficiencyProvisional": false,
       "valueScore": null,
-      "reliability": 53,
-      "visual": 58.6,
-      "visualParts": {
-        "webdev": {
-          "value": 1587.4766779108527,
-          "rank": 33,
-          "n": 1853
-        }
-      },
-      "aesthetics": 58.6,
-      "aestheticsParts": {
-        "webdev": {
-          "value": 1587.4766779108527,
-          "rank": 33,
-          "n": 1853
-        }
-      },
-      "freeInOc": true,
+      "reliability": 73.4,
+      "visual": null,
+      "visualParts": null,
+      "aesthetics": null,
+      "aestheticsParts": null,
+      "freeInOc": false,
       "status": "not-in-go"
     },
     {
@@ -2728,7 +2732,7 @@ window.AI_DATA = {
       "efficiency": null,
       "efficiencyProvisional": false,
       "valueScore": null,
-      "reliability": 56.4,
+      "reliability": 56.3,
       "visual": 53.5,
       "visualParts": {
         "img2web": {
@@ -2781,7 +2785,7 @@ window.AI_DATA = {
       "aaUrl": "https://artificialanalysis.ai/models/ling-3-1-flash",
       "intelligence": 41.0906200397391,
       "intelligenceEstimated": false,
-      "costPerTask": 0.9996439559293879,
+      "costPerTask": 1.0017657227856889,
       "contextWindow": 1000000,
       "isReasoning": true,
       "isOpenWeights": true,
