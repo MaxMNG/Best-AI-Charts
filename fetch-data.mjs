@@ -21,16 +21,21 @@ const UA =
  * роняют первую попытку (SELF_SIGNED_CERT_IN_CHAIN), а следующая проходит.
  * Поэтому повторяем — но не на 4xx: там ответ не изменится.
  */
-async function fetchText(url, accept = 'text/html,application/xhtml+xml', attempts = 5) {
+async function fetchText(url, accept = 'text/html,application/xhtml+xml', attempts = 6) {
   let lastError = null;
+  let lastStatus = 0;
 
   for (let attempt = 1; attempt <= attempts; attempt++) {
-    if (attempt > 1) await new Promise((resolve) => setTimeout(resolve, 500 * attempt));
+    if (attempt > 1) {
+      // 429 — ограничение частоты: ждём заметно дольше, чем при разовом сбое сети.
+      await new Promise((resolve) => setTimeout(resolve, (lastStatus === 429 ? 3000 : 500) * attempt));
+    }
     try {
       const res = await fetch(url, { headers: { 'user-agent': UA, accept, 'accept-language': 'ru,en;q=0.8' } });
       if (res.ok) return await res.text();
+      lastStatus = res.status;
       lastError = new Error(`HTTP ${res.status} ${res.statusText} — ${url}`);
-      if (res.status < 500) break;
+      if (res.status < 500 && res.status !== 429) break;
     } catch (err) {
       lastError = err;
     }
@@ -126,6 +131,59 @@ async function loadArtificialAnalysis() {
       nonHallucination: num(m.omniscienceNonHallucination),
       itbenchSre: num(m.itbenchSre),
     }));
+}
+
+/**
+ * Добивка оценок со страницы модели AA. Лидерборд (loadArtificialAnalysis)
+ * отдаёт intelligenceIndex только актуальных вариантов; deprecated-карточки
+ * (Kimi K3, Muse Spark 1.3, GPT-5.6 Luna и т.п.) из него выпадают, хотя баллы
+ * на сайте есть. Страница любой модели встраивает глобальный датасет оценок
+ * всех вариантов (~500 записей), поэтому хватает одного пробного запроса.
+ * deprecated здесь НЕ фильтруем — в этом и смысл добивки; дубли вариантов
+ * схлопывает buildAaIndex по максимуму Intelligence (как в основном индексе).
+ * Компонентов «Надёжности» (gdpval/itbench) в этом датасете нет — reliability
+ * у таких моделей останется прочерком.
+ */
+async function loadAaFallbackEval() {
+  const html = await fetchText(`${AA_ORIGIN}/models/${CONFIG.aaFallbackProbeSlug}`);
+  const text = html.replace(/\\"/g, '"');
+  const records = [];
+  const re = /"slug":"([a-z0-9][a-z0-9-]*)","name":"([^"]*)"/g;
+  let m;
+  while ((m = re.exec(text)) !== null) {
+    const nextSlug = text.indexOf('"slug":"', m.index + m[0].length);
+    const window = text.slice(m.index, nextSlug >= 0 ? nextSlug : m.index + 4000);
+    const intel = window.match(/"intelligenceIndex":(null|[\d.]+)/);
+    if (!intel || intel[1] === 'null') continue;
+    const field = (key) => {
+      const hit = window.match(new RegExp(`"${key}":(null|true|false|[\\d.]+)`));
+      return hit ? hit[1] : null;
+    };
+    const asNum = (v) => (v == null || v === 'null' ? null : Number(v));
+    const asBool = (v) => v === 'true';
+    const boolOrNull = (v) => (v == null ? null : asBool(v));
+    records.push({
+      slug: m[1],
+      name: m[2],
+      displayName: cleanAaName(m[2]),
+      creator: '—',
+      color: '#8A8A93',
+      logo: null,
+      url: `${AA_ORIGIN}/models/${m[1]}`,
+      intelligence: Number(intel[1]),
+      intelligenceEstimated: asBool(field('intelligenceIndexIsEstimated')),
+      costPerTask: asNum(field('intelligenceIndexCostPerTask')),
+      priceIn: asNum(field('price1mInputTokens')),
+      priceOut: asNum(field('price1mOutputTokens')),
+      contextWindow: asNum(field('contextWindowTokens')),
+      isReasoning: boolOrNull(field('isReasoning')),
+      isOpenWeights: boolOrNull(field('isOpenWeights')),
+      gdpval: null,
+      nonHallucination: null,
+      itbenchSre: null,
+    });
+  }
+  return records;
 }
 
 /* ────────────────────────────── Документация Go ───────────────────────────── */
@@ -326,10 +384,35 @@ const baseName = (s) =>
 const coreKey = (s) =>
   norm(baseName(s)).replace(/(xhigh|high|max|medium|low|lite)$/, '');
 
+/**
+ * Канонический ключ для сопоставления с Artificial Analysis (CONFIG.aaMatching):
+ * значимые токены имени без вендорного префикса, мусорных слов и дат ревизий.
+ * «Xiaomi MiMo-V2.5» -> «mimov25», «Muse Spark 1.3 Contributor» -> «musespark13».
+ * Тиры (pro/flash, max/lite) — значимые и не стираются: разные модели не смешаются.
+ */
+const tokensOf = (s) =>
+  String(s)
+    .toLowerCase()
+    .replace(/ё/g, 'е')
+    .split(/[^a-z0-9]+/)
+    .filter(Boolean);
+
+function canonKey(s) {
+  const vendors = CONFIG.aaMatching?.vendorPrefixes || [];
+  const noise = new Set(CONFIG.aaMatching?.noiseTokens || []);
+  // Вариант в скобках — та же модель («DeepSeek V4.1 Flash 1017 (Max)»),
+  // в отличие от дефисного тира («Flash-Next» — уже другая).
+  let tokens = tokensOf(baseName(s));
+  while (tokens.length > 1 && vendors.includes(tokens[0])) tokens = tokens.slice(1);
+  tokens = tokens.filter((t) => !noise.has(t) && !/^\d{3,8}$/.test(t));
+  return tokens.join('');
+}
+
 function buildAaIndex(models) {
   const bySlug = new Map();
   const byFull = new Map();
   const byBase = new Map();
+  const byCanon = new Map();
 
   const keep = (map, key, m) => {
     const prev = map.get(key);
@@ -341,20 +424,57 @@ function buildAaIndex(models) {
     bySlug.set(m.slug, m);
     keep(byFull, norm(m.name), m);
     keep(byBase, norm(baseName(m.name)), m);
+    keep(byCanon, canonKey(m.name), m);
   }
-  return { bySlug, byFull, byBase };
+  return { bySlug, byFull, byBase, byCanon };
 }
 
 function matchAa(goName, index) {
   const override = CONFIG.aaSlugOverrides[goName];
-  if (override) return index.bySlug.get(override) || null;
+  if (override) {
+    const hit = index.bySlug.get(override);
+    if (hit) return { m: hit, method: 'override' };
+    console.warn(`  ! override «${goName}» -> slug «${override}» не найден на AA, пробую поиск по имени`);
+  }
 
-  // Сопоставление строго по названию: сначала полное, затем без варианта в скобках
-  // ("Kimi K3" найдёт "Kimi K3 (Max)").
-  // Нечёткий поиск намеренно не используется: он уже однажды подставил
-  // "Qwen3.8 Flash" метрики соседней "Qwen3.8-Flash-Next".
+  // Сопоставление строгое, но многослойное: сначала полное имя, затем имя
+  // без варианта в скобках («Kimi K3» найдёт «Kimi K3 (Max)»), затем
+  // канонический ключ без вендора/мусора/дат («Xiaomi MiMo-V2.5» найдёт «MiMo-V2.5»).
+  // Нечёткий поиск по схожести строк намеренно не используется: он уже однажды
+  // подставил «Qwen3.8 Flash» метрики соседней «Qwen3.8-Flash-Next».
+  // Возвращает { m, method } для аудита автоподхвата или null.
   const key = norm(goName);
-  return index.byFull.get(key) || index.byBase.get(key) || null;
+  const full = index.byFull.get(key);
+  if (full) return { m: full, method: 'exact' };
+  const base = index.byBase.get(norm(baseName(goName)));
+  if (base) return { m: base, method: 'base' };
+  const canon = index.byCanon.get(canonKey(goName));
+  if (canon) return { m: canon, method: 'canon' };
+  return null;
+}
+
+/**
+ * Подсказки для ручной доводки: топ-N карточек AA, похожих на имя модели Go,
+ * по коэффициенту Жаккара множеств токенов. Это не автоподхват (см. matchAa),
+ * а готовая строка для aaSlugOverrides — выводится в лог и в meta.needsAaFix.
+ */
+function aaSuggestions(goName, index, limit = 3) {
+  const noise = new Set(CONFIG.aaMatching?.noiseTokens || []);
+  const clean = (s) => new Set(tokensOf(s).filter((t) => !noise.has(t)));
+  const goTokens = clean(goName);
+  if (!goTokens.size) return [];
+  const scored = [];
+  for (const m of index.bySlug.values()) {
+    const aaTokens = clean(m.name);
+    let inter = 0;
+    for (const t of goTokens) if (aaTokens.has(t)) inter++;
+    if (!inter) continue;
+    scored.push({ m, score: inter / (goTokens.size + aaTokens.size - inter) });
+  }
+  return scored
+    .sort((a, b) => b.score - a.score)
+    .slice(0, limit)
+    .map(({ m, score }) => ({ slug: m.slug, name: m.displayName, score: Math.round(score * 100) / 100 }));
 }
 
 /* ──────────────────────────── Арены (LMArena) ─────────────────────────────── */
@@ -525,11 +645,15 @@ function reliabilityScore(model) {
  * (настройки в CONFIG.visual).
  *
  * Балла нет без верстки (webdev overall / image_to_webdev): модель,
- * не тестировавшаяся на UI, в топ «Визуала» попасть не должна. Зрение
- * (vision) уточняет балл своим весом, когда оно измерено; арены отстают
- * от релизов, поэтому его отсутствие балл не обнуляет, а веса оставшихся
- * компонентов нормируются (как в «Надёжности»).
- * Возвращает { score, parts }; parts — сырые строки арен (для тултипов и отладки).
+ * не тестировавшаяся на UI, в топ «Визуала» попасть не должна.
+ *
+ * «Глаза» (eyeFactor) — обязательный множитель поверх базы: зрения нет —
+ * балл режется до noVisionPenalty; зрение слабое — множитель растёт от
+ * eyeWeakBase до 1 вместе с качеством; зрение отличное (норма не ниже
+ * eyeBonusThreshold) — бонус eyeBonusFactor. Безглазые тонут вниз списка,
+ * но из него не пропадают.
+ * Возвращает { score, parts, eyeFactor }; parts — сырые строки арен
+ * (для тултипов и отладки).
  */
 function visualScore(arena, aaName) {
   const parts = {};
@@ -537,8 +661,8 @@ function visualScore(arena, aaName) {
     parts[component.key] = arenaValue(arena, component.key, aaName);
   }
 
-  const { requireWeb, components } = CONFIG.visual;
-  if (requireWeb && !requireWeb.some((key) => parts[key] != null)) return { score: null, parts };
+  const { requireWeb, components, noVisionPenalty, eyeWeakBase, eyeBonusThreshold, eyeBonusFactor } = CONFIG.visual;
+  if (requireWeb && !requireWeb.some((key) => parts[key] != null)) return { score: null, parts, eyeFactor: null };
 
   let sum = 0;
   let weight = 0;
@@ -549,12 +673,25 @@ function visualScore(arena, aaName) {
     sum += part * component.weight;
     weight += component.weight;
   }
+  if (!weight) return { score: null, parts, eyeFactor: null };
 
-  return { score: weight ? Math.round((100 * sum) / weight * 10) / 10 : null, parts };
+  const base = sum / weight;
+  const visionComp = components.find((c) => c.key === 'vision');
+  const visionRow = parts.vision;
+  const normVision = visionRow && visionComp ? normalizeComponent(visionRow.value, visionComp) : null;
+
+  let eyeFactor;
+  if (normVision == null) eyeFactor = noVisionPenalty;
+  else if (normVision >= eyeBonusThreshold) eyeFactor = eyeBonusFactor;
+  else eyeFactor = eyeWeakBase + (1 - eyeWeakBase) * normVision;
+
+  const score = Math.round(Math.min(100, 100 * base * eyeFactor) * 10) / 10;
+  return { score, parts, eyeFactor: Math.round(eyeFactor * 1000) / 1000 };
 }
 
 /** Сырые компоненты «Визуала» для data.js — без пустых значений. */
 function visualParts(parts) {
+  if (!parts) return null;
   const out = {};
   for (const [key, row] of Object.entries(parts)) {
     if (row) out[key] = { value: row.value, rank: row.rank, n: row.votes };
@@ -573,39 +710,72 @@ function statusOf({ unlimited, limitNote, promoNote, monthlyLimit, requests5h })
   return 'active';
 }
 
-/**
- * Примечание про бесплатные модели. Имена берём из отобранного списка, чтобы
- * текст не разошёлся с бейджами на странице.
+/* ──────────────── Тексты примечаний (meta.notes) ────────────────
+ *
+ * ЕДИНСТВЕННОЕ МЕСТО ПРАВКИ ТЕКСТОВ: все шесть примечаний — функции ниже.
+ * Их пишет вручную владелец проекта. Агентам: не менять тексты
+ * без явного разрешения (см. AGENTS.md).
+ *
+ * Порядок функций = порядок на странице (кнопки фильтров сверху и футер).
  */
-function freeNote(top) {
-  if (!top.length) return 'Часть моделей в OpenCode доступна бесплатно, без подписки Go.';
-  const names = top.map((f) => f.name).join(', ');
+
+/** Примечание про метрику Intelligence. */
+function intelligenceNote() {
   return (
-    'Помимо подписки OpenCode Go часть моделей доступна бесплатно, без подписки. Самые умные ' +
-    `из них по Artificial Analysis — ${names} — отмечены в списке зелёным бейджем «Free». ` +
-    'Показатель OpenCode Go Эффективность у этих строк считается по лимитам подписки Go.'
+    'Artificial Analysis Intelligence Index — сводный балл по 10 независимым тестам: ' +
+    'знания, математика, код, агентные задачи, следование инструкциям. Показывает, насколько ' +
+    'модель умна в целом и наколько она широко смотрит на вещи при решении задач'
+  );
+}
+
+/** Примечание про метрику «Надёжность». */
+function reliabilityNote() {
+  return (
+    'Показатель того, насколько модель хорошо справляется с большими и сложными задачами, ' +
+    'не галлюцинирует, не придумывает лишнего, делает точно именно то что попросили, и насколько хорошо проверяет работу других моделей.'
   );
 }
 
 /**
- * Примечание про метрику «Визуал». Веса берём из конфига, чтобы текст
- * на странице не разошёлся с настройками расчёта.
+ * Примечание про метрику «Визуал».
+ *
+ * Веса компонентов в тексте ниже: повтор по скриншотам image_to_webdev — 40%,
+ * общее качество UI webdev overall — 30%, зрение vision overall — 30%
+ * (CONFIG.visual.components в models.config.js). Если веса в конфиге
+ * поменяются — поправьте цифры в тексте вручную.
  */
 function visualNote() {
-  const share = (key) => {
-    const component = CONFIG.visual.components.find((c) => c.key === key);
-    return component ? `${Math.round(component.weight * 100)}%` : '—';
-  };
   return (
-    'Насколько модель в целом хорошо работает с визуалом: смотрит скриншоты, понимает, ' +
-    'что такое красиво, собирает UI/UX. Собран из арен LMArena, где люди сравнивают работы ' +
-    'моделей попарно: повтор по скриншотам image_to_webdev ' +
-    `(вес ${share('img2web')}), общее качество UI webdev overall (${share('webdev')}) и ` +
-    `зрение vision overall (${share('vision')}). ` +
-    'Это голоса людей, а не измерение красоты: у Artificial Analysis бенчмарков про дизайн, UI ' +
-    'и зрение в Intelligence Index нет. Балла нет без верстки; зрение уточняет балл, когда оно ' +
-    'измерено (арены отстают от релизов). Состав балла виден в подсказке строки. Выше — лучше. ' +
-    '2D приоритетно, 3D отдельным сигналом не меряем.'
+    'Насколько модель хорошо работает с визуалом: смотрит скриншоты, понимает, ' +
+    'что такое красиво, собирает качественный UI/UX, пишет хорошие визуальные промпты.'
+  );
+}
+
+/** Примечание про метрику Cost per Intelligence. */
+function costPerTaskNote() {
+  return (
+    'Сколько совокупного IQ вы получаете за потраченные токены модели. ' +
+    'Чем лучше параметр - тем более экономически выгода модель.'
+  );
+}
+
+/** Примечание про метрику OpenCode Go Эффективность. */
+function efficiencyNote() {
+  return (
+    'Показатель того насколько модель имеет большой IQ и при этом насколько щедрые лимиты под нее выделяет ' +
+    'подписка OpenCode Go. Чем выше показатель — тем целесообразнее использовать модель для постоянной работы.'
+  );
+}
+
+/**
+ * Примечание про бесплатные модели. Текст описывает правило их показа,
+ * а не перечисляет имена: перечисление может разойтись с составом строк
+ * при следующем обновлении.
+ */
+function freeNote() {
+  return (
+    'Помимо подписки OpenCode Go часть моделей доступна бесплатно, без подписки. Все они ' +
+    'показаны в списке отдельными строками с зелёным бейджем «Free» '
   );
 }
 
@@ -649,6 +819,42 @@ async function main() {
   const usedSlugs = new Set();
   const items = [];
   const unmatched = [];
+  // Аудит автоподхвата: сколько моделей сопоставилось каждым методом.
+  const matchStats = {};
+  // Модели, закрытые добивкой со страницы модели (для итогового лога).
+  const resolvedViaFallback = [];
+
+  // Предпроход: какие подписочные и бесплатные имена не закрыл лидерборд.
+  // Только для них тянем добивку со страницы модели: один запрос, и только
+  // если красные вообще есть. Любой сбой здесь — предупреждение, сборка идёт
+  // дальше на данных лидерборда.
+  const needFallback = new Set();
+  for (const [goName] of pricing) if (!matchAa(goName, index)) needFallback.add(goName);
+  for (const name of freeNames) {
+    const base = name.replace(/\s+free$/i, '').trim();
+    if (!matchAa(name, index) && !matchAa(base, index)) needFallback.add(name);
+  }
+  let fallbackIndex = null;
+  if (needFallback.size) {
+    console.log(`Artificial Analysis — добивка ${needFallback.size} несопоставленных со страницы модели…`);
+    try {
+      const fb = await loadAaFallbackEval();
+      console.log(`  ✓ записей в датасете страницы: ${fb.length}`);
+      fallbackIndex = buildAaIndex(fb);
+    } catch (err) {
+      console.warn(`  ! Добивка недоступна: ${err.message}`);
+      console.warn('    Несопоставленные модели останутся с прочерками, остальные данные соберутся как есть.');
+    }
+  }
+
+  // Полное сопоставление: сначала лидерборд, затем добивка. Метод добивки
+  // пишется с префиксом «fallback:» для аудита в meta.matchMethods.
+  function matchAaFull(goName) {
+    const primary = matchAa(goName, index);
+    if (primary || !fallbackIndex) return primary;
+    const hit = matchAa(goName, fallbackIndex);
+    return hit ? { m: hit.m, method: `fallback:${hit.method}` } : null;
+  }
 
   // Цвета разработчиков, которые уже встречаются на AA, — чтобы модели без данных
   // всё равно были окрашены привычным цветом своего вендора.
@@ -669,9 +875,16 @@ async function main() {
 
   for (const [goName, tiers] of pricing) {
     const primary = tiers[0];
-    const aaModel = matchAa(goName, index);
-    if (!aaModel) unmatched.push(goName);
-    if (aaModel) usedSlugs.add(aaModel.slug);
+    const hit = matchAaFull(goName);
+    const aaModel = hit ? hit.m : null;
+    if (!hit) unmatched.push(goName);
+    else {
+      usedSlugs.add(hit.m.slug);
+      matchStats[hit.method] = (matchStats[hit.method] || 0) + 1;
+      if (hit.method.startsWith('fallback:')) {
+        resolvedViaFallback.push({ name: goName, slug: hit.m.slug, intelligence: hit.m.intelligence });
+      }
+    }
 
     const guessedCreator = aaModel ? null : guessCreator(goName);
 
@@ -710,6 +923,10 @@ async function main() {
       aaSlug: aaModel?.slug ?? null,
       aaName: aaModel?.displayName ?? null,
       aaUrl: aaModel?.url ?? null,
+      // Каким методом сопоставилось: override/exact/base/canon (аудит автоподхвата).
+      aaMatch: hit ? hit.method : null,
+      // Красная метка «нет AA»: ставится ниже, после разметки бесплатных моделей.
+      needsAaFix: false,
       intelligence: aaModel?.intelligence ?? null,
       intelligenceEstimated: aaModel?.intelligenceEstimated ?? false,
       costPerTask: aaModel?.costPerTask ?? null,
@@ -747,9 +964,7 @@ async function main() {
       reliability: aaModel ? reliabilityScore(aaModel) : null,
       visual: visual.score,
       visualParts: visualParts(visual.parts),
-      // Алиас для старых кэшированных страниц: то же значение под старым именем.
-      aesthetics: visual.score,
-      aestheticsParts: visualParts(visual.parts),
+      visualEye: visual.eyeFactor,
       freeInOc: false,
       status: statusOf({
         unlimited,
@@ -801,9 +1016,9 @@ async function main() {
       reliability: reliabilityScore(m),
       visual: visual.score,
       visualParts: visualParts(visual.parts),
-      // Алиас для старых кэшированных страниц: то же значение под старым именем.
-      aesthetics: visual.score,
-      aestheticsParts: visualParts(visual.parts),
+      visualEye: visual.eyeFactor,
+      aaMatch: 'aa-direct',
+      needsAaFix: false,
       freeInOc: false,
       status: 'not-in-go',
     };
@@ -811,14 +1026,15 @@ async function main() {
 
   const all = [...items, ...extraItems];
 
-  // Бесплатные модели OpenCode: выбираем самые умные и помечаем бейджем «Free»
-  // уже существующие строки (новых строк не добавляем — это те же модели).
+  // Бесплатные модели OpenCode: самые умные помечаем бейджем «Free» на уже
+  // существующих строках, остальные добавляем отдельными строками.
   const freeResolved = freeNames.map((name) => {
     // «GLM-5.3-Flash Free» -> «GLM-5.3-Flash»; «Beam Free» остаётся как есть,
     // поэтому пробуем и полное имя, и имя без суффикса Free.
     const base = name.replace(/\s+free$/i, '').trim();
-    const aaModel = matchAa(name, index) || matchAa(base, index);
-    return { name, base, aaModel, intelligence: aaModel ? aaModel.intelligence : null };
+    const hit = matchAaFull(name) || matchAaFull(base);
+    const aaModel = hit ? hit.m : null;
+    return { name, base, aaModel, aaMatch: hit ? hit.method : null, intelligence: aaModel ? aaModel.intelligence : null };
   });
 
   const freeRanked = freeResolved
@@ -842,7 +1058,83 @@ async function main() {
     }
   }
 
-  const aestheticsCount = all.filter((m) => m.visual != null).length;
+  // Отдельные строки для бесплатных моделей, которых в списке ещё нет:
+  // ни по подписке (тот же aaSlug или то же имя), ни среди добавленных ранее.
+  const presentSlugs = new Set(all.filter((m) => m.aaSlug).map((m) => m.aaSlug));
+  const presentNames = new Set();
+  for (const m of all) {
+    presentNames.add(norm(m.name));
+    if (m.aaName) presentNames.add(norm(baseName(m.aaName)));
+  }
+
+  const freeOnlyItems = [];
+  const freeSkipped = [];
+
+  for (const f of freeResolved) {
+    const alreadyListed =
+      (f.aaModel && presentSlugs.has(f.aaModel.slug)) ||
+      presentNames.has(norm(f.name)) ||
+      presentNames.has(norm(f.base));
+    if (alreadyListed) continue;
+    if (!f.aaModel && !CONFIG.showFreeWithoutAa) {
+      freeSkipped.push(f.name);
+      continue;
+    }
+
+    const m = f.aaModel;
+    const guessedCreator = m ? null : guessCreator(f.base || f.name);
+    const visual = m ? visualScore(arena, m.displayName) : { score: null, parts: null };
+
+    freeOnlyItems.push({
+      // Показываем имя без суффикса «Free» — бесплатность и так видна по бейджу.
+      name: f.base || f.name,
+      inGo: false,
+      goModelId: null,
+      inGoApi: false,
+      creator: m?.creator ?? guessedCreator ?? '—',
+      color: m?.color ?? (guessedCreator ? creatorColors.get(guessedCreator) : null) ?? '#8A8A93',
+      logo: m?.logo ?? null,
+      aaSlug: m?.slug ?? null,
+      aaName: m?.name ?? null,
+      aaUrl: m?.url ?? null,
+      intelligence: m?.intelligence ?? null,
+      intelligenceEstimated: m?.intelligenceEstimated ?? false,
+      costPerTask: m?.costPerTask ?? null,
+      contextWindow: m?.contextWindow ?? null,
+      isReasoning: m?.isReasoning ?? null,
+      isOpenWeights: m?.isOpenWeights ?? null,
+      go: null,
+      efficiency: null,
+      efficiencyProvisional: false,
+      valueScore: null,
+      reliability: m ? reliabilityScore(m) : null,
+      visual: visual.score,
+      visualParts: visualParts(visual.parts),
+      visualEye: visual.eyeFactor ?? null,
+      aaMatch: f.aaMatch,
+      needsAaFix: false,
+      freeInOc: true,
+      // Отдельный статус: не «вне подписки» и не активная подписочная модель.
+      status: 'free',
+    });
+  }
+
+  all.push(...freeOnlyItems);
+
+  // Красная метка «нет AA»: подписочная модель, не бесплатная и без карточки
+  // на Artificial Analysis (не нашлась ни в лидерборде, ни в добивке со
+  // страницы модели). Имя вида «… Free» — тоже бесплатная, не красим.
+  // На сайте такие строки подсвечиваются красным — это сигнал владельцу
+  // дописать пару в aaSlugOverrides.
+  const needsAaFix = [];
+  for (const m of items) {
+    if (!m.aaSlug && !m.freeInOc && !/\sfree$/i.test(m.name)) {
+      m.needsAaFix = true;
+      needsAaFix.push({ name: m.name, suggestions: aaSuggestions(m.name, index) });
+    }
+  }
+
+  const visualCount = all.filter((m) => m.visual != null).length;
 
   const data = {
     meta: {
@@ -864,14 +1156,18 @@ async function main() {
         total: all.length,
         inGo: items.length,
         extraFromAA: extraItems.length,
+        freeOnly: freeOnlyItems.length,
         unmatched: unmatched.length,
         withoutIntelligence: items.filter((i) => i.intelligence == null).length,
         withVisual: all.filter((m) => m.visual != null).length,
-        // Алиас для старых страниц: то же покрытие под старым именем.
-        withAesthetics: all.filter((m) => m.visual != null).length,
         freeInOc: freeBadged.length,
         freeAvailable: freeRanked.length,
+        needsAaFix: needsAaFix.length,
       },
+      // Аудит автоподхвата: каким методом сопоставилась каждая подписочная модель.
+      matchMethods: matchStats,
+      // Подписочные модели без карточки AA: имена + кандидаты для aaSlugOverrides.
+      needsAaFix,
       // Бесплатные модели OpenCode: сколько всего, что попало в отбор и какие.
       free: {
         topN: CONFIG.freeTopN,
@@ -884,24 +1180,12 @@ async function main() {
       },
       sources: CONFIG.urls,
       notes: {
-        intelligence:
-          'Artificial Analysis Intelligence Index v4.3.2 — сводный балл по 10 независимым тестам: ' +
-          'знания, математика, код, агентные задачи, следование инструкциям. Показывает, насколько ' +
-          'модель умна; цены и скорость в него не входят. Входит в расчёт «Надёжности» и ' +
-          '«OpenCode Go Эффективности». Выше — лучше.',
-        reliability:
-          'Совокупный показатель того, насколько модель хорошо справляется с большими и сложными задачами, ' +
-          'не галлюцинирует и хорошо проверяет себя и других агентов. Собран из данных Artificial Analysis: ' +
-          'сила модели, реальные задачи, отсутствие галлюцинаций, объём контекста и диагностика сбоев. Выше — лучше.',
+        intelligence: intelligenceNote(),
+        reliability: reliabilityNote(),
         visual: visualNote(),
-        // Алиас для старых кэшированных страниц.
-        aesthetics: visualNote(),
-        costPerTask:
-          'Artificial Analysis: средняя стоимость одной задачи Intelligence Index по прайсу провайдера, в USD. Это не цена подписки Go. Ниже — лучше.',
-        efficiency:
-          'Показатель учитывающий то насколько модель имеет высокий интеллект и при этом как много лимитов под неё выделяет ' +
-          'подписка OpenCode Go. Чем выше показатель — тем целесообразнее использовать модель для постоянной работы.',
-        free: freeNote(freeTop),
+        costPerTask: costPerTaskNote(),
+        efficiency: efficiencyNote(),
+        free: freeNote(),
       },
     },
     models: all,
@@ -915,9 +1199,12 @@ async function main() {
 
   console.log(`\n✓ Записано: ${path.basename(out)}`);
   console.log(`  моделей всего: ${all.length}`);
-  console.log(`  в подписке Go: ${items.length}, добавлено с AA: ${extraItems.length}`);
   console.log(
-    `  «Визуал»: есть у ${aestheticsCount} из ${all.length} моделей` +
+    `  в подписке Go: ${items.length}, добавлено с AA: ${extraItems.length}, ` +
+      `бесплатных строк: ${freeOnlyItems.length}`
+  );
+  console.log(
+    `  «Визуал»: есть у ${visualCount} из ${all.length} моделей` +
       (arena ? `, снимок арен ${arena.asOf}` : ' — арены недоступны')
   );
   const noVisual = items.filter((i) => i.visual == null);
@@ -930,6 +1217,26 @@ async function main() {
   if (unmatched.length) {
     console.log(`\n  Модели Go без данных на Artificial Analysis (${unmatched.length}):`);
     for (const n of unmatched) console.log(`    · ${n}`);
+  }
+  if (resolvedViaFallback.length) {
+    console.log(`\n  Закрыто добивкой со страницы модели (${resolvedViaFallback.length}):`);
+    for (const r of resolvedViaFallback) {
+      console.log(`    · ${r.name} -> ${r.slug} (Intelligence ${r.intelligence})`);
+    }
+  }
+  const methodSummary = Object.entries(matchStats)
+    .map(([method, n]) => `${method}: ${n}`)
+    .join(', ');
+  if (methodSummary) console.log(`  сопоставление с AA: ${methodSummary}`);
+  if (needsAaFix.length) {
+    console.log(`\n  ВНИМАНИЕ: подписочных моделей без карточки AA (${needsAaFix.length}) — на сайте они красные:`);
+    for (const n of needsAaFix) {
+      console.log(`    · ${n.name}`);
+      for (const s of n.suggestions) {
+        console.log(`      → '${n.name}': '${s.slug}',   # на AA «${s.name}»`);
+      }
+      if (!n.suggestions.length) console.log('      (похожих карточек на AA не нашлось)');
+    }
   }
   const free = all.filter((m) => m.status === 'unlimited');
   if (free.length) console.log(`  без лимита: ${free.map((m) => m.name).join(', ')}`);

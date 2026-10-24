@@ -34,6 +34,7 @@
     --promo-bg: #fff2d6;
     --promo-fg: #7a4d00;
     --ok: #1d6f42;
+    --danger: #b3261e;
     --lead: 332px;
     /* Три числовых столбца между названием и шкалой + место под число справа от бара. */
     --col-int: 62px;
@@ -59,6 +60,7 @@
     --promo-bg: #4a3a12;
     --promo-fg: #ffd479;
     --ok: #5fd08a;
+    --danger: #ff8a80;
   }
 
   * { box-sizing: border-box; }
@@ -306,6 +308,10 @@
   .badge.free { background: var(--ok); color: #fff; }
   .badge.promo { background: var(--promo-bg); color: var(--promo-fg); }
   .badge.plain { background: transparent; padding: 0; color: var(--ink-faint); }
+  /* Красная метка «нет AA»: подписочная модель без карточки на Artificial
+     Analysis. Сигнал владельцу дописать пару в aaSlugOverrides. */
+  .badge.noaa { background: transparent; border: 1px solid var(--danger); color: var(--danger); }
+  .row.noaa .row-name { color: var(--danger); font-weight: 600; }
   /* Пустой бейдж не должен рисовать «таблетку» нулевой ширины. */
   .badge:empty { display: none; }
 
@@ -547,7 +553,10 @@
     "promo-2x": { text: "×2 на время", cls: "promo", badge: true },
     limited: { text: "временно", cls: "promo", badge: true },
     "no-limit-data": { text: "нет данных", cls: "" },
-    "not-in-go": { text: "вне подписки", cls: "plain", badge: true }
+    "not-in-go": { text: "вне подписки", cls: "plain", badge: true },
+    // Бесплатная модель вне подписки Go: бейдж «Free» рисуется отдельно,
+    // поэтому статусный бейдж пустой.
+    free: { text: "", cls: "" }
   };
 
   if (!window.AI_DATA || !window.AI_DATA.models) {
@@ -612,8 +621,7 @@
   }
 
   function metricValue(model, metric) {
-    if (metric.id === "visual") return model.visual != null ? model.visual : model.aesthetics;
-    if (metric.id === "aesthetics") return model.aesthetics != null ? model.aesthetics : model.visual;
+    if (metric.id === "visual") return model.visual;
     if (metric.id === "valueScore") return modelValue(model);
     return model[metric.id];
   }
@@ -624,6 +632,20 @@
     if (metric.id === "intelligence") return nf1.format(v);
     if (metric.id === "costPerTask") return money(v);
     return nf0.format(v);
+  }
+
+  /** Тултип значения «Визуала»: состав по аренам и множитель глаз. */
+  function visualTitle(m) {
+    var p = m.visualParts || {};
+    var bits = [];
+    if (p.img2web) bits.push("повтор по скриншотам: " + p.img2web.value);
+    if (p.webdev) bits.push("общий UI: " + p.webdev.value);
+    if (p.vision) bits.push("зрение: " + p.vision.value);
+    else bits.push("зрения в аренах нет");
+    var t = "Визуал: " + (m.visual == null ? "—" : m.visual);
+    if (bits.length) t += " (" + bits.join("; ") + ")";
+    if (m.visualEye != null) t += m.visualEye >= 1 ? " · глаза ×" + m.visualEye : " · штраф за глаза ×" + m.visualEye;
+    return t;
   }
 
   /* ── шкала ───────────────────────────────────────────────── */
@@ -655,7 +677,7 @@
     if (v === Infinity) return 100;
     if (v == null || !isFinite(v) || v <= 0) return 0;
     if (metric.id === "costPerTask") return clamp(100 * RANGE.costPerTask.min / v);
-    if (metric.id === "valueScore" || metric.id === "reliability" || metric.id === "aesthetics" || metric.id === "visual") return clamp(v);
+    if (metric.id === "valueScore" || metric.id === "reliability" || metric.id === "visual") return clamp(v);
     return clamp(100 * v / RANGE.intelligence.max);
   }
 
@@ -871,7 +893,6 @@
   /* ── разметка: шапка и переключатель ─────────────────────── */
 
   function headHtml() {
-    var c = DATA.meta.counts;
     return '' +
       '<div class="head">' +
         '<h1>Лучшие AI модели</h1>' +
@@ -884,9 +905,9 @@
           '</div>' +
           '<div class="head-status" id="head-status" aria-live="polite"></div>' +
         '</div>' +
-        '<p class="head-sub">' + c.inGo + ' моделей по подписке ' +
-          '<a href="' + esc(DATA.meta.sources.goDocs) + '" target="_blank" rel="noreferrer">OpenCode Go</a> и ' +
-          c.extraFromAA + ' сильнейших моделей с ' +
+        '<p class="head-sub">Оценка моделей ' +
+          '<a href="' + esc(DATA.meta.sources.goDocs) + '" target="_blank" rel="noreferrer">OpenCode</a> ' +
+          'по метрикам ' +
           '<a href="' + esc(DATA.meta.sources.aa) + '" target="_blank" rel="noreferrer">Artificial Analysis</a></p>' +
         '<div class="head-meta">' +
           'Данные обновлены <strong>' + esc(updatedAt()) + '</strong>' +
@@ -934,11 +955,10 @@
         ? '<div><h3>Надёжность</h3><p>' + esc(DATA.meta.notes.reliability) + '</p></div>'
         : "") +
       '<div><h3>Cost per Intelligence</h3><p>' + esc(DATA.meta.notes.costPerTask) + '</p></div>' +
-      ((DATA.meta.notes.visual || DATA.meta.notes.aesthetics)
-        ? '<div><h3>Визуал</h3><p>' + esc(DATA.meta.notes.visual || DATA.meta.notes.aesthetics) +
+      (DATA.meta.notes.visual
+        ? '<div><h3>Визуал</h3><p>' + esc(DATA.meta.notes.visual) +
           (function () {
-            var arenaMeta = (DATA.meta.visual && DATA.meta.visual.arena) ||
-              (DATA.meta.aesthetics && DATA.meta.aesthetics.arena);
+            var arenaMeta = DATA.meta.visual && DATA.meta.visual.arena;
             return (arenaMeta && arenaMeta.asOf) ? ' Данные арен на ' + esc(arenaMeta.asOf) + '.' : '';
           })() +
           '</p></div>'
@@ -947,11 +967,14 @@
       (DATA.meta.notes.free
         ? '<div><h3>Бесплатно в OpenCode</h3><p>' + esc(DATA.meta.notes.free) + '</p></div>'
         : "") +
-      (DATA.meta.counts.unmatched
-        ? '<div><h3>Без данных</h3><p>У ' + DATA.meta.counts.unmatched + ' моделей из подписки пока нет карточки ' +
-          'на Artificial Analysis — в списке у них прочерк. Если это ошибка сопоставления, ' +
-          'допишите пару в <code>models.config.js</code>.</p></div>'
-        : "");
+      (function () {
+        var fixCount = (DATA.meta.counts && DATA.meta.counts.needsAaFix != null)
+          ? DATA.meta.counts.needsAaFix : DATA.meta.counts.unmatched;
+        if (!fixCount) return "";
+        return '<div><h3>Без данных</h3><p>У ' + fixCount + ' моделей из подписки пока нет карточки ' +
+          'на Artificial Analysis — в списке у них прочерк и красная метка «нет AA». ' +
+          'Если это ошибка сопоставления, допишите пару в <code>models.config.js</code>.</p></div>';
+      })();
     return el;
   }
 
@@ -992,7 +1015,9 @@
     MODELS.forEach(function (m, index) {
       var tipId = "note-tip-" + index;
       var row = document.createElement("div");
-      row.className = "row" + (m.inGo ? "" : " out");
+      // Приглушаем только модели, добавленные для сравнения с AA; бесплатные
+      // строки (status "free") остаются в полную яркость со своим бейджем «Free».
+      row.className = "row" + (m.status === "not-in-go" ? " out" : "");
       row.dataset.key = keyOf(m);
       row.innerHTML =
         '<div class="row-label">' +
@@ -1001,6 +1026,7 @@
           '<span class="row-name" title="' + esc(m.name + " · " + m.creator) + '">' + esc(m.name) + '</span>' +
           '<span class="badge"></span>' +
           '<span class="badge free"></span>' +
+          '<span class="badge noaa"></span>' +
           '<span class="note-wrap">' +
             '<button type="button" class="note-btn" aria-expanded="false" aria-describedby="' + tipId + '" ' +
               'aria-label="Заметка о модели ' + esc(m.name) + '">?</button>' +
@@ -1055,10 +1081,21 @@
     freeBadge.textContent = m.freeInOc ? "Free" : "";
     freeBadge.title = m.freeInOc ? "Доступна в OpenCode бесплатно — без подписки Go" : "";
 
+    // Красная метка «нет AA»: подписочная модель без карточки на Artificial
+    // Analysis. Свежий снимок даёт явный флаг needsAaFix, для старых data.js
+    // правило выводится тем же образом.
+    var needsFix = !!m.needsAaFix || (!!m.inGo && !m.freeInOc && !m.aaSlug && !/\sfree$/i.test(m.name));
+    var noaaBadge = row.querySelector(".badge.noaa");
+    noaaBadge.textContent = needsFix ? "нет AA" : "";
+    noaaBadge.title = needsFix ? "Нет карточки на Artificial Analysis — цифры не подтянулись. Проверь aaSlugOverrides." : "";
+    if (needsFix) row.classList.add("noaa"); else row.classList.remove("noaa");
+
     var bar = row.querySelector(".bar");
     var val = row.querySelector(".bar-val");
     var label = raw === Infinity ? "без лимита" : formatMetric(raw, metric);
     val.textContent = label;
+    if (metric.id === "visual") val.title = visualTitle(m);
+    else val.removeAttribute("title");
 
     if (mode === "initial") {
       // Ставим бар на ноль без перехода, фиксируем это значение принудительным reflow
@@ -1206,12 +1243,11 @@
     // модель хороша», только Intelligence — про ум, а «Визуал» — про зрение,
     // скриншоты и UI. Данные у неё не с Artificial Analysis, а из арен LMArena —
     // об этом сказано в подсказке и в примечании.
-    // Старые снимки без visual понимаем через legacy-поле aesthetics.
-    var visualNote = DATA.meta.notes.visual || DATA.meta.notes.aesthetics;
-    var hasVisual = (DATA.meta.visual || DATA.meta.aesthetics) && visualNote;
+    var visualNote = DATA.meta.notes.visual;
+    var hasVisual = DATA.meta.visual && visualNote;
     if (hasVisual) {
       list.push({
-        id: DATA.meta.visual ? "visual" : "aesthetics", section: "aa", label: "Визуал",
+        id: "visual", section: "aa", label: "Визуал",
         hint: "зрение, скриншоты, UI", note: visualNote
       });
     }
