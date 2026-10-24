@@ -2,7 +2,7 @@
    Ручные правки будут перезаписаны. Настройки — в models.config.js. */
 window.AI_DATA = {
   "meta": {
-    "generatedAt": "2026-10-24T14:20:37.465Z",
+    "generatedAt": "2026-10-24T22:50:10.367Z",
     "plan": {
       "id": "go",
       "label": "OpenCode Go",
@@ -116,9 +116,9 @@ window.AI_DATA = {
     },
     "matchMethods": {
       "exact": 11,
-      "base": 5,
+      "base": 6,
       "fallback:base": 4,
-      "override": 3,
+      "override": 2,
       "fallback:exact": 1,
       "fallback:canon": 2,
       "fallback:override": 1
@@ -2251,9 +2251,9 @@ window.AI_DATA = {
       "status": "active"
     },
     {
-      "name": "Gemini 4 Argon Contributor",
+      "name": "Gemini 4 Argon",
       "inGo": true,
-      "goModelId": "gemini-4-argon-contributor",
+      "goModelId": "gemini-4-argon",
       "inGoApi": true,
       "creator": "Google",
       "color": "#34A853",
@@ -2261,7 +2261,7 @@ window.AI_DATA = {
       "aaSlug": "gemini-4-argon",
       "aaName": "Gemini 4 Argon (High)",
       "aaUrl": "https://artificialanalysis.ai/models/gemini-4-argon",
-      "aaMatch": "override",
+      "aaMatch": "base",
       "needsAaFix": false,
       "intelligence": 52.5605655745982,
       "intelligenceEstimated": false,
@@ -2270,20 +2270,20 @@ window.AI_DATA = {
       "isReasoning": true,
       "isOpenWeights": false,
       "go": {
-        "input": 4,
-        "output": 20,
-        "cachedRead": 0.2,
+        "input": null,
+        "output": null,
+        "cachedRead": null,
         "cachedWrite": null,
-        "monthlyLimit": 60,
-        "limitRaw": "$60",
-        "limitNote": "2x · Limited time",
+        "monthlyLimit": 30,
+        "limitRaw": "$30",
+        "limitNote": null,
         "tiers": [
           {
-            "label": null,
-            "input": 4,
-            "output": 20,
-            "cachedRead": 0.2,
-            "monthlyLimit": 60
+            "label": "50% off",
+            "input": null,
+            "output": null,
+            "cachedRead": null,
+            "monthlyLimit": 30
           }
         ],
         "requests5h": 440,
@@ -2292,8 +2292,8 @@ window.AI_DATA = {
         "unlimited": false,
         "mix": null,
         "tokensPerRequest": null,
-        "costPerRequest": 0.02727272727272727,
-        "limit5hUsd": 12,
+        "costPerRequest": 0.013636363636363636,
+        "limit5hUsd": 6,
         "tokensPer5h": null
       },
       "efficiency": 440,
@@ -2310,7 +2310,7 @@ window.AI_DATA = {
       },
       "visualEye": 0.4,
       "freeInOc": false,
-      "status": "promo-2x"
+      "status": "active"
     },
     {
       "name": "Claude Opus 5.5 (Max)",
