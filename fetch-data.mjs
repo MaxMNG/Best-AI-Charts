@@ -144,15 +144,29 @@ async function loadArtificialAnalysis() {
  * Компонентов «Надёжности» (gdpval/itbench) в этом датасете нет — reliability
  * у таких моделей останется прочерком.
  */
-async function loadAaFallbackEval() {
-  const html = await fetchText(`${AA_ORIGIN}/models/${CONFIG.aaFallbackProbeSlug}`);
+/**
+ * Парсинг датасета оценок со страницы модели AA. На странице несколько массивов
+ * с записями вида {"slug":"...","name":"..."}: компактные (оценка рядом) и
+ * детальные (внутри есть вложенный "release":{"slug":"..."} — алиас релиза).
+ * Вложенные алиасы пропускаем: чужой intelligenceIndex им приписывать нельзя
+ * (так «DeepSeek V4.1 Flash» получал чужие 24.67/39.46). Окно записи тянем до
+ * следующей НЕ вложенной записи — оценка детальной записи лежит за её release.
+ */
+function parseModelPageDataset(html) {
   const text = html.replace(/\\"/g, '"');
-  const records = [];
   const re = /"slug":"([a-z0-9][a-z0-9-]*)","name":"([^"]*)"/g;
+  const hits = [];
   let m;
   while ((m = re.exec(text)) !== null) {
-    const nextSlug = text.indexOf('"slug":"', m.index + m[0].length);
-    const window = text.slice(m.index, nextSlug >= 0 ? nextSlug : m.index + 4000);
+    const prev = text.slice(Math.max(0, m.index - 32), m.index);
+    hits.push({ slug: m[1], name: m[2], index: m.index, nested: /"release":\{\s*$/.test(prev) });
+  }
+  const records = [];
+  for (let i = 0; i < hits.length; i++) {
+    if (hits[i].nested) continue;
+    let j = i + 1;
+    while (j < hits.length && hits[j].nested) j++;
+    const window = text.slice(hits[i].index, j < hits.length ? hits[j].index : hits[i].index + 20000);
     const intel = window.match(/"intelligenceIndex":(null|[\d.]+)/);
     if (!intel || intel[1] === 'null') continue;
     const field = (key) => {
@@ -163,13 +177,13 @@ async function loadAaFallbackEval() {
     const asBool = (v) => v === 'true';
     const boolOrNull = (v) => (v == null ? null : asBool(v));
     records.push({
-      slug: m[1],
-      name: m[2],
-      displayName: cleanAaName(m[2]),
+      slug: hits[i].slug,
+      name: hits[i].name,
+      displayName: cleanAaName(hits[i].name),
       creator: '—',
       color: '#8A8A93',
       logo: null,
-      url: `${AA_ORIGIN}/models/${m[1]}`,
+      url: `${AA_ORIGIN}/models/${hits[i].slug}`,
       intelligence: Number(intel[1]),
       intelligenceEstimated: asBool(field('intelligenceIndexIsEstimated')),
       costPerTask: asNum(field('intelligenceIndexCostPerTask')),
@@ -184,6 +198,23 @@ async function loadAaFallbackEval() {
     });
   }
   return records;
+}
+
+async function loadAaFallbackEval() {
+  const html = await fetchText(`${AA_ORIGIN}/models/${CONFIG.aaFallbackProbeSlug}`);
+  return parseModelPageDataset(html);
+}
+
+/**
+ * Добивка со страницы самой модели: для override-slug'ов, которых нет ни
+ * в лидерборде, ни в пробном датасете (снятые с публикации карточки вроде
+ * deepseek-v4-1-flash — ревизии 20260910). Берём только запись с совпадающим
+ * slug, имя проверяем каноникой против названия в Go. Вызывать только для
+ * несопоставленных моделей: плюс один запрос на slug, сбой — warn-only.
+ */
+async function loadAaOwnPage(slug) {
+  const html = await fetchText(`${AA_ORIGIN}/models/${slug}`);
+  return parseModelPageDataset(html).filter((r) => r.slug === slug);
 }
 
 /* ────────────────────────────── Документация Go ───────────────────────────── */
@@ -429,20 +460,15 @@ function buildAaIndex(models) {
   return { bySlug, byFull, byBase, byCanon };
 }
 
-function matchAa(goName, index) {
-  const override = CONFIG.aaSlugOverrides[goName];
-  if (override) {
-    const hit = index.bySlug.get(override);
-    if (hit) return { m: hit, method: 'override' };
-    console.warn(`  ! override «${goName}» -> slug «${override}» не найден на AA, пробую поиск по имени`);
-  }
-
-  // Сопоставление строгое, но многослойное: сначала полное имя, затем имя
-  // без варианта в скобках («Kimi K3» найдёт «Kimi K3 (Max)»), затем
-  // канонический ключ без вендора/мусора/дат («Xiaomi MiMo-V2.5» найдёт «MiMo-V2.5»).
-  // Нечёткий поиск по схожести строк намеренно не используется: он уже однажды
-  // подставил «Qwen3.8 Flash» метрики соседней «Qwen3.8-Flash-Next».
-  // Возвращает { m, method } для аудита автоподхвата или null.
+/**
+ * Сопоставление строгое, но многослойное: сначала полное имя, затем имя
+ * без варианта в скобках («Kimi K3» найдёт «Kimi K3 (Max)»), затем
+ * канонический ключ без вендора/мусора/дат («Xiaomi MiMo-V2.5» найдёт «MiMo-V2.5»).
+ * Нечёткий поиск по схожести строк намеренно не используется: он уже однажды
+ * подставил «Qwen3.8 Flash» метрики соседней «Qwen3.8-Flash-Next».
+ * Возвращает { m, method } для аудита автоподхвата или null.
+ */
+function matchAaByName(goName, index) {
   const key = norm(goName);
   const full = index.byFull.get(key);
   if (full) return { m: full, method: 'exact' };
@@ -451,6 +477,17 @@ function matchAa(goName, index) {
   const canon = index.byCanon.get(canonKey(goName));
   if (canon) return { m: canon, method: 'canon' };
   return null;
+}
+
+function matchAa(goName, index, quiet = false) {
+  const override = CONFIG.aaSlugOverrides[goName];
+  if (override) {
+    const hit = index.bySlug.get(override);
+    if (hit) return { m: hit, method: 'override' };
+    if (!quiet) console.warn(`  ! override «${goName}» -> slug «${override}» не найден ни в лидерборде, ни в добивке, пробую поиск по имени`);
+  }
+
+  return matchAaByName(goName, index);
 }
 
 /**
@@ -829,10 +866,10 @@ async function main() {
   // если красные вообще есть. Любой сбой здесь — предупреждение, сборка идёт
   // дальше на данных лидерборда.
   const needFallback = new Set();
-  for (const [goName] of pricing) if (!matchAa(goName, index)) needFallback.add(goName);
+  for (const [goName] of pricing) if (!matchAa(goName, index, true)) needFallback.add(goName);
   for (const name of freeNames) {
     const base = name.replace(/\s+free$/i, '').trim();
-    if (!matchAa(name, index) && !matchAa(base, index)) needFallback.add(name);
+    if (!matchAa(name, index, true) && !matchAa(base, index, true)) needFallback.add(name);
   }
   let fallbackIndex = null;
   if (needFallback.size) {
@@ -847,13 +884,62 @@ async function main() {
     }
   }
 
-  // Полное сопоставление: сначала лидерборд, затем добивка. Метод добивки
-  // пишется с префиксом «fallback:» для аудита в meta.matchMethods.
+  // Второй слой добивки — страницы самих моделей: для override-slug'ов,
+  // которых нет ни в лидерборде, ни в пробном датасете (снятые с публикации
+  // карточки: deepseek-v4-1-flash — ревизия 20260910). Проверка идёт по slug,
+  // а не по несопоставленности модели: явный override важнее совпадения
+  // по имени (каноника нашла бы 1017, а нужен 0910). Плюс один запрос
+  // на slug, сбой — warn-only.
+  let ownIndex = null;
+  const needOwn = new Map();
+  for (const [goName, slug] of Object.entries(CONFIG.aaSlugOverrides)) {
+    const referenced = pricing.has(goName) || freeNames.includes(goName) ||
+      freeNames.some((n) => n.replace(/\s+free$/i, '').trim() === goName);
+    if (!referenced) continue;
+    if (index.bySlug.has(slug)) continue;
+    if (fallbackIndex && fallbackIndex.bySlug.has(slug)) continue;
+    if (!needOwn.has(slug)) needOwn.set(slug, goName);
+  }
+  if (needOwn.size) {
+    console.log(`Artificial Analysis — добивка ${needOwn.size} override-slug со страниц моделей…`);
+    const ownRecords = [];
+    for (const [slug, goName] of needOwn) {
+      try {
+        const recs = await loadAaOwnPage(slug);
+        if (!recs.length) {
+          console.warn(`  ! ${goName}: на странице модели «${slug}» оценок нет`);
+          continue;
+        }
+        console.log(`  ✓ ${goName} -> ${slug}: записей ${recs.length}`);
+        ownRecords.push(...recs);
+      } catch (err) {
+        console.warn(`  ! ${goName}: страница модели «${slug}» недоступна: ${err.message}`);
+      }
+    }
+    if (ownRecords.length) ownIndex = buildAaIndex(ownRecords);
+  }
+
+  // Полное сопоставление: лидерборд, затем пробный датасет, затем страницы
+  // моделей. Явный override ищется по slug СНАЧАЛА во всех слоях: он важнее
+  // совпадения по имени (иначе каноника подсунула бы 1017 вместо 0910).
+  // Затем — поиск по имени по слоям. Метод пишется с префиксом слоя
+  // для аудита в meta.matchMethods.
   function matchAaFull(goName) {
-    const primary = matchAa(goName, index);
-    if (primary || !fallbackIndex) return primary;
-    const hit = matchAa(goName, fallbackIndex);
-    return hit ? { m: hit.m, method: `fallback:${hit.method}` } : null;
+    const layers = [[index, ''], [fallbackIndex, 'fallback:'], [ownIndex, 'ownpage:']]
+      .filter(([layer]) => layer);
+    const slug = CONFIG.aaSlugOverrides[goName];
+    if (slug) {
+      for (const [layer, tag] of layers) {
+        const hit = layer.bySlug.get(slug);
+        if (hit) return { m: hit, method: `${tag}override` };
+      }
+      console.warn(`  ! override «${goName}» -> slug «${slug}» не найден ни в лидерборде, ни в добивке, пробую поиск по имени`);
+    }
+    for (const [layer, tag] of layers) {
+      const hit = matchAaByName(goName, layer);
+      if (hit) return { m: hit.m, method: `${tag}${hit.method}` };
+    }
+    return null;
   }
 
   // Цвета разработчиков, которые уже встречаются на AA, — чтобы модели без данных
@@ -881,8 +967,13 @@ async function main() {
     else {
       usedSlugs.add(hit.m.slug);
       matchStats[hit.method] = (matchStats[hit.method] || 0) + 1;
-      if (hit.method.startsWith('fallback:')) {
-        resolvedViaFallback.push({ name: goName, slug: hit.m.slug, intelligence: hit.m.intelligence });
+      if (hit.method.includes(':')) {
+        resolvedViaFallback.push({
+          name: goName,
+          slug: hit.m.slug,
+          intelligence: hit.m.intelligence,
+          via: hit.method.startsWith('ownpage:') ? 'страница модели' : 'пробный датасет',
+        });
       }
     }
 
@@ -980,20 +1071,35 @@ async function main() {
   const seenBase = new Set();
   for (const item of items) if (item.aaName) seenBase.add(norm(baseName(item.aaName)));
 
+  // Закреплённые строки (CONFIG.pinExtraAaSlugs): всегда на странице,
+  // даже если выпали из топ-20. Из общего отбора их исключаем, чтобы не двоились.
+  const pinnedSlugs = new Map(Object.entries(CONFIG.pinExtraAaSlugs || {}));
+
   const extras = [];
   for (const m of [...aa].sort((a, b) => (b.intelligence ?? -1) - (a.intelligence ?? -1))) {
-    if (m.intelligence == null || usedSlugs.has(m.slug)) continue;
+    if (m.intelligence == null || usedSlugs.has(m.slug) || pinnedSlugs.has(m.slug)) continue;
     const base = norm(baseName(m.name));
     if (seenBase.has(base)) continue;
     seenBase.add(base);
     extras.push(m);
     if (extras.length >= CONFIG.topFromAA) break;
   }
+  for (const [slug, label] of pinnedSlugs) {
+    const m = index.bySlug.get(slug)
+      || (fallbackIndex && fallbackIndex.bySlug.get(slug))
+      || (ownIndex && ownIndex.bySlug.get(slug));
+    if (!m || m.intelligence == null) {
+      console.warn(`  ! закреплённая строка «${label}»: slug «${slug}» не найден на AA — строка пропущена`);
+      continue;
+    }
+    extras.push({ ...m, _pinName: label });
+  }
+  extras.sort((a, b) => (b.intelligence ?? -1) - (a.intelligence ?? -1));
 
   const extraItems = extras.map((m) => {
     const visual = visualScore(arena, m.displayName);
     return {
-      name: m.displayName,
+      name: m._pinName || m.displayName,
       inGo: false,
       goModelId: null,
       inGoApi: false,
@@ -1017,7 +1123,7 @@ async function main() {
       visual: visual.score,
       visualParts: visualParts(visual.parts),
       visualEye: visual.eyeFactor,
-      aaMatch: 'aa-direct',
+      aaMatch: m._pinName ? 'pinned' : 'aa-direct',
       needsAaFix: false,
       freeInOc: false,
       status: 'not-in-go',
@@ -1219,9 +1325,9 @@ async function main() {
     for (const n of unmatched) console.log(`    · ${n}`);
   }
   if (resolvedViaFallback.length) {
-    console.log(`\n  Закрыто добивкой со страницы модели (${resolvedViaFallback.length}):`);
+    console.log(`\n  Закрыто добивкой со страниц моделей (${resolvedViaFallback.length}):`);
     for (const r of resolvedViaFallback) {
-      console.log(`    · ${r.name} -> ${r.slug} (Intelligence ${r.intelligence})`);
+      console.log(`    · ${r.name} -> ${r.slug} (Intelligence ${r.intelligence}, ${r.via})`);
     }
   }
   const methodSummary = Object.entries(matchStats)

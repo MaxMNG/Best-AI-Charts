@@ -2,7 +2,7 @@
    Ручные правки будут перезаписаны. Настройки — в models.config.js. */
 window.AI_DATA = {
   "meta": {
-    "generatedAt": "2026-10-24T13:49:36.507Z",
+    "generatedAt": "2026-10-24T14:20:37.465Z",
     "plan": {
       "id": "go",
       "label": "OpenCode Go",
@@ -103,13 +103,13 @@ window.AI_DATA = {
       }
     },
     "counts": {
-      "total": 56,
+      "total": 57,
       "inGo": 30,
-      "extraFromAA": 20,
+      "extraFromAA": 21,
       "freeOnly": 6,
       "unmatched": 3,
       "withoutIntelligence": 3,
-      "withVisual": 34,
+      "withVisual": 36,
       "freeInOc": 3,
       "freeAvailable": 6,
       "needsAaFix": 2
@@ -117,10 +117,11 @@ window.AI_DATA = {
     "matchMethods": {
       "exact": 11,
       "base": 5,
-      "fallback:exact": 5,
+      "fallback:base": 4,
       "override": 3,
+      "fallback:exact": 1,
       "fallback:canon": 2,
-      "canon": 1
+      "fallback:override": 1
     },
     "needsAaFix": [
       {
@@ -168,16 +169,16 @@ window.AI_DATA = {
       "topN": 3,
       "top": [
         {
-          "name": "DeepSeek V4.1 Flash Free",
-          "base": "DeepSeek V4.1 Flash",
-          "intelligence": 45.0965048681912,
-          "aaSlug": "deepseek-v4-1-flash-1017"
-        },
-        {
           "name": "GLM-5.3-Flash Free",
           "base": "GLM-5.3-Flash",
           "intelligence": 41.807466113455,
           "aaSlug": "glm-5-3-flash"
+        },
+        {
+          "name": "DeepSeek V4.1 Flash Free",
+          "base": "DeepSeek V4.1 Flash",
+          "intelligence": 39.456167472527,
+          "aaSlug": "deepseek-v4-1-flash"
         },
         {
           "name": "MiMo-V2.6-Flash Free",
@@ -355,15 +356,15 @@ window.AI_DATA = {
       "color": "#8A8A93",
       "logo": null,
       "aaSlug": "glm-5-2",
-      "aaName": "GLM-5.2",
+      "aaName": "GLM-5.2 (Max)",
       "aaUrl": "https://artificialanalysis.ai/models/glm-5-2",
-      "aaMatch": "fallback:exact",
+      "aaMatch": "fallback:base",
       "needsAaFix": false,
       "intelligence": 33.7054572377545,
       "intelligenceEstimated": false,
       "costPerTask": null,
       "contextWindow": 1000000,
-      "isReasoning": null,
+      "isReasoning": true,
       "isOpenWeights": true,
       "go": {
         "input": 1.4,
@@ -483,15 +484,15 @@ window.AI_DATA = {
       "color": "#8A8A93",
       "logo": null,
       "aaSlug": "kimi-k3",
-      "aaName": "Kimi K3",
+      "aaName": "Kimi K3 (Max)",
       "aaUrl": "https://artificialanalysis.ai/models/kimi-k3",
-      "aaMatch": "fallback:exact",
+      "aaMatch": "fallback:base",
       "needsAaFix": false,
       "intelligence": 43.5938229518782,
       "intelligenceEstimated": false,
       "costPerTask": null,
       "contextWindow": 1048576,
-      "isReasoning": null,
+      "isReasoning": true,
       "isOpenWeights": true,
       "go": {
         "input": 3,
@@ -1033,7 +1034,7 @@ window.AI_DATA = {
       "intelligenceEstimated": false,
       "costPerTask": null,
       "contextWindow": 1000000,
-      "isReasoning": null,
+      "isReasoning": true,
       "isOpenWeights": true,
       "go": {
         "input": 0.14,
@@ -1096,15 +1097,15 @@ window.AI_DATA = {
       "color": "#8A8A93",
       "logo": null,
       "aaSlug": "mimo-v2-5-pro",
-      "aaName": "MiMo-V2.5-Pro",
+      "aaName": "MiMo-V2.5-Pro (Reasoning)",
       "aaUrl": "https://artificialanalysis.ai/models/mimo-v2-5-pro",
-      "aaMatch": "fallback:exact",
+      "aaMatch": "fallback:base",
       "needsAaFix": false,
       "intelligence": 25.9868888896511,
       "intelligenceEstimated": false,
       "costPerTask": null,
       "contextWindow": 1000000,
-      "isReasoning": null,
+      "isReasoning": true,
       "isOpenWeights": true,
       "go": {
         "input": 0.435,
@@ -1304,7 +1305,7 @@ window.AI_DATA = {
       "color": "#8A8A93",
       "logo": null,
       "aaSlug": "muse-spark-1-3",
-      "aaName": "Muse Spark 1.3",
+      "aaName": "Muse Spark 1.3 (Max)",
       "aaUrl": "https://artificialanalysis.ai/models/muse-spark-1-3",
       "aaMatch": "fallback:canon",
       "needsAaFix": false,
@@ -1312,7 +1313,7 @@ window.AI_DATA = {
       "intelligenceEstimated": false,
       "costPerTask": null,
       "contextWindow": 1000000,
-      "isReasoning": null,
+      "isReasoning": true,
       "isOpenWeights": false,
       "go": {
         "input": 0.1,
@@ -1380,7 +1381,7 @@ window.AI_DATA = {
       "color": "#8A8A93",
       "logo": null,
       "aaSlug": "muse-spark-1-2",
-      "aaName": "Muse Spark 1.2",
+      "aaName": "Muse Spark 1.2 (Xhigh)",
       "aaUrl": "https://artificialanalysis.ai/models/muse-spark-1-2",
       "aaMatch": "fallback:canon",
       "needsAaFix": false,
@@ -1388,7 +1389,7 @@ window.AI_DATA = {
       "intelligenceEstimated": false,
       "costPerTask": null,
       "contextWindow": 1048576,
-      "isReasoning": null,
+      "isReasoning": true,
       "isOpenWeights": false,
       "go": {
         "input": 0.1,
@@ -1656,17 +1657,17 @@ window.AI_DATA = {
       "inGo": true,
       "goModelId": "deepseek-v4.1-flash",
       "inGoApi": true,
-      "creator": "DeepSeek",
-      "color": "#2243e6",
-      "logo": "https://artificialanalysis.ai/img/logos/deepseek.svg",
-      "aaSlug": "deepseek-v4-1-flash-1017",
-      "aaName": "DeepSeek V4.1 Flash 1017 (Max)",
-      "aaUrl": "https://artificialanalysis.ai/models/deepseek-v4-1-flash-1017",
-      "aaMatch": "canon",
+      "creator": "—",
+      "color": "#8A8A93",
+      "logo": null,
+      "aaSlug": "deepseek-v4-1-flash",
+      "aaName": "DeepSeek V4.1 Flash (Max)",
+      "aaUrl": "https://artificialanalysis.ai/models/deepseek-v4-1-flash",
+      "aaMatch": "fallback:override",
       "needsAaFix": false,
-      "intelligence": 45.0965048681912,
+      "intelligence": 39.456167472527,
       "intelligenceEstimated": false,
-      "costPerTask": 0.2620484273114172,
+      "costPerTask": null,
       "contextWindow": 1000000,
       "isReasoning": true,
       "isOpenWeights": true,
@@ -1710,11 +1711,27 @@ window.AI_DATA = {
       },
       "efficiency": 34670,
       "efficiencyProvisional": false,
-      "valueScore": 84.9,
-      "reliability": 68.4,
-      "visual": null,
-      "visualParts": null,
-      "visualEye": null,
+      "valueScore": 76.5,
+      "reliability": 70.9,
+      "visual": 75.2,
+      "visualParts": {
+        "img2web": {
+          "value": 1606.3300077467948,
+          "rank": 13,
+          "n": 767
+        },
+        "webdev": {
+          "value": 1618.5767547409391,
+          "rank": 27,
+          "n": 3530
+        },
+        "vision": {
+          "value": 1277.8593561291239,
+          "rank": 38,
+          "n": 4100
+        }
+      },
+      "visualEye": 1.05,
       "freeInOc": true,
       "status": "active"
     },
@@ -2086,15 +2103,15 @@ window.AI_DATA = {
       "color": "#8A8A93",
       "logo": null,
       "aaSlug": "gpt-5-6-luna",
-      "aaName": "GPT-5.6 Luna",
+      "aaName": "GPT-5.6 Luna (Max)",
       "aaUrl": "https://artificialanalysis.ai/models/gpt-5-6-luna",
-      "aaMatch": "fallback:exact",
+      "aaMatch": "fallback:base",
       "needsAaFix": false,
       "intelligence": 37.3244239690841,
       "intelligenceEstimated": false,
       "costPerTask": null,
       "contextWindow": 1000000,
-      "isReasoning": null,
+      "isReasoning": true,
       "isOpenWeights": false,
       "go": {
         "input": 0.2,
@@ -2593,6 +2610,42 @@ window.AI_DATA = {
       },
       "visualEye": 1.05,
       "aaMatch": "aa-direct",
+      "needsAaFix": false,
+      "freeInOc": false,
+      "status": "not-in-go"
+    },
+    {
+      "name": "DeepSeek V4.1 Flash 1017",
+      "inGo": false,
+      "goModelId": null,
+      "inGoApi": false,
+      "creator": "DeepSeek",
+      "color": "#2243e6",
+      "logo": "https://artificialanalysis.ai/img/logos/deepseek.svg",
+      "aaSlug": "deepseek-v4-1-flash-1017",
+      "aaName": "DeepSeek V4.1 Flash 1017 (Max)",
+      "aaUrl": "https://artificialanalysis.ai/models/deepseek-v4-1-flash-1017",
+      "intelligence": 45.0965048681912,
+      "intelligenceEstimated": false,
+      "costPerTask": 0.2620484273114172,
+      "contextWindow": 1000000,
+      "isReasoning": true,
+      "isOpenWeights": true,
+      "go": null,
+      "efficiency": null,
+      "efficiencyProvisional": false,
+      "valueScore": null,
+      "reliability": 68.4,
+      "visual": 33.1,
+      "visualParts": {
+        "webdev": {
+          "value": 1664.9514302499974,
+          "rank": 14,
+          "n": 2500
+        }
+      },
+      "visualEye": 0.4,
+      "aaMatch": "pinned",
       "needsAaFix": false,
       "freeInOc": false,
       "status": "not-in-go"

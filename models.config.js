@@ -37,8 +37,19 @@ export const CONFIG = {
    */
   aaSlugOverrides: {
     'DeepSeek V4 Pro': 'deepseek-v4-pro', // на AA это "DeepSeek V4 Pro 0813"
+    'DeepSeek V4.1 Flash': 'deepseek-v4-1-flash', // ревизия 20260910 (Max); 1017 живёт отдельной закреплённой строкой
     'Gemini 4 Argon Contributor': 'gemini-4-argon',
     'Beam Free': 'reflection-beam', // на AA релиз называется "Beam 1.0"
+  },
+
+  /**
+   * Закреплённые строки «вне подписки»: slug на AA -> название строки.
+   * Такие модели всегда на странице, даже если выпали из топ-20 (topFromAA).
+   * Сейчас здесь только DeepSeek V4.1 Flash 1017: в подписке Go его нет,
+   * а подписочная строка «DeepSeek V4.1 Flash» отдана ревизии 20260910.
+   */
+  pinExtraAaSlugs: {
+    'deepseek-v4-1-flash-1017': 'DeepSeek V4.1 Flash 1017',
   },
 
   /**
@@ -160,7 +171,12 @@ export const CONFIG = {
       vision: { config: 'vision', field: 'rating', category: 'overall' },
     },
     // 'Имя модели на AA': 'Имя в арене' — только для реальных расхождений в названии.
-    overrides: {},
+    overrides: {
+      // Ревизия 20260910 — последняя перед 1017, у неё полное покрытие (webdev + img2web + vision).
+      'DeepSeek V4.1 Flash (Max)': 'DeepSeek-V4.1-Flash-20260910 (Max)',
+      // 1017 в аренах подписана полной датой; строка только с вёрсткой, без зрения.
+      'DeepSeek V4.1 Flash 1017 (Max)': 'DeepSeek-V4.1-Flash-20261017 (Max)',
+    },
   },
 
   /**
