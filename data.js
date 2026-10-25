@@ -2,7 +2,7 @@
    Ручные правки будут перезаписаны. Настройки — в models.config.js. */
 window.AI_DATA = {
   "meta": {
-    "generatedAt": "2026-10-24T22:50:10.367Z",
+    "generatedAt": "2026-10-25T22:59:45.756Z",
     "plan": {
       "id": "go",
       "label": "OpenCode Go",
@@ -103,12 +103,12 @@ window.AI_DATA = {
       }
     },
     "counts": {
-      "total": 57,
-      "inGo": 30,
+      "total": 56,
+      "inGo": 29,
       "extraFromAA": 21,
       "freeOnly": 6,
-      "unmatched": 3,
-      "withoutIntelligence": 3,
+      "unmatched": 2,
+      "withoutIntelligence": 2,
       "withVisual": 36,
       "freeInOc": 3,
       "freeAvailable": 6,
@@ -676,62 +676,6 @@ window.AI_DATA = {
       "visualEye": null,
       "freeInOc": false,
       "status": "active"
-    },
-    {
-      "name": "LongCat 2.5 Preview Free",
-      "inGo": true,
-      "goModelId": "longcat-2.5-preview-free",
-      "inGoApi": false,
-      "creator": "Meituan",
-      "color": "#8A8A93",
-      "logo": null,
-      "aaSlug": null,
-      "aaName": null,
-      "aaUrl": null,
-      "aaMatch": null,
-      "needsAaFix": false,
-      "intelligence": null,
-      "intelligenceEstimated": false,
-      "costPerTask": null,
-      "contextWindow": null,
-      "isReasoning": null,
-      "isOpenWeights": null,
-      "go": {
-        "input": 0,
-        "output": 0,
-        "cachedRead": 0,
-        "cachedWrite": null,
-        "monthlyLimit": null,
-        "limitRaw": "Unlimited",
-        "limitNote": "limited time",
-        "tiers": [
-          {
-            "label": null,
-            "input": 0,
-            "output": 0,
-            "cachedRead": 0,
-            "monthlyLimit": null
-          }
-        ],
-        "requests5h": null,
-        "requestsWeek": null,
-        "requestsMonth": null,
-        "unlimited": true,
-        "mix": null,
-        "tokensPerRequest": null,
-        "costPerRequest": null,
-        "limit5hUsd": null,
-        "tokensPer5h": null
-      },
-      "efficiency": null,
-      "efficiencyProvisional": false,
-      "valueScore": null,
-      "reliability": null,
-      "visual": null,
-      "visualParts": null,
-      "visualEye": null,
-      "freeInOc": false,
-      "status": "unlimited"
     },
     {
       "name": "Step 5 Preview",
