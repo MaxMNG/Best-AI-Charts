@@ -2,7 +2,7 @@
    Ручные правки будут перезаписаны. Настройки — в models.config.js. */
 window.AI_DATA = {
   "meta": {
-    "generatedAt": "2026-10-31T00:19:44.433Z",
+    "generatedAt": "2026-10-31T23:55:10.538Z",
     "plan": {
       "id": "go",
       "label": "OpenCode Go",
