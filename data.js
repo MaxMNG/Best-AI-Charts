@@ -2,7 +2,7 @@
    Ручные правки будут перезаписаны. Настройки — в models.config.js. */
 window.AI_DATA = {
   "meta": {
-    "generatedAt": "2026-10-30T00:33:30.698Z",
+    "generatedAt": "2026-10-31T00:19:44.433Z",
     "plan": {
       "id": "go",
       "label": "OpenCode Go",
@@ -1748,8 +1748,8 @@ window.AI_DATA = {
         "output": 0.6,
         "cachedRead": 0.003,
         "cachedWrite": null,
-        "monthlyLimit": 80,
-        "limitRaw": "$80",
+        "monthlyLimit": 100,
+        "limitRaw": "$100",
         "limitNote": null,
         "tiers": [
           {
@@ -1757,19 +1757,19 @@ window.AI_DATA = {
             "input": 0.15,
             "output": 0.6,
             "cachedRead": 0.003,
-            "monthlyLimit": 80
+            "monthlyLimit": 100
           },
           {
             "label": "Peak",
             "input": 0.3,
             "output": 1.2,
             "cachedRead": 0.006,
-            "monthlyLimit": 80
+            "monthlyLimit": 100
           }
         ],
-        "requests5h": 34670,
-        "requestsWeek": 86670,
-        "requestsMonth": 173330,
+        "requests5h": 43330,
+        "requestsWeek": 108330,
+        "requestsMonth": 216670,
         "unlimited": false,
         "mix": {
           "input": 410,
@@ -1778,12 +1778,12 @@ window.AI_DATA = {
         },
         "tokensPerRequest": 72020,
         "costPerRequest": 0.0004614,
-        "limit5hUsd": 16,
-        "tokensPer5h": 2496933400
+        "limit5hUsd": 20,
+        "tokensPer5h": 3120626600
       },
-      "efficiency": 34670,
+      "efficiency": 43330,
       "efficiencyProvisional": false,
-      "valueScore": 64.7,
+      "valueScore": 65.9,
       "reliability": 57.8,
       "visual": 33.1,
       "visualParts": {
@@ -3010,7 +3010,7 @@ window.AI_DATA = {
       "aaUrl": "https://artificialanalysis.ai/models/nemotron-3-5-super-vl",
       "intelligence": 13.6203422723141,
       "intelligenceEstimated": false,
-      "costPerTask": 0.5565160431921087,
+      "costPerTask": 0.5382257339551116,
       "contextWindow": 1000000,
       "isReasoning": true,
       "isOpenWeights": true,
