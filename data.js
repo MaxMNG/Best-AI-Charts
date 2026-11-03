@@ -2,7 +2,7 @@
    Ручные правки будут перезаписаны. Настройки — в models.config.js. */
 window.AI_DATA = {
   "meta": {
-    "generatedAt": "2026-10-24T14:20:37.465Z",
+    "generatedAt": "2026-11-03T23:26:50.183Z",
     "plan": {
       "id": "go",
       "label": "OpenCode Go",
@@ -99,48 +99,106 @@ window.AI_DATA = {
             "category": "overall"
           }
         },
-        "asOf": "2026-10-23"
+        "asOf": "2026-10-28"
       }
     },
     "counts": {
-      "total": 57,
+      "total": 56,
       "inGo": 30,
-      "extraFromAA": 21,
+      "extraFromAA": 20,
       "freeOnly": 6,
-      "unmatched": 3,
-      "withoutIntelligence": 3,
-      "withVisual": 36,
+      "unmatched": 7,
+      "withoutIntelligence": 12,
+      "withVisual": 34,
       "freeInOc": 3,
       "freeAvailable": 6,
-      "needsAaFix": 2
+      "needsAaFix": 6
     },
     "matchMethods": {
       "exact": 11,
-      "base": 5,
-      "fallback:base": 4,
-      "override": 3,
-      "fallback:exact": 1,
-      "fallback:canon": 2,
-      "fallback:override": 1
+      "base": 6,
+      "fallback:base": 1,
+      "override": 4,
+      "fallback:canon": 1
     },
     "needsAaFix": [
       {
-        "name": "Qwen3.8 Flash",
+        "name": "GLM-5.2",
         "suggestions": [
           {
-            "slug": "qwen3-8-flash-next",
-            "name": "Qwen3.8-Flash-Next",
-            "score": 0.75
+            "slug": "mercury-2-5",
+            "name": "Mercury 2.5",
+            "score": 0.5
           },
           {
-            "slug": "qwen3-8-27b-medium",
-            "name": "Qwen3.8 27B (Medium)",
+            "slug": "glm-5-3-flash",
+            "name": "GLM-5.3-Flash",
             "score": 0.4
           },
           {
-            "slug": "qwen3-5-omni-flash",
-            "name": "Qwen3.5 Omni Flash",
+            "slug": "glm-5-3-low",
+            "name": "GLM-5.3 (Low)",
             "score": 0.4
+          }
+        ]
+      },
+      {
+        "name": "MiMo-V2.5",
+        "suggestions": [
+          {
+            "slug": "mimo-v2-6-flash",
+            "name": "MiMo-V2.6-Flash",
+            "score": 0.4
+          },
+          {
+            "slug": "mimo-v2-6-pro",
+            "name": "MiMo-V2.6-Pro",
+            "score": 0.4
+          },
+          {
+            "slug": "step-5",
+            "name": "Step 5 Preview",
+            "score": 0.2
+          }
+        ]
+      },
+      {
+        "name": "MiMo-V2.5-Pro",
+        "suggestions": [
+          {
+            "slug": "mimo-v2-6-pro",
+            "name": "MiMo-V2.6-Pro",
+            "score": 0.6
+          },
+          {
+            "slug": "mimo-v2-6-flash",
+            "name": "MiMo-V2.6-Flash",
+            "score": 0.33
+          },
+          {
+            "slug": "gpt-5-5-pro",
+            "name": "GPT-5.5 Pro (Xhigh)",
+            "score": 0.33
+          }
+        ]
+      },
+      {
+        "name": "Muse Spark 1.2 Contributor",
+        "suggestions": [
+          {
+            "slug": "muse-spark-open",
+            "name": "Muse Spark Open (Xhigh)",
+            "score": 0.33
+          },
+          {
+            "slug": "magistral-small-2509",
+            "name": "Magistral Small 1.2",
+            "score": 0.33
+          },
+          {
+            "slug": "magistral-medium-2509",
+            "name": "Magistral Medium 1.2",
+            "score": 0.33
           }
         ]
       },
@@ -153,14 +211,34 @@ window.AI_DATA = {
             "score": 0.25
           },
           {
-            "slug": "mistral-large-4",
-            "name": "Mistral Large 4 Preview",
-            "score": 0.2
-          },
-          {
             "slug": "ernie-5-0-thinking-preview",
             "name": "ERNIE 5.0 Thinking Preview",
             "score": 0.17
+          },
+          {
+            "slug": "gemini-3-1-pro-preview",
+            "name": "Gemini 3.1 Pro Preview",
+            "score": 0.17
+          }
+        ]
+      },
+      {
+        "name": "GPT 5.6 Luna",
+        "suggestions": [
+          {
+            "slug": "gpt-6-luna-xhigh",
+            "name": "GPT-6 Luna (Xhigh)",
+            "score": 0.6
+          },
+          {
+            "slug": "gpt-6-luna-medium",
+            "name": "GPT-6 Luna (Medium)",
+            "score": 0.6
+          },
+          {
+            "slug": "gpt-6-luna",
+            "name": "GPT-6 Luna (Max)",
+            "score": 0.6
           }
         ]
       }
@@ -169,21 +247,21 @@ window.AI_DATA = {
       "topN": 3,
       "top": [
         {
-          "name": "GLM-5.3-Flash Free",
-          "base": "GLM-5.3-Flash",
-          "intelligence": 41.807466113455,
-          "aaSlug": "glm-5-3-flash"
-        },
-        {
           "name": "DeepSeek V4.1 Flash Free",
           "base": "DeepSeek V4.1 Flash",
-          "intelligence": 39.456167472527,
-          "aaSlug": "deepseek-v4-1-flash"
+          "intelligence": 32.5896393532027,
+          "aaSlug": "deepseek-v4-1-flash-1017"
+        },
+        {
+          "name": "GLM-5.3-Flash Free",
+          "base": "GLM-5.3-Flash",
+          "intelligence": 27.803889160883,
+          "aaSlug": "glm-5-3-flash"
         },
         {
           "name": "MiMo-V2.6-Flash Free",
           "base": "MiMo-V2.6-Flash",
-          "intelligence": 37.8843590141754,
+          "intelligence": 26.7276981444568,
           "aaSlug": "mimo-v2-6-flash"
         }
       ]
@@ -218,9 +296,9 @@ window.AI_DATA = {
       "aaUrl": "https://artificialanalysis.ai/models/glm-5-3-flash",
       "aaMatch": "exact",
       "needsAaFix": false,
-      "intelligence": 41.807466113455,
+      "intelligence": 27.803889160883,
       "intelligenceEstimated": false,
-      "costPerTask": 0.2835948232103717,
+      "costPerTask": 0.5833103440014082,
       "contextWindow": 1000000,
       "isReasoning": true,
       "isOpenWeights": true,
@@ -257,9 +335,9 @@ window.AI_DATA = {
       },
       "efficiency": 6320,
       "efficiencyProvisional": false,
-      "valueScore": 67.4,
-      "reliability": 75.7,
-      "visual": 72.3,
+      "valueScore": 46.6,
+      "reliability": 49,
+      "visual": 72.2,
       "visualParts": {
         "img2web": {
           "value": 1578.3233115154308,
@@ -267,9 +345,9 @@ window.AI_DATA = {
           "n": 5623
         },
         "webdev": {
-          "value": 1607.74393505537,
-          "rank": 30,
-          "n": 19680
+          "value": 1606.6486731495352,
+          "rank": 32,
+          "n": 21587
         },
         "vision": {
           "value": 1293.8678100737243,
@@ -294,9 +372,9 @@ window.AI_DATA = {
       "aaUrl": "https://artificialanalysis.ai/models/glm-5-3",
       "aaMatch": "base",
       "needsAaFix": false,
-      "intelligence": 44.777392385614,
+      "intelligence": 31.653381843882,
       "intelligenceEstimated": false,
-      "costPerTask": 2.0056375150449584,
+      "costPerTask": 5.009264601719954,
       "contextWindow": 1000000,
       "isReasoning": true,
       "isOpenWeights": true,
@@ -333,14 +411,14 @@ window.AI_DATA = {
       },
       "efficiency": 220,
       "efficiencyProvisional": false,
-      "valueScore": 31,
-      "reliability": 74.9,
+      "valueScore": 23.2,
+      "reliability": 56.2,
       "visual": 27.9,
       "visualParts": {
         "webdev": {
-          "value": 1622.8056541352735,
-          "rank": 25,
-          "n": 10315
+          "value": 1622.8098625429598,
+          "rank": 27,
+          "n": 11150
         }
       },
       "visualEye": 0.4,
@@ -352,20 +430,20 @@ window.AI_DATA = {
       "inGo": true,
       "goModelId": "glm-5.2",
       "inGoApi": true,
-      "creator": "—",
-      "color": "#8A8A93",
+      "creator": "Z AI",
+      "color": "#1c7ff8",
       "logo": null,
-      "aaSlug": "glm-5-2",
-      "aaName": "GLM-5.2 (Max)",
-      "aaUrl": "https://artificialanalysis.ai/models/glm-5-2",
-      "aaMatch": "fallback:base",
-      "needsAaFix": false,
-      "intelligence": 33.7054572377545,
+      "aaSlug": null,
+      "aaName": null,
+      "aaUrl": null,
+      "aaMatch": null,
+      "needsAaFix": true,
+      "intelligence": null,
       "intelligenceEstimated": false,
       "costPerTask": null,
-      "contextWindow": 1000000,
-      "isReasoning": true,
-      "isOpenWeights": true,
+      "contextWindow": null,
+      "isReasoning": null,
+      "isOpenWeights": null,
       "go": {
         "input": 1.4,
         "output": 4.4,
@@ -395,17 +473,11 @@ window.AI_DATA = {
       },
       "efficiency": 880,
       "efficiencyProvisional": false,
-      "valueScore": 40.8,
-      "reliability": 60.1,
-      "visual": 25.5,
-      "visualParts": {
-        "webdev": {
-          "value": 1604.2531062674275,
-          "rank": 31,
-          "n": 17082
-        }
-      },
-      "visualEye": 0.4,
+      "valueScore": null,
+      "reliability": null,
+      "visual": null,
+      "visualParts": null,
+      "visualEye": null,
       "freeInOc": false,
       "status": "active"
     },
@@ -422,9 +494,9 @@ window.AI_DATA = {
       "aaUrl": "https://artificialanalysis.ai/models/kimi-k3-1-pro",
       "aaMatch": "exact",
       "needsAaFix": false,
-      "intelligence": 55.0869210959395,
+      "intelligence": 46.4526236744189,
       "intelligenceEstimated": false,
-      "costPerTask": 2.1145052918767275,
+      "costPerTask": 3.6812002895742055,
       "contextWindow": 1000000,
       "isReasoning": true,
       "isOpenWeights": false,
@@ -461,14 +533,14 @@ window.AI_DATA = {
       },
       "efficiency": 147,
       "efficiencyProvisional": false,
-      "valueScore": 25.1,
-      "reliability": 86.3,
-      "visual": 36.5,
+      "valueScore": 22.3,
+      "reliability": 84,
+      "visual": 36.8,
       "visualParts": {
         "webdev": {
-          "value": 1691.6445753473818,
-          "rank": 8,
-          "n": 2451
+          "value": 1694.582449167362,
+          "rank": 9,
+          "n": 2671
         }
       },
       "visualEye": 0.4,
@@ -480,15 +552,15 @@ window.AI_DATA = {
       "inGo": true,
       "goModelId": "kimi-k3",
       "inGoApi": true,
-      "creator": "—",
-      "color": "#8A8A93",
+      "creator": "Kimi",
+      "color": "#047AFE",
       "logo": null,
-      "aaSlug": "kimi-k3",
-      "aaName": "Kimi K3 (Max)",
-      "aaUrl": "https://artificialanalysis.ai/models/kimi-k3",
+      "aaSlug": "kimi-k3-low",
+      "aaName": "Kimi K3 (Low)",
+      "aaUrl": "https://artificialanalysis.ai/models/kimi-k3-low",
       "aaMatch": "fallback:base",
       "needsAaFix": false,
-      "intelligence": 43.5938229518782,
+      "intelligence": 17.4191985300887,
       "intelligenceEstimated": false,
       "costPerTask": null,
       "contextWindow": 1048576,
@@ -527,9 +599,9 @@ window.AI_DATA = {
       },
       "efficiency": 110,
       "efficiencyProvisional": false,
-      "valueScore": 10.6,
-      "reliability": 78.6,
-      "visual": 26.4,
+      "valueScore": 3.1,
+      "reliability": 29.5,
+      "visual": 26.5,
       "visualParts": {
         "img2web": {
           "value": 1578.7771939256486,
@@ -537,9 +609,9 @@ window.AI_DATA = {
           "n": 3936
         },
         "webdev": {
-          "value": 1654.8857175095568,
-          "rank": 17,
-          "n": 20312
+          "value": 1656.390908396489,
+          "rank": 18,
+          "n": 21281
         }
       },
       "visualEye": 0.4,
@@ -559,9 +631,9 @@ window.AI_DATA = {
       "aaUrl": "https://artificialanalysis.ai/models/kimi-k2-7-code",
       "aaMatch": "exact",
       "needsAaFix": false,
-      "intelligence": 25.8121062401836,
+      "intelligence": null,
       "intelligenceEstimated": false,
-      "costPerTask": 0.541190247118529,
+      "costPerTask": null,
       "contextWindow": 256000,
       "isReasoning": true,
       "isOpenWeights": true,
@@ -598,8 +670,8 @@ window.AI_DATA = {
       },
       "efficiency": 1350,
       "efficiencyProvisional": false,
-      "valueScore": 33.9,
-      "reliability": 24.4,
+      "valueScore": null,
+      "reliability": 14.7,
       "visual": 12,
       "visualParts": {
         "img2web": {
@@ -608,9 +680,9 @@ window.AI_DATA = {
           "n": 921
         },
         "webdev": {
-          "value": 1473.499345775851,
-          "rank": 71,
-          "n": 4961
+          "value": 1473.5355204604502,
+          "rank": 73,
+          "n": 4950
         }
       },
       "visualEye": 0.4,
@@ -630,9 +702,9 @@ window.AI_DATA = {
       "aaUrl": "https://artificialanalysis.ai/models/longcat-2-0",
       "aaMatch": "exact",
       "needsAaFix": false,
-      "intelligence": 19.1123256610623,
+      "intelligence": null,
       "intelligenceEstimated": false,
-      "costPerTask": 0.14624850952440743,
+      "costPerTask": null,
       "contextWindow": 1000000,
       "isReasoning": true,
       "isOpenWeights": true,
@@ -669,69 +741,13 @@ window.AI_DATA = {
       },
       "efficiency": 11400,
       "efficiencyProvisional": false,
-      "valueScore": 28.2,
-      "reliability": 28,
+      "valueScore": null,
+      "reliability": 100,
       "visual": null,
       "visualParts": null,
       "visualEye": null,
       "freeInOc": false,
       "status": "active"
-    },
-    {
-      "name": "LongCat 2.5 Preview Free",
-      "inGo": true,
-      "goModelId": "longcat-2.5-preview-free",
-      "inGoApi": false,
-      "creator": "Meituan",
-      "color": "#8A8A93",
-      "logo": null,
-      "aaSlug": null,
-      "aaName": null,
-      "aaUrl": null,
-      "aaMatch": null,
-      "needsAaFix": false,
-      "intelligence": null,
-      "intelligenceEstimated": false,
-      "costPerTask": null,
-      "contextWindow": null,
-      "isReasoning": null,
-      "isOpenWeights": null,
-      "go": {
-        "input": 0,
-        "output": 0,
-        "cachedRead": 0,
-        "cachedWrite": null,
-        "monthlyLimit": null,
-        "limitRaw": "Unlimited",
-        "limitNote": "limited time",
-        "tiers": [
-          {
-            "label": null,
-            "input": 0,
-            "output": 0,
-            "cachedRead": 0,
-            "monthlyLimit": null
-          }
-        ],
-        "requests5h": null,
-        "requestsWeek": null,
-        "requestsMonth": null,
-        "unlimited": true,
-        "mix": null,
-        "tokensPerRequest": null,
-        "costPerRequest": null,
-        "limit5hUsd": null,
-        "tokensPer5h": null
-      },
-      "efficiency": null,
-      "efficiencyProvisional": false,
-      "valueScore": null,
-      "reliability": null,
-      "visual": null,
-      "visualParts": null,
-      "visualEye": null,
-      "freeInOc": false,
-      "status": "unlimited"
     },
     {
       "name": "Step 5 Preview",
@@ -746,9 +762,9 @@ window.AI_DATA = {
       "aaUrl": "https://artificialanalysis.ai/models/step-5",
       "aaMatch": "exact",
       "needsAaFix": false,
-      "intelligence": 43.7343049141614,
+      "intelligence": 28.5283090216016,
       "intelligenceEstimated": false,
-      "costPerTask": 1.0264068637684054,
+      "costPerTask": 2.3452525606205166,
       "contextWindow": 1000000,
       "isReasoning": true,
       "isOpenWeights": true,
@@ -785,9 +801,9 @@ window.AI_DATA = {
       },
       "efficiency": 430,
       "efficiencyProvisional": false,
-      "valueScore": 41.4,
-      "reliability": 74.3,
-      "visual": 54.8,
+      "valueScore": 28.4,
+      "reliability": 50.4,
+      "visual": 55.1,
       "visualParts": {
         "img2web": {
           "value": 1550.4117076786192,
@@ -795,9 +811,9 @@ window.AI_DATA = {
           "n": 3300
         },
         "webdev": {
-          "value": 1567.987363980615,
-          "rank": 40,
-          "n": 5193
+          "value": 1571.03868087871,
+          "rank": 42,
+          "n": 5966
         },
         "vision": {
           "value": 1264.584469224122,
@@ -822,9 +838,9 @@ window.AI_DATA = {
       "aaUrl": "https://artificialanalysis.ai/models/reflection-beam",
       "aaMatch": "override",
       "needsAaFix": false,
-      "intelligence": 30.3334426348039,
+      "intelligence": 17.7307282547205,
       "intelligenceEstimated": false,
-      "costPerTask": 0.22624169286047544,
+      "costPerTask": 0.28440671352465285,
       "contextWindow": 1048576,
       "isReasoning": true,
       "isOpenWeights": true,
@@ -857,8 +873,64 @@ window.AI_DATA = {
       },
       "efficiency": null,
       "efficiencyProvisional": false,
-      "valueScore": 61.9,
-      "reliability": 52.3,
+      "valueScore": 26.1,
+      "reliability": 30.1,
+      "visual": null,
+      "visualParts": null,
+      "visualEye": null,
+      "freeInOc": false,
+      "status": "unlimited"
+    },
+    {
+      "name": "Iceman Contributor Free",
+      "inGo": true,
+      "goModelId": "iceman-contributor-free",
+      "inGoApi": true,
+      "creator": "—",
+      "color": "#8A8A93",
+      "logo": null,
+      "aaSlug": null,
+      "aaName": null,
+      "aaUrl": null,
+      "aaMatch": null,
+      "needsAaFix": false,
+      "intelligence": null,
+      "intelligenceEstimated": false,
+      "costPerTask": null,
+      "contextWindow": null,
+      "isReasoning": null,
+      "isOpenWeights": null,
+      "go": {
+        "input": 0,
+        "output": 0,
+        "cachedRead": 0,
+        "cachedWrite": null,
+        "monthlyLimit": null,
+        "limitRaw": "Unlimited",
+        "limitNote": "limited time",
+        "tiers": [
+          {
+            "label": null,
+            "input": 0,
+            "output": 0,
+            "cachedRead": 0,
+            "monthlyLimit": null
+          }
+        ],
+        "requests5h": null,
+        "requestsWeek": null,
+        "requestsMonth": null,
+        "unlimited": true,
+        "mix": null,
+        "tokensPerRequest": null,
+        "costPerRequest": null,
+        "limit5hUsd": null,
+        "tokensPer5h": null
+      },
+      "efficiency": null,
+      "efficiencyProvisional": false,
+      "valueScore": null,
+      "reliability": null,
       "visual": null,
       "visualParts": null,
       "visualEye": null,
@@ -878,9 +950,9 @@ window.AI_DATA = {
       "aaUrl": "https://artificialanalysis.ai/models/mimo-v2-6-flash",
       "aaMatch": "exact",
       "needsAaFix": false,
-      "intelligence": 37.8843590141754,
+      "intelligence": 26.7276981444568,
       "intelligenceEstimated": false,
-      "costPerTask": 0.06237567475410205,
+      "costPerTask": 0.12852987084014672,
       "contextWindow": 1000000,
       "isReasoning": true,
       "isOpenWeights": true,
@@ -917,9 +989,9 @@ window.AI_DATA = {
       },
       "efficiency": 30100,
       "efficiencyProvisional": false,
-      "valueScore": 73.1,
-      "reliability": 63.8,
-      "visual": 64.4,
+      "valueScore": 52.3,
+      "reliability": 47,
+      "visual": 64.6,
       "visualParts": {
         "img2web": {
           "value": 1595.540797821539,
@@ -927,9 +999,9 @@ window.AI_DATA = {
           "n": 2318
         },
         "webdev": {
-          "value": 1634.8122002269215,
-          "rank": 20,
-          "n": 5749
+          "value": 1637.1737027632755,
+          "rank": 22,
+          "n": 7068
         },
         "vision": {
           "value": 1255.7442227458723,
@@ -954,9 +1026,9 @@ window.AI_DATA = {
       "aaUrl": "https://artificialanalysis.ai/models/mimo-v2-6-pro",
       "aaMatch": "exact",
       "needsAaFix": false,
-      "intelligence": 46.3242065310383,
+      "intelligence": 29.8897833093321,
       "intelligenceEstimated": false,
-      "costPerTask": 0.13322318937213493,
+      "costPerTask": 0.25718036275876155,
       "contextWindow": 1000000,
       "isReasoning": true,
       "isOpenWeights": true,
@@ -993,8 +1065,8 @@ window.AI_DATA = {
       },
       "efficiency": 3250,
       "efficiencyProvisional": false,
-      "valueScore": 66.8,
-      "reliability": 77,
+      "valueScore": 46.1,
+      "reliability": 52.9,
       "visual": 65.1,
       "visualParts": {
         "img2web": {
@@ -1003,9 +1075,9 @@ window.AI_DATA = {
           "n": 2627
         },
         "webdev": {
-          "value": 1625.416951316944,
-          "rank": 23,
-          "n": 5678
+          "value": 1625.417548626546,
+          "rank": 25,
+          "n": 6820
         },
         "vision": {
           "value": 1262.8399732080727,
@@ -1021,21 +1093,21 @@ window.AI_DATA = {
       "name": "MiMo-V2.5",
       "inGo": true,
       "goModelId": "mimo-v2.5",
-      "inGoApi": true,
-      "creator": "—",
-      "color": "#8A8A93",
+      "inGoApi": false,
+      "creator": "Xiaomi",
+      "color": "#ff6900",
       "logo": null,
-      "aaSlug": "mimo-v2-5-0424",
-      "aaName": "MiMo-V2.5",
-      "aaUrl": "https://artificialanalysis.ai/models/mimo-v2-5-0424",
-      "aaMatch": "fallback:exact",
-      "needsAaFix": false,
-      "intelligence": 21.8248678794953,
+      "aaSlug": null,
+      "aaName": null,
+      "aaUrl": null,
+      "aaMatch": null,
+      "needsAaFix": true,
+      "intelligence": null,
       "intelligenceEstimated": false,
       "costPerTask": null,
-      "contextWindow": 1000000,
-      "isReasoning": true,
-      "isOpenWeights": true,
+      "contextWindow": null,
+      "isReasoning": null,
+      "isOpenWeights": null,
       "go": {
         "input": 0.14,
         "output": 0.28,
@@ -1069,22 +1141,11 @@ window.AI_DATA = {
       },
       "efficiency": 30100,
       "efficiencyProvisional": false,
-      "valueScore": 39.9,
-      "reliability": 37.8,
-      "visual": 39,
-      "visualParts": {
-        "webdev": {
-          "value": 1438.3598476813393,
-          "rank": 82,
-          "n": 14904
-        },
-        "vision": {
-          "value": 1247.0433261116336,
-          "rank": 66,
-          "n": 29381
-        }
-      },
-      "visualEye": 0.919,
+      "valueScore": null,
+      "reliability": null,
+      "visual": null,
+      "visualParts": null,
+      "visualEye": null,
       "freeInOc": false,
       "status": "active"
     },
@@ -1092,21 +1153,21 @@ window.AI_DATA = {
       "name": "MiMo-V2.5-Pro",
       "inGo": true,
       "goModelId": "mimo-v2.5-pro",
-      "inGoApi": true,
-      "creator": "—",
-      "color": "#8A8A93",
+      "inGoApi": false,
+      "creator": "Xiaomi",
+      "color": "#ff6900",
       "logo": null,
-      "aaSlug": "mimo-v2-5-pro",
-      "aaName": "MiMo-V2.5-Pro (Reasoning)",
-      "aaUrl": "https://artificialanalysis.ai/models/mimo-v2-5-pro",
-      "aaMatch": "fallback:base",
-      "needsAaFix": false,
-      "intelligence": 25.9868888896511,
+      "aaSlug": null,
+      "aaName": null,
+      "aaUrl": null,
+      "aaMatch": null,
+      "needsAaFix": true,
+      "intelligence": null,
       "intelligenceEstimated": false,
       "costPerTask": null,
-      "contextWindow": 1000000,
-      "isReasoning": true,
-      "isOpenWeights": true,
+      "contextWindow": null,
+      "isReasoning": null,
+      "isOpenWeights": null,
       "go": {
         "input": 0.435,
         "output": 0.87,
@@ -1140,17 +1201,11 @@ window.AI_DATA = {
       },
       "efficiency": 3250,
       "efficiencyProvisional": false,
-      "valueScore": 39.6,
-      "reliability": 45.6,
-      "visual": 10.1,
-      "visualParts": {
-        "webdev": {
-          "value": 1480.5419901752334,
-          "rank": 69,
-          "n": 22766
-        }
-      },
-      "visualEye": 0.4,
+      "valueScore": null,
+      "reliability": null,
+      "visual": null,
+      "visualParts": null,
+      "visualEye": null,
       "freeInOc": false,
       "status": "active"
     },
@@ -1167,12 +1222,12 @@ window.AI_DATA = {
       "aaUrl": "https://artificialanalysis.ai/models/minimax-m3-1-flash",
       "aaMatch": "exact",
       "needsAaFix": false,
-      "intelligence": 42.7057475126235,
+      "intelligence": 29.0595214290458,
       "intelligenceEstimated": false,
-      "costPerTask": 0.2201135746720313,
+      "costPerTask": 0.49097067348453205,
       "contextWindow": 1000000,
       "isReasoning": true,
-      "isOpenWeights": false,
+      "isOpenWeights": true,
       "go": {
         "input": 0.15,
         "output": 0.6,
@@ -1206,14 +1261,14 @@ window.AI_DATA = {
       },
       "efficiency": 3880,
       "efficiencyProvisional": false,
-      "valueScore": 64.4,
-      "reliability": 53,
-      "visual": 23.6,
+      "valueScore": 45.9,
+      "reliability": 51.4,
+      "visual": 22.8,
       "visualParts": {
         "webdev": {
-          "value": 1588.7951462032179,
-          "rank": 34,
-          "n": 2212
+          "value": 1582.4578204140666,
+          "rank": 38,
+          "n": 3062
         }
       },
       "visualEye": 0.4,
@@ -1233,9 +1288,9 @@ window.AI_DATA = {
       "aaUrl": "https://artificialanalysis.ai/models/minimax-m3",
       "aaMatch": "exact",
       "needsAaFix": false,
-      "intelligence": 29.2202932236316,
+      "intelligence": 18.8789083859255,
       "intelligenceEstimated": false,
-      "costPerTask": 0.5076126905781733,
+      "costPerTask": 1.2850974407373852,
       "contextWindow": 1000000,
       "isReasoning": true,
       "isOpenWeights": true,
@@ -1249,10 +1304,17 @@ window.AI_DATA = {
         "limitNote": null,
         "tiers": [
           {
-            "label": null,
+            "label": "≤ 512K tokens",
             "input": 0.3,
             "output": 1.2,
             "cachedRead": 0.06,
+            "monthlyLimit": 60
+          },
+          {
+            "label": "> 512K tokens",
+            "input": 0.6,
+            "output": 2.4,
+            "cachedRead": 0.12,
             "monthlyLimit": 60
           }
         ],
@@ -1272,9 +1334,9 @@ window.AI_DATA = {
       },
       "efficiency": 3200,
       "efficiencyProvisional": false,
-      "valueScore": 44.9,
-      "reliability": 61.8,
-      "visual": 35.9,
+      "valueScore": 23.5,
+      "reliability": 32.3,
+      "visual": 36,
       "visualParts": {
         "img2web": {
           "value": 1470.3442173295377,
@@ -1282,9 +1344,9 @@ window.AI_DATA = {
           "n": 5983
         },
         "webdev": {
-          "value": 1482.3001957708198,
-          "rank": 67,
-          "n": 20251
+          "value": 1483.3051511403955,
+          "rank": 69,
+          "n": 21032
         },
         "vision": {
           "value": 1251.0548647162113,
@@ -1301,15 +1363,15 @@ window.AI_DATA = {
       "inGo": true,
       "goModelId": "muse-spark-1.3-contributor",
       "inGoApi": true,
-      "creator": "—",
-      "color": "#8A8A93",
+      "creator": "Meta",
+      "color": "#0089f4",
       "logo": null,
       "aaSlug": "muse-spark-1-3",
       "aaName": "Muse Spark 1.3 (Max)",
       "aaUrl": "https://artificialanalysis.ai/models/muse-spark-1-3",
       "aaMatch": "fallback:canon",
       "needsAaFix": false,
-      "intelligence": 48.0923107719685,
+      "intelligence": 36.6172039139368,
       "intelligenceEstimated": false,
       "costPerTask": null,
       "contextWindow": 1000000,
@@ -1348,9 +1410,9 @@ window.AI_DATA = {
       },
       "efficiency": 45300,
       "efficiencyProvisional": false,
-      "valueScore": 91,
-      "reliability": 87,
-      "visual": 87,
+      "valueScore": 73.5,
+      "reliability": 65.5,
+      "visual": 86.9,
       "visualParts": {
         "img2web": {
           "value": 1640.3894130603526,
@@ -1358,9 +1420,9 @@ window.AI_DATA = {
           "n": 5679
         },
         "webdev": {
-          "value": 1657.1759774339794,
-          "rank": 16,
-          "n": 9921
+          "value": 1656.2348593321256,
+          "rank": 19,
+          "n": 10796
         },
         "vision": {
           "value": 1308.414166200037,
@@ -1377,20 +1439,20 @@ window.AI_DATA = {
       "inGo": true,
       "goModelId": "muse-spark-1.2-contributor",
       "inGoApi": true,
-      "creator": "—",
-      "color": "#8A8A93",
+      "creator": "Meta",
+      "color": "#0089f4",
       "logo": null,
-      "aaSlug": "muse-spark-1-2",
-      "aaName": "Muse Spark 1.2 (Xhigh)",
-      "aaUrl": "https://artificialanalysis.ai/models/muse-spark-1-2",
-      "aaMatch": "fallback:canon",
-      "needsAaFix": false,
-      "intelligence": 39.5758607970943,
+      "aaSlug": null,
+      "aaName": null,
+      "aaUrl": null,
+      "aaMatch": null,
+      "needsAaFix": true,
+      "intelligence": null,
       "intelligenceEstimated": false,
       "costPerTask": null,
-      "contextWindow": 1048576,
-      "isReasoning": true,
-      "isOpenWeights": false,
+      "contextWindow": null,
+      "isReasoning": null,
+      "isOpenWeights": null,
       "go": {
         "input": 0.1,
         "output": 0.2,
@@ -1424,22 +1486,11 @@ window.AI_DATA = {
       },
       "efficiency": 45300,
       "efficiencyProvisional": false,
-      "valueScore": 78.4,
-      "reliability": 71.1,
-      "visual": 71.3,
-      "visualParts": {
-        "webdev": {
-          "value": 1533.2453346353614,
-          "rank": 52,
-          "n": 2163
-        },
-        "vision": {
-          "value": 1304.2153267211183,
-          "rank": 17,
-          "n": 1948
-        }
-      },
-      "visualEye": 1.05,
+      "valueScore": null,
+      "reliability": null,
+      "visual": null,
+      "visualParts": null,
+      "visualEye": null,
       "freeInOc": false,
       "status": "active"
     },
@@ -1456,9 +1507,9 @@ window.AI_DATA = {
       "aaUrl": "https://artificialanalysis.ai/models/qwen3-8-max",
       "aaMatch": "base",
       "needsAaFix": false,
-      "intelligence": 45.4152084980521,
+      "intelligence": 33.6545627367888,
       "intelligenceEstimated": false,
-      "costPerTask": 5.408509428374016,
+      "costPerTask": 10.023891571541945,
       "contextWindow": 983616,
       "isReasoning": true,
       "isOpenWeights": false,
@@ -1495,9 +1546,9 @@ window.AI_DATA = {
       },
       "efficiency": 160,
       "efficiencyProvisional": false,
-      "valueScore": 24.2,
-      "reliability": 72.8,
-      "visual": 88.6,
+      "valueScore": 18.9,
+      "reliability": 59.5,
+      "visual": 88.9,
       "visualParts": {
         "img2web": {
           "value": 1636.588360038123,
@@ -1505,9 +1556,9 @@ window.AI_DATA = {
           "n": 1163
         },
         "webdev": {
-          "value": 1673.098519115044,
-          "rank": 12,
-          "n": 15637
+          "value": 1675.9355584770149,
+          "rank": 13,
+          "n": 17936
         },
         "vision": {
           "value": 1312.935382439709,
@@ -1526,18 +1577,18 @@ window.AI_DATA = {
       "inGoApi": true,
       "creator": "Alibaba",
       "color": "#ff7018",
-      "logo": null,
-      "aaSlug": null,
-      "aaName": null,
-      "aaUrl": null,
-      "aaMatch": null,
-      "needsAaFix": true,
+      "logo": "https://artificialanalysis.ai/img/logos/alibaba.svg",
+      "aaSlug": "qwen3-8-flash-next",
+      "aaName": "Qwen3.8-Flash-Next",
+      "aaUrl": "https://artificialanalysis.ai/models/qwen3-8-flash-next",
+      "aaMatch": "override",
+      "needsAaFix": false,
       "intelligence": null,
       "intelligenceEstimated": false,
       "costPerTask": null,
-      "contextWindow": null,
-      "isReasoning": null,
-      "isOpenWeights": null,
+      "contextWindow": 256000,
+      "isReasoning": true,
+      "isOpenWeights": true,
       "go": {
         "input": 0.15,
         "output": 0.47,
@@ -1572,10 +1623,16 @@ window.AI_DATA = {
       "efficiency": 5400,
       "efficiencyProvisional": false,
       "valueScore": null,
-      "reliability": null,
-      "visual": null,
-      "visualParts": null,
-      "visualEye": null,
+      "reliability": 14.7,
+      "visual": 28.5,
+      "visualParts": {
+        "webdev": {
+          "value": 1628.3220907822047,
+          "rank": 24,
+          "n": 9703
+        }
+      },
+      "visualEye": 0.4,
       "freeInOc": false,
       "status": "active"
     },
@@ -1592,9 +1649,9 @@ window.AI_DATA = {
       "aaUrl": "https://artificialanalysis.ai/models/qwen3-7-plus",
       "aaMatch": "exact",
       "needsAaFix": false,
-      "intelligence": 25.1622215821984,
+      "intelligence": null,
       "intelligenceEstimated": false,
-      "costPerTask": 0.21702592259078568,
+      "costPerTask": null,
       "contextWindow": 1000000,
       "isReasoning": true,
       "isOpenWeights": false,
@@ -1638,8 +1695,8 @@ window.AI_DATA = {
       },
       "efficiency": 4300,
       "efficiencyProvisional": false,
-      "valueScore": 39.5,
-      "reliability": 47.2,
+      "valueScore": null,
+      "reliability": 100,
       "visual": null,
       "visualParts": {
         "vision": {
@@ -1657,17 +1714,17 @@ window.AI_DATA = {
       "inGo": true,
       "goModelId": "deepseek-v4.1-flash",
       "inGoApi": true,
-      "creator": "—",
-      "color": "#8A8A93",
-      "logo": null,
-      "aaSlug": "deepseek-v4-1-flash",
-      "aaName": "DeepSeek V4.1 Flash (Max)",
-      "aaUrl": "https://artificialanalysis.ai/models/deepseek-v4-1-flash",
-      "aaMatch": "fallback:override",
+      "creator": "DeepSeek",
+      "color": "#2243e6",
+      "logo": "https://artificialanalysis.ai/img/logos/deepseek.svg",
+      "aaSlug": "deepseek-v4-1-flash-1017",
+      "aaName": "DeepSeek V4.1 Flash 1017 (Max)",
+      "aaUrl": "https://artificialanalysis.ai/models/deepseek-v4-1-flash-1017",
+      "aaMatch": "override",
       "needsAaFix": false,
-      "intelligence": 39.456167472527,
+      "intelligence": 32.5896393532027,
       "intelligenceEstimated": false,
-      "costPerTask": null,
+      "costPerTask": 0.60210514783598,
       "contextWindow": 1000000,
       "isReasoning": true,
       "isOpenWeights": true,
@@ -1676,8 +1733,8 @@ window.AI_DATA = {
         "output": 0.6,
         "cachedRead": 0.003,
         "cachedWrite": null,
-        "monthlyLimit": 80,
-        "limitRaw": "$80",
+        "monthlyLimit": 100,
+        "limitRaw": "$100",
         "limitNote": null,
         "tiers": [
           {
@@ -1685,19 +1742,19 @@ window.AI_DATA = {
             "input": 0.15,
             "output": 0.6,
             "cachedRead": 0.003,
-            "monthlyLimit": 80
+            "monthlyLimit": 100
           },
           {
             "label": "Peak",
             "input": 0.3,
             "output": 1.2,
             "cachedRead": 0.006,
-            "monthlyLimit": 80
+            "monthlyLimit": 100
           }
         ],
-        "requests5h": 34670,
-        "requestsWeek": 86670,
-        "requestsMonth": 173330,
+        "requests5h": 43330,
+        "requestsWeek": 108330,
+        "requestsMonth": 216670,
         "unlimited": false,
         "mix": {
           "input": 410,
@@ -1706,32 +1763,22 @@ window.AI_DATA = {
         },
         "tokensPerRequest": 72020,
         "costPerRequest": 0.0004614,
-        "limit5hUsd": 16,
-        "tokensPer5h": 2496933400
+        "limit5hUsd": 20,
+        "tokensPer5h": 3120626600
       },
-      "efficiency": 34670,
+      "efficiency": 43330,
       "efficiencyProvisional": false,
-      "valueScore": 76.5,
-      "reliability": 70.9,
-      "visual": 75.2,
+      "valueScore": 66.1,
+      "reliability": 58,
+      "visual": 33.1,
       "visualParts": {
-        "img2web": {
-          "value": 1606.3300077467948,
-          "rank": 13,
-          "n": 767
-        },
         "webdev": {
-          "value": 1618.5767547409391,
-          "rank": 27,
-          "n": 3530
-        },
-        "vision": {
-          "value": 1277.8593561291239,
-          "rank": 38,
-          "n": 4100
+          "value": 1665.040445245608,
+          "rank": 16,
+          "n": 7842
         }
       },
-      "visualEye": 1.05,
+      "visualEye": 0.4,
       "freeInOc": true,
       "status": "active"
     },
@@ -1748,9 +1795,9 @@ window.AI_DATA = {
       "aaUrl": "https://artificialanalysis.ai/models/deepseek-v4-pro",
       "aaMatch": "override",
       "needsAaFix": false,
-      "intelligence": 35.9967791278402,
+      "intelligence": 23.0632981493003,
       "intelligenceEstimated": false,
-      "costPerTask": 0.6740219040435134,
+      "costPerTask": 1.7691338076407441,
       "contextWindow": 1000000,
       "isReasoning": true,
       "isOpenWeights": true,
@@ -1794,8 +1841,8 @@ window.AI_DATA = {
       },
       "efficiency": 1050,
       "efficiencyProvisional": false,
-      "valueScore": 44.9,
-      "reliability": 46.2,
+      "valueScore": 27.9,
+      "reliability": 40.1,
       "visual": null,
       "visualParts": null,
       "visualEye": null,
@@ -1875,9 +1922,9 @@ window.AI_DATA = {
       "aaUrl": "https://artificialanalysis.ai/models/hy3",
       "aaMatch": "exact",
       "needsAaFix": false,
-      "intelligence": 25.2972775731571,
+      "intelligence": null,
       "intelligenceEstimated": false,
-      "costPerTask": 0.07179763081859954,
+      "costPerTask": null,
       "contextWindow": 256000,
       "isReasoning": true,
       "isOpenWeights": true,
@@ -1914,14 +1961,14 @@ window.AI_DATA = {
       },
       "efficiency": 4300,
       "efficiencyProvisional": false,
-      "valueScore": 39.8,
-      "reliability": 27.1,
-      "visual": 13.3,
+      "valueScore": null,
+      "reliability": 14.7,
+      "visual": 13.2,
       "visualParts": {
         "webdev": {
-          "value": 1506.1120176211834,
-          "rank": 62,
-          "n": 6408
+          "value": 1505.4337074624896,
+          "rank": 64,
+          "n": 6844
         }
       },
       "visualEye": 0.4,
@@ -1941,9 +1988,9 @@ window.AI_DATA = {
       "aaUrl": "https://artificialanalysis.ai/models/grok-4-7",
       "aaMatch": "base",
       "needsAaFix": false,
-      "intelligence": 46.4465506302286,
+      "intelligence": 35.4850117067196,
       "intelligenceEstimated": false,
-      "costPerTask": 3.738325952106939,
+      "costPerTask": 7.771539401587139,
       "contextWindow": 500000,
       "isReasoning": true,
       "isOpenWeights": false,
@@ -1987,8 +2034,8 @@ window.AI_DATA = {
       },
       "efficiency": 169,
       "efficiencyProvisional": false,
-      "valueScore": 26,
-      "reliability": 69.4,
+      "valueScore": 21,
+      "reliability": 49.1,
       "visual": 59.1,
       "visualParts": {
         "img2web": {
@@ -1997,9 +2044,9 @@ window.AI_DATA = {
           "n": 1191
         },
         "webdev": {
-          "value": 1637.9375705540247,
-          "rank": 19,
-          "n": 5725
+          "value": 1637.4572057581888,
+          "rank": 21,
+          "n": 6572
         },
         "vision": {
           "value": 1230.957267472956,
@@ -2024,9 +2071,9 @@ window.AI_DATA = {
       "aaUrl": "https://artificialanalysis.ai/models/gpt-6-luna",
       "aaMatch": "base",
       "needsAaFix": false,
-      "intelligence": 38.1245186869738,
+      "intelligence": 27.8552004938153,
       "intelligenceEstimated": false,
-      "costPerTask": 0.06782295669812205,
+      "costPerTask": 0.15195575732105837,
       "contextWindow": 1000000,
       "isReasoning": true,
       "isOpenWeights": false,
@@ -2070,8 +2117,8 @@ window.AI_DATA = {
       },
       "efficiency": 4230,
       "efficiencyProvisional": false,
-      "valueScore": 59.5,
-      "reliability": 53.8,
+      "valueScore": 44.4,
+      "reliability": 49.1,
       "visual": 50.1,
       "visualParts": {
         "img2web": {
@@ -2080,9 +2127,9 @@ window.AI_DATA = {
           "n": 4439
         },
         "webdev": {
-          "value": 1578.5634843947846,
-          "rank": 39,
-          "n": 24354
+          "value": 1579.4041580064886,
+          "rank": 41,
+          "n": 27808
         },
         "vision": {
           "value": 1216.103808862197,
@@ -2099,20 +2146,20 @@ window.AI_DATA = {
       "inGo": true,
       "goModelId": "gpt-5.6-luna",
       "inGoApi": true,
-      "creator": "—",
-      "color": "#8A8A93",
+      "creator": "OpenAI",
+      "color": "#1f1f1f",
       "logo": null,
-      "aaSlug": "gpt-5-6-luna",
-      "aaName": "GPT-5.6 Luna (Max)",
-      "aaUrl": "https://artificialanalysis.ai/models/gpt-5-6-luna",
-      "aaMatch": "fallback:base",
-      "needsAaFix": false,
-      "intelligence": 37.3244239690841,
+      "aaSlug": null,
+      "aaName": null,
+      "aaUrl": null,
+      "aaMatch": null,
+      "needsAaFix": true,
+      "intelligence": null,
       "intelligenceEstimated": false,
       "costPerTask": null,
-      "contextWindow": 1000000,
-      "isReasoning": true,
-      "isOpenWeights": false,
+      "contextWindow": null,
+      "isReasoning": null,
+      "isOpenWeights": null,
       "go": {
         "input": 0.2,
         "output": 1.2,
@@ -2153,27 +2200,11 @@ window.AI_DATA = {
       },
       "efficiency": 2050,
       "efficiencyProvisional": false,
-      "valueScore": 52.5,
-      "reliability": 66.9,
-      "visual": 45.4,
-      "visualParts": {
-        "img2web": {
-          "value": 1516.9857288035832,
-          "rank": 39,
-          "n": 4324
-        },
-        "webdev": {
-          "value": 1518.8714951851507,
-          "rank": 57,
-          "n": 12575
-        },
-        "vision": {
-          "value": 1257.1473899499424,
-          "rank": 58,
-          "n": 11055
-        }
-      },
-      "visualEye": 0.93,
+      "valueScore": null,
+      "reliability": null,
+      "visual": null,
+      "visualParts": null,
+      "visualEye": null,
       "freeInOc": false,
       "status": "active"
     },
@@ -2190,9 +2221,9 @@ window.AI_DATA = {
       "aaUrl": "https://artificialanalysis.ai/models/claude-haiku-5-5",
       "aaMatch": "base",
       "needsAaFix": false,
-      "intelligence": 43.3950199670746,
+      "intelligence": 36.4845435880142,
       "intelligenceEstimated": false,
-      "costPerTask": 0.21276971216992022,
+      "costPerTask": 0.41100741536816304,
       "contextWindow": 1000000,
       "isReasoning": true,
       "isOpenWeights": false,
@@ -2236,14 +2267,14 @@ window.AI_DATA = {
       },
       "efficiency": 3850,
       "efficiencyProvisional": false,
-      "valueScore": 65.1,
-      "reliability": 73.4,
-      "visual": 23.2,
+      "valueScore": 56.7,
+      "reliability": 65.3,
+      "visual": 23.6,
       "visualParts": {
         "webdev": {
-          "value": 1585.637687443752,
-          "rank": 35,
-          "n": 3917
+          "value": 1588.8330617127986,
+          "rank": 36,
+          "n": 4758
         }
       },
       "visualEye": 0.4,
@@ -2251,9 +2282,9 @@ window.AI_DATA = {
       "status": "active"
     },
     {
-      "name": "Gemini 4 Argon Contributor",
+      "name": "Gemini 4 Argon",
       "inGo": true,
-      "goModelId": "gemini-4-argon-contributor",
+      "goModelId": "gemini-4-argon",
       "inGoApi": true,
       "creator": "Google",
       "color": "#34A853",
@@ -2261,29 +2292,29 @@ window.AI_DATA = {
       "aaSlug": "gemini-4-argon",
       "aaName": "Gemini 4 Argon (High)",
       "aaUrl": "https://artificialanalysis.ai/models/gemini-4-argon",
-      "aaMatch": "override",
+      "aaMatch": "base",
       "needsAaFix": false,
-      "intelligence": 52.5605655745982,
+      "intelligence": 50.4121935905389,
       "intelligenceEstimated": false,
-      "costPerTask": 1.990322379299008,
+      "costPerTask": 7.682671372515551,
       "contextWindow": 1000000,
       "isReasoning": true,
       "isOpenWeights": false,
       "go": {
-        "input": 4,
-        "output": 20,
-        "cachedRead": 0.2,
+        "input": null,
+        "output": null,
+        "cachedRead": null,
         "cachedWrite": null,
-        "monthlyLimit": 60,
-        "limitRaw": "$60",
-        "limitNote": "2x · Limited time",
+        "monthlyLimit": 30,
+        "limitRaw": "$30",
+        "limitNote": null,
         "tiers": [
           {
-            "label": null,
-            "input": 4,
-            "output": 20,
-            "cachedRead": 0.2,
-            "monthlyLimit": 60
+            "label": "50% off",
+            "input": null,
+            "output": null,
+            "cachedRead": null,
+            "monthlyLimit": 30
           }
         ],
         "requests5h": 440,
@@ -2292,25 +2323,61 @@ window.AI_DATA = {
         "unlimited": false,
         "mix": null,
         "tokensPerRequest": null,
-        "costPerRequest": 0.02727272727272727,
-        "limit5hUsd": 12,
+        "costPerRequest": 0.013636363636363636,
+        "limit5hUsd": 6,
         "tokensPer5h": null
       },
       "efficiency": 440,
       "efficiencyProvisional": false,
-      "valueScore": 47.7,
-      "reliability": 89.9,
-      "visual": 34.3,
+      "valueScore": 46.3,
+      "reliability": 91.4,
+      "visual": 34.9,
       "visualParts": {
         "webdev": {
-          "value": 1674.1842418710726,
+          "value": 1679.2118291253184,
           "rank": 11,
-          "n": 2729
+          "n": 3437
         }
       },
       "visualEye": 0.4,
       "freeInOc": false,
-      "status": "promo-2x"
+      "status": "active"
+    },
+    {
+      "name": "Gemini 4 Carbon (High)",
+      "inGo": false,
+      "goModelId": null,
+      "inGoApi": false,
+      "creator": "Google",
+      "color": "#34A853",
+      "logo": "https://artificialanalysis.ai/img/logos/google.svg",
+      "aaSlug": "gemini-4-carbon",
+      "aaName": "Gemini 4 Carbon (High)",
+      "aaUrl": "https://artificialanalysis.ai/models/gemini-4-carbon",
+      "intelligence": 60.025738829526,
+      "intelligenceEstimated": false,
+      "costPerTask": 7.755545745286556,
+      "contextWindow": 1000000,
+      "isReasoning": true,
+      "isOpenWeights": false,
+      "go": null,
+      "efficiency": null,
+      "efficiencyProvisional": false,
+      "valueScore": null,
+      "reliability": 100,
+      "visual": 40,
+      "visualParts": {
+        "webdev": {
+          "value": 1768.1522310766236,
+          "rank": 4,
+          "n": 2230
+        }
+      },
+      "visualEye": 0.4,
+      "aaMatch": "aa-direct",
+      "needsAaFix": false,
+      "freeInOc": false,
+      "status": "not-in-go"
     },
     {
       "name": "Claude Opus 5.5 (Max)",
@@ -2323,9 +2390,9 @@ window.AI_DATA = {
       "aaSlug": "claude-opus-5-5",
       "aaName": "Claude Opus 5.5 (Max, Default Fallback)",
       "aaUrl": "https://artificialanalysis.ai/models/claude-opus-5-5",
-      "intelligence": 57.6223698102963,
+      "intelligence": 59.1060336078904,
       "intelligenceEstimated": false,
-      "costPerTask": 5.982012019521066,
+      "costPerTask": 10.036409719512749,
       "contextWindow": 1000000,
       "isReasoning": true,
       "isOpenWeights": false,
@@ -2333,7 +2400,7 @@ window.AI_DATA = {
       "efficiency": null,
       "efficiencyProvisional": false,
       "valueScore": null,
-      "reliability": 73.7,
+      "reliability": 100,
       "visual": 100,
       "visualParts": {
         "img2web": {
@@ -2342,142 +2409,14 @@ window.AI_DATA = {
           "n": 781
         },
         "webdev": {
-          "value": 1806.9194673086658,
+          "value": 1809.8391605525123,
           "rank": 1,
-          "n": 3140
+          "n": 3473
         },
         "vision": {
           "value": 1320.823800046,
           "rank": 2,
           "n": 3035
-        }
-      },
-      "visualEye": 1.05,
-      "aaMatch": "aa-direct",
-      "needsAaFix": false,
-      "freeInOc": false,
-      "status": "not-in-go"
-    },
-    {
-      "name": "Claude Sonnet 5.5 (Max)",
-      "inGo": false,
-      "goModelId": null,
-      "inGoApi": false,
-      "creator": "Anthropic",
-      "color": "#cc785c",
-      "logo": "https://artificialanalysis.ai/img/logos/anthropic.svg",
-      "aaSlug": "claude-sonnet-5-5",
-      "aaName": "Claude Sonnet 5.5 (Max, Default Fallback)",
-      "aaUrl": "https://artificialanalysis.ai/models/claude-sonnet-5-5",
-      "intelligence": 56.0001286580794,
-      "intelligenceEstimated": false,
-      "costPerTask": 5.4608525948098325,
-      "contextWindow": 1000000,
-      "isReasoning": true,
-      "isOpenWeights": false,
-      "go": null,
-      "efficiency": null,
-      "efficiencyProvisional": false,
-      "valueScore": null,
-      "reliability": 85.2,
-      "visual": 100,
-      "visualParts": {
-        "img2web": {
-          "value": 1737.13977654562,
-          "rank": 2,
-          "n": 1551
-        },
-        "webdev": {
-          "value": 1709.231500483586,
-          "rank": 7,
-          "n": 5632
-        },
-        "vision": {
-          "value": 1287.21834956692,
-          "rank": 30,
-          "n": 2564
-        }
-      },
-      "visualEye": 1.05,
-      "aaMatch": "aa-direct",
-      "needsAaFix": false,
-      "freeInOc": false,
-      "status": "not-in-go"
-    },
-    {
-      "name": "Muse Wonder Full (Max)",
-      "inGo": false,
-      "goModelId": null,
-      "inGoApi": false,
-      "creator": "Meta",
-      "color": "#0089f4",
-      "logo": "https://artificialanalysis.ai/img/logos/meta.svg",
-      "aaSlug": "muse-wonder-full",
-      "aaName": "Muse Wonder Full (Max)",
-      "aaUrl": "https://artificialanalysis.ai/models/muse-wonder-full",
-      "intelligence": 55.8021199855616,
-      "intelligenceEstimated": false,
-      "costPerTask": null,
-      "contextWindow": 1000000,
-      "isReasoning": true,
-      "isOpenWeights": false,
-      "go": null,
-      "efficiency": null,
-      "efficiencyProvisional": false,
-      "valueScore": null,
-      "reliability": 93.3,
-      "visual": 40,
-      "visualParts": {
-        "webdev": {
-          "value": 1725.8721507519322,
-          "rank": 6,
-          "n": 2253
-        }
-      },
-      "visualEye": 0.4,
-      "aaMatch": "aa-direct",
-      "needsAaFix": false,
-      "freeInOc": false,
-      "status": "not-in-go"
-    },
-    {
-      "name": "Claude Fable 5.1 (Max)",
-      "inGo": false,
-      "goModelId": null,
-      "inGoApi": false,
-      "creator": "Anthropic",
-      "color": "#cc785c",
-      "logo": "https://artificialanalysis.ai/img/logos/anthropic.svg",
-      "aaSlug": "claude-fable-5-1",
-      "aaName": "Claude Fable 5.1 (Max, Default Fallback)",
-      "aaUrl": "https://artificialanalysis.ai/models/claude-fable-5-1",
-      "intelligence": 53.3549259623252,
-      "intelligenceEstimated": false,
-      "costPerTask": 7.629706364004841,
-      "contextWindow": 1000000,
-      "isReasoning": true,
-      "isOpenWeights": false,
-      "go": null,
-      "efficiency": null,
-      "efficiencyProvisional": false,
-      "valueScore": null,
-      "reliability": 72.6,
-      "visual": 100,
-      "visualParts": {
-        "img2web": {
-          "value": 1722.2191243605344,
-          "rank": 4,
-          "n": 2907
-        },
-        "webdev": {
-          "value": 1742.454511159061,
-          "rank": 5,
-          "n": 8098
-        },
-        "vision": {
-          "value": 1319.4899087995987,
-          "rank": 4,
-          "n": 5026
         }
       },
       "visualEye": 1.05,
@@ -2497,9 +2436,9 @@ window.AI_DATA = {
       "aaSlug": "gpt-6-astra",
       "aaName": "GPT-6 Astra (Max)",
       "aaUrl": "https://artificialanalysis.ai/models/gpt-6-astra",
-      "intelligence": 52.673669395513,
+      "intelligence": 56.8538559596797,
       "intelligenceEstimated": false,
-      "costPerTask": 3.2575003134834164,
+      "costPerTask": 6.244666943602518,
       "contextWindow": 1000000,
       "isReasoning": true,
       "isOpenWeights": false,
@@ -2507,7 +2446,7 @@ window.AI_DATA = {
       "efficiency": null,
       "efficiencyProvisional": false,
       "valueScore": null,
-      "reliability": 75,
+      "reliability": 100,
       "visual": 100,
       "visualParts": {
         "img2web": {
@@ -2516,14 +2455,224 @@ window.AI_DATA = {
           "n": 3181
         },
         "webdev": {
-          "value": 1774.3132570847915,
+          "value": 1773.3545606290113,
           "rank": 2,
-          "n": 6579
+          "n": 7210
         },
         "vision": {
           "value": 1279.8986527925117,
           "rank": 36,
           "n": 4012
+        }
+      },
+      "visualEye": 1.05,
+      "aaMatch": "aa-direct",
+      "needsAaFix": false,
+      "freeInOc": false,
+      "status": "not-in-go"
+    },
+    {
+      "name": "GPT-6.1 Sol (Max)",
+      "inGo": false,
+      "goModelId": null,
+      "inGoApi": false,
+      "creator": "OpenAI",
+      "color": "#1f1f1f",
+      "logo": "https://artificialanalysis.ai/img/logos/openai.svg",
+      "aaSlug": "gpt-6-1-sol",
+      "aaName": "GPT-6.1 Sol (Max)",
+      "aaUrl": "https://artificialanalysis.ai/models/gpt-6-1-sol",
+      "intelligence": 54.6087338138148,
+      "intelligenceEstimated": false,
+      "costPerTask": 1.2720632679446995,
+      "contextWindow": 1000000,
+      "isReasoning": true,
+      "isOpenWeights": false,
+      "go": null,
+      "efficiency": null,
+      "efficiencyProvisional": false,
+      "valueScore": null,
+      "reliability": 99.3,
+      "visual": 98.8,
+      "visualParts": {
+        "img2web": {
+          "value": 1701.7353202057543,
+          "rank": 5,
+          "n": 1916
+        },
+        "webdev": {
+          "value": 1750.568215754016,
+          "rank": 5,
+          "n": 4092
+        },
+        "vision": {
+          "value": 1287.7313467775475,
+          "rank": 29,
+          "n": 2330
+        }
+      },
+      "visualEye": 1.05,
+      "aaMatch": "aa-direct",
+      "needsAaFix": false,
+      "freeInOc": false,
+      "status": "not-in-go"
+    },
+    {
+      "name": "Claude Sonnet 5.5 (Max)",
+      "inGo": false,
+      "goModelId": null,
+      "inGoApi": false,
+      "creator": "Anthropic",
+      "color": "#cc785c",
+      "logo": "https://artificialanalysis.ai/img/logos/anthropic.svg",
+      "aaSlug": "claude-sonnet-5-5",
+      "aaName": "Claude Sonnet 5.5 (Max, Default Fallback)",
+      "aaUrl": "https://artificialanalysis.ai/models/claude-sonnet-5-5",
+      "intelligence": 54.54133407109,
+      "intelligenceEstimated": false,
+      "costPerTask": 10.020621343395753,
+      "contextWindow": 1000000,
+      "isReasoning": true,
+      "isOpenWeights": false,
+      "go": null,
+      "efficiency": null,
+      "efficiencyProvisional": false,
+      "valueScore": null,
+      "reliability": 99.1,
+      "visual": 100,
+      "visualParts": {
+        "img2web": {
+          "value": 1737.13977654562,
+          "rank": 2,
+          "n": 1551
+        },
+        "webdev": {
+          "value": 1710.5864353676154,
+          "rank": 8,
+          "n": 6371
+        },
+        "vision": {
+          "value": 1287.21834956692,
+          "rank": 30,
+          "n": 2564
+        }
+      },
+      "visualEye": 1.05,
+      "aaMatch": "aa-direct",
+      "needsAaFix": false,
+      "freeInOc": false,
+      "status": "not-in-go"
+    },
+    {
+      "name": "GPT-6.1 Terra (Max)",
+      "inGo": false,
+      "goModelId": null,
+      "inGoApi": false,
+      "creator": "OpenAI",
+      "color": "#1f1f1f",
+      "logo": "https://artificialanalysis.ai/img/logos/openai.svg",
+      "aaSlug": "gpt-6-1-terra",
+      "aaName": "GPT-6.1 Terra (Max)",
+      "aaUrl": "https://artificialanalysis.ai/models/gpt-6-1-terra",
+      "intelligence": 51.3265188577015,
+      "intelligenceEstimated": false,
+      "costPerTask": 0.961108031081634,
+      "contextWindow": 1000000,
+      "isReasoning": true,
+      "isOpenWeights": false,
+      "go": null,
+      "efficiency": null,
+      "efficiencyProvisional": false,
+      "valueScore": null,
+      "reliability": 93.1,
+      "visual": 34.1,
+      "visualParts": {
+        "webdev": {
+          "value": 1672.6547058209349,
+          "rank": 14,
+          "n": 1821
+        }
+      },
+      "visualEye": 0.4,
+      "aaMatch": "aa-direct",
+      "needsAaFix": false,
+      "freeInOc": false,
+      "status": "not-in-go"
+    },
+    {
+      "name": "Muse Wonder Full (Max)",
+      "inGo": false,
+      "goModelId": null,
+      "inGoApi": false,
+      "creator": "Meta",
+      "color": "#0089f4",
+      "logo": "https://artificialanalysis.ai/img/logos/meta.svg",
+      "aaSlug": "muse-wonder-full",
+      "aaName": "Muse Wonder Full (Max)",
+      "aaUrl": "https://artificialanalysis.ai/models/muse-wonder-full",
+      "intelligence": 50.0772123627021,
+      "intelligenceEstimated": false,
+      "costPerTask": null,
+      "contextWindow": 1000000,
+      "isReasoning": true,
+      "isOpenWeights": false,
+      "go": null,
+      "efficiency": null,
+      "efficiencyProvisional": false,
+      "valueScore": null,
+      "reliability": 90.8,
+      "visual": 40,
+      "visualParts": {
+        "webdev": {
+          "value": 1725.3158378428036,
+          "rank": 7,
+          "n": 2248
+        }
+      },
+      "visualEye": 0.4,
+      "aaMatch": "aa-direct",
+      "needsAaFix": false,
+      "freeInOc": false,
+      "status": "not-in-go"
+    },
+    {
+      "name": "Claude Fable 5.1 (Xhigh)",
+      "inGo": false,
+      "goModelId": null,
+      "inGoApi": false,
+      "creator": "Anthropic",
+      "color": "#cc785c",
+      "logo": "https://artificialanalysis.ai/img/logos/anthropic.svg",
+      "aaSlug": "claude-fable-5-1-xhigh",
+      "aaName": "Claude Fable 5.1 (Xhigh, Default Fallback)",
+      "aaUrl": "https://artificialanalysis.ai/models/claude-fable-5-1-xhigh",
+      "intelligence": 50.0216384248632,
+      "intelligenceEstimated": false,
+      "costPerTask": 10.847474706140272,
+      "contextWindow": 1000000,
+      "isReasoning": true,
+      "isOpenWeights": false,
+      "go": null,
+      "efficiency": null,
+      "efficiencyProvisional": false,
+      "valueScore": null,
+      "reliability": 90.7,
+      "visual": 100,
+      "visualParts": {
+        "img2web": {
+          "value": 1722.2191243605344,
+          "rank": 4,
+          "n": 2907
+        },
+        "webdev": {
+          "value": 1745.8518267992542,
+          "rank": 6,
+          "n": 8614
+        },
+        "vision": {
+          "value": 1319.4899087995987,
+          "rank": 4,
+          "n": 5026
         }
       },
       "visualEye": 1.05,
@@ -2543,9 +2692,9 @@ window.AI_DATA = {
       "aaSlug": "muse-wonder",
       "aaName": "Muse Wonder (Max)",
       "aaUrl": "https://artificialanalysis.ai/models/muse-wonder",
-      "intelligence": 52.393894697293,
+      "intelligence": 43.5748225998431,
       "intelligenceEstimated": false,
-      "costPerTask": 4.540034681803926,
+      "costPerTask": 6.9520364786062245,
       "contextWindow": 1048576,
       "isReasoning": true,
       "isOpenWeights": false,
@@ -2553,204 +2702,16 @@ window.AI_DATA = {
       "efficiency": null,
       "efficiencyProvisional": false,
       "valueScore": null,
-      "reliability": 88.4,
-      "visual": 31.4,
+      "reliability": 78.6,
+      "visual": 31.5,
       "visualParts": {
         "webdev": {
-          "value": 1650.9616624034024,
-          "rank": 18,
-          "n": 2733
+          "value": 1652.0939667524244,
+          "rank": 20,
+          "n": 3724
         }
       },
       "visualEye": 0.4,
-      "aaMatch": "aa-direct",
-      "needsAaFix": false,
-      "freeInOc": false,
-      "status": "not-in-go"
-    },
-    {
-      "name": "GPT-6.1 Sol (Max)",
-      "inGo": false,
-      "goModelId": null,
-      "inGoApi": false,
-      "creator": "OpenAI",
-      "color": "#1f1f1f",
-      "logo": "https://artificialanalysis.ai/img/logos/openai.svg",
-      "aaSlug": "gpt-6-1-sol",
-      "aaName": "GPT-6.1 Sol (Max)",
-      "aaUrl": "https://artificialanalysis.ai/models/gpt-6-1-sol",
-      "intelligence": 51.8332597011541,
-      "intelligenceEstimated": false,
-      "costPerTask": 0.7241670655535033,
-      "contextWindow": 1000000,
-      "isReasoning": true,
-      "isOpenWeights": false,
-      "go": null,
-      "efficiency": null,
-      "efficiencyProvisional": false,
-      "valueScore": null,
-      "reliability": 76,
-      "visual": 98.8,
-      "visualParts": {
-        "img2web": {
-          "value": 1701.7353202057543,
-          "rank": 5,
-          "n": 1916
-        },
-        "webdev": {
-          "value": 1749.3277254111117,
-          "rank": 4,
-          "n": 3469
-        },
-        "vision": {
-          "value": 1287.7313467775475,
-          "rank": 29,
-          "n": 2330
-        }
-      },
-      "visualEye": 1.05,
-      "aaMatch": "aa-direct",
-      "needsAaFix": false,
-      "freeInOc": false,
-      "status": "not-in-go"
-    },
-    {
-      "name": "DeepSeek V4.1 Flash 1017",
-      "inGo": false,
-      "goModelId": null,
-      "inGoApi": false,
-      "creator": "DeepSeek",
-      "color": "#2243e6",
-      "logo": "https://artificialanalysis.ai/img/logos/deepseek.svg",
-      "aaSlug": "deepseek-v4-1-flash-1017",
-      "aaName": "DeepSeek V4.1 Flash 1017 (Max)",
-      "aaUrl": "https://artificialanalysis.ai/models/deepseek-v4-1-flash-1017",
-      "intelligence": 45.0965048681912,
-      "intelligenceEstimated": false,
-      "costPerTask": 0.2620484273114172,
-      "contextWindow": 1000000,
-      "isReasoning": true,
-      "isOpenWeights": true,
-      "go": null,
-      "efficiency": null,
-      "efficiencyProvisional": false,
-      "valueScore": null,
-      "reliability": 68.4,
-      "visual": 33.1,
-      "visualParts": {
-        "webdev": {
-          "value": 1664.9514302499974,
-          "rank": 14,
-          "n": 2500
-        }
-      },
-      "visualEye": 0.4,
-      "aaMatch": "pinned",
-      "needsAaFix": false,
-      "freeInOc": false,
-      "status": "not-in-go"
-    },
-    {
-      "name": "Ling 3.1 Flash 1019",
-      "inGo": false,
-      "goModelId": null,
-      "inGoApi": false,
-      "creator": "InclusionAI",
-      "color": "#4fb5ff",
-      "logo": "https://artificialanalysis.ai/img/logos/inclusionai.jpg",
-      "aaSlug": "ling-3-1-flash-1019",
-      "aaName": "Ling 3.1 Flash 1019",
-      "aaUrl": "https://artificialanalysis.ai/models/ling-3-1-flash-1019",
-      "intelligence": 43.8973584978265,
-      "intelligenceEstimated": false,
-      "costPerTask": 1.4886425967752979,
-      "contextWindow": 1048576,
-      "isReasoning": true,
-      "isOpenWeights": false,
-      "go": null,
-      "efficiency": null,
-      "efficiencyProvisional": false,
-      "valueScore": null,
-      "reliability": 73.5,
-      "visual": null,
-      "visualParts": null,
-      "visualEye": null,
-      "aaMatch": "aa-direct",
-      "needsAaFix": false,
-      "freeInOc": false,
-      "status": "not-in-go"
-    },
-    {
-      "name": "GPT-5.6 Terra (Max)",
-      "inGo": false,
-      "goModelId": null,
-      "inGoApi": false,
-      "creator": "OpenAI",
-      "color": "#1f1f1f",
-      "logo": "https://artificialanalysis.ai/img/logos/openai.svg",
-      "aaSlug": "gpt-5-6-terra",
-      "aaName": "GPT-5.6 Terra (Max)",
-      "aaUrl": "https://artificialanalysis.ai/models/gpt-5-6-terra",
-      "intelligence": 42.0829248239494,
-      "intelligenceEstimated": false,
-      "costPerTask": 1.3987235612691513,
-      "contextWindow": 1000000,
-      "isReasoning": true,
-      "isOpenWeights": false,
-      "go": null,
-      "efficiency": null,
-      "efficiencyProvisional": false,
-      "valueScore": null,
-      "reliability": 56.4,
-      "visual": 56.1,
-      "visualParts": {
-        "img2web": {
-          "value": 1540.5135030783572,
-          "rank": 31,
-          "n": 4814
-        },
-        "webdev": {
-          "value": 1520.5103043039226,
-          "rank": 55,
-          "n": 14450
-        },
-        "vision": {
-          "value": 1270.9741940618744,
-          "rank": 43,
-          "n": 11842
-        }
-      },
-      "visualEye": 1.05,
-      "aaMatch": "aa-direct",
-      "needsAaFix": false,
-      "freeInOc": false,
-      "status": "not-in-go"
-    },
-    {
-      "name": "Ling 3.1 Flash",
-      "inGo": false,
-      "goModelId": null,
-      "inGoApi": false,
-      "creator": "InclusionAI",
-      "color": "#4fb5ff",
-      "logo": "https://artificialanalysis.ai/img/logos/inclusionai.jpg",
-      "aaSlug": "ling-3-1-flash",
-      "aaName": "Ling 3.1 Flash",
-      "aaUrl": "https://artificialanalysis.ai/models/ling-3-1-flash",
-      "intelligence": 41.0906200397391,
-      "intelligenceEstimated": false,
-      "costPerTask": 1.010607821950605,
-      "contextWindow": 1000000,
-      "isReasoning": true,
-      "isOpenWeights": true,
-      "go": null,
-      "efficiency": null,
-      "efficiencyProvisional": false,
-      "valueScore": null,
-      "reliability": 72.2,
-      "visual": null,
-      "visualParts": null,
-      "visualEye": null,
       "aaMatch": "aa-direct",
       "needsAaFix": false,
       "freeInOc": false,
@@ -2767,9 +2728,9 @@ window.AI_DATA = {
       "aaSlug": "gemini-3-8-flash",
       "aaName": "Gemini 3.8 Flash (High)",
       "aaUrl": "https://artificialanalysis.ai/models/gemini-3-8-flash",
-      "intelligence": 40.9262321765904,
+      "intelligence": 30.8468119957291,
       "intelligenceEstimated": false,
-      "costPerTask": 1.2427947606950427,
+      "costPerTask": 7.766006178152514,
       "contextWindow": 1000000,
       "isReasoning": true,
       "isOpenWeights": false,
@@ -2777,8 +2738,8 @@ window.AI_DATA = {
       "efficiency": null,
       "efficiencyProvisional": false,
       "valueScore": null,
-      "reliability": 65.1,
-      "visual": 74.5,
+      "reliability": 54.7,
+      "visual": 74.3,
       "visualParts": {
         "img2web": {
           "value": 1592.7182186745918,
@@ -2786,9 +2747,9 @@ window.AI_DATA = {
           "n": 2516
         },
         "webdev": {
-          "value": 1584.9348329163804,
-          "rank": 36,
-          "n": 11405
+          "value": 1583.2994176433617,
+          "rank": 37,
+          "n": 12342
         },
         "vision": {
           "value": 1315.379362654793,
@@ -2803,27 +2764,27 @@ window.AI_DATA = {
       "status": "not-in-go"
     },
     {
-      "name": "Qwen3.8 2.4T A95B",
+      "name": "Ling 3.1 Flash 1019",
       "inGo": false,
       "goModelId": null,
       "inGoApi": false,
-      "creator": "Alibaba",
-      "color": "#ff7018",
-      "logo": "https://artificialanalysis.ai/img/logos/alibaba.svg",
-      "aaSlug": "qwen3-8-2-4t-a95b",
-      "aaName": "Qwen3.8 2.4T A95B",
-      "aaUrl": "https://artificialanalysis.ai/models/qwen3-8-2-4t-a95b",
-      "intelligence": 39.9461723105325,
+      "creator": "InclusionAI",
+      "color": "#4fb5ff",
+      "logo": "https://artificialanalysis.ai/img/logos/inclusionai.jpg",
+      "aaSlug": "ling-3-1-flash-1019",
+      "aaName": "Ling 3.1 Flash 1019",
+      "aaUrl": "https://artificialanalysis.ai/models/ling-3-1-flash-1019",
+      "intelligence": 29.570119369837,
       "intelligenceEstimated": false,
-      "costPerTask": 2.1551619442434675,
-      "contextWindow": 262000,
+      "costPerTask": 3.185145018337793,
+      "contextWindow": 1048576,
       "isReasoning": true,
       "isOpenWeights": true,
       "go": null,
       "efficiency": null,
       "efficiencyProvisional": false,
       "valueScore": null,
-      "reliability": 60.6,
+      "reliability": 52.3,
       "visual": null,
       "visualParts": null,
       "visualEye": null,
@@ -2833,36 +2794,41 @@ window.AI_DATA = {
       "status": "not-in-go"
     },
     {
-      "name": "Qwen3.8-Flash-Next",
+      "name": "Mistral Large 4 (High)",
       "inGo": false,
       "goModelId": null,
       "inGoApi": false,
-      "creator": "Alibaba",
-      "color": "#ff7018",
-      "logo": "https://artificialanalysis.ai/img/logos/alibaba.svg",
-      "aaSlug": "qwen3-8-flash-next",
-      "aaName": "Qwen3.8-Flash-Next",
-      "aaUrl": "https://artificialanalysis.ai/models/qwen3-8-flash-next",
-      "intelligence": 39.8223021864741,
+      "creator": "Mistral",
+      "color": "#f32e02",
+      "logo": "https://artificialanalysis.ai/img/logos/mistral.svg",
+      "aaSlug": "mistral-large-4",
+      "aaName": "Mistral Large 4 (High)",
+      "aaUrl": "https://artificialanalysis.ai/models/mistral-large-4",
+      "intelligence": 26.1249946754784,
       "intelligenceEstimated": false,
-      "costPerTask": 0.3721760025302965,
-      "contextWindow": 256000,
+      "costPerTask": 2.061496607384404,
+      "contextWindow": 1000000,
       "isReasoning": true,
       "isOpenWeights": true,
       "go": null,
       "efficiency": null,
       "efficiencyProvisional": false,
       "valueScore": null,
-      "reliability": 58.8,
-      "visual": 28.6,
+      "reliability": 45.9,
+      "visual": 66.9,
       "visualParts": {
         "webdev": {
-          "value": 1628.7592719807926,
-          "rank": 22,
-          "n": 8866
+          "value": 1544.3103315032786,
+          "rank": 48,
+          "n": 4068
+        },
+        "vision": {
+          "value": 1272.171620981572,
+          "rank": 42,
+          "n": 1008
         }
       },
-      "visualEye": 0.4,
+      "visualEye": 1.05,
       "aaMatch": "aa-direct",
       "needsAaFix": false,
       "freeInOc": false,
@@ -2879,9 +2845,9 @@ window.AI_DATA = {
       "aaSlug": "muse-spark-open",
       "aaName": "Muse Spark Open (Xhigh)",
       "aaUrl": "https://artificialanalysis.ai/models/muse-spark-open",
-      "intelligence": 38.8666662997805,
+      "intelligence": 24.8815868992913,
       "intelligenceEstimated": false,
-      "costPerTask": 0.8441853713458678,
+      "costPerTask": 2.0176680435839316,
       "contextWindow": 1048576,
       "isReasoning": true,
       "isOpenWeights": true,
@@ -2889,13 +2855,13 @@ window.AI_DATA = {
       "efficiency": null,
       "efficiencyProvisional": false,
       "valueScore": null,
-      "reliability": 71.1,
+      "reliability": 43.5,
       "visual": 15.8,
       "visualParts": {
         "webdev": {
-          "value": 1526.3822096478652,
-          "rank": 53,
-          "n": 1476
+          "value": 1526.2373165722156,
+          "rank": 55,
+          "n": 1721
         }
       },
       "visualEye": 0.4,
@@ -2905,117 +2871,27 @@ window.AI_DATA = {
       "status": "not-in-go"
     },
     {
-      "name": "Mistral Large 4 Preview",
+      "name": "Nanbeige4.3-33B",
       "inGo": false,
       "goModelId": null,
       "inGoApi": false,
-      "creator": "Mistral",
-      "color": "#f32e02",
-      "logo": "https://artificialanalysis.ai/img/logos/mistral.svg",
-      "aaSlug": "mistral-large-4",
-      "aaName": "Mistral Large 4 Preview",
-      "aaUrl": "https://artificialanalysis.ai/models/mistral-large-4",
-      "intelligence": 38.3770408917494,
+      "creator": "Nanbeige",
+      "color": "#023c3e",
+      "logo": "https://artificialanalysis.ai/img/logos/nanbeige.png",
+      "aaSlug": "nanbeige4-3-33b",
+      "aaName": "Nanbeige4.3-33B",
+      "aaUrl": "https://artificialanalysis.ai/models/nanbeige4-3-33b",
+      "intelligence": 20.4071119588083,
       "intelligenceEstimated": false,
-      "costPerTask": 1.1344391582388638,
+      "costPerTask": null,
       "contextWindow": 524288,
       "isReasoning": true,
-      "isOpenWeights": false,
+      "isOpenWeights": true,
       "go": null,
       "efficiency": null,
       "efficiencyProvisional": false,
       "valueScore": null,
-      "reliability": 58.8,
-      "visual": null,
-      "visualParts": null,
-      "visualEye": null,
-      "aaMatch": "aa-direct",
-      "needsAaFix": false,
-      "freeInOc": false,
-      "status": "not-in-go"
-    },
-    {
-      "name": "Agnes 2.5 Pro Beta",
-      "inGo": false,
-      "goModelId": null,
-      "inGoApi": false,
-      "creator": "Sapiens AI",
-      "color": "#1521a9",
-      "logo": "https://artificialanalysis.ai/img/logos/sapiens.svg",
-      "aaSlug": "agnes-2-5-pro-beta",
-      "aaName": "Agnes 2.5 Pro Beta",
-      "aaUrl": "https://artificialanalysis.ai/models/agnes-2-5-pro-beta",
-      "intelligence": 35.2413300369053,
-      "intelligenceEstimated": true,
-      "costPerTask": null,
-      "contextWindow": 1000000,
-      "isReasoning": true,
-      "isOpenWeights": false,
-      "go": null,
-      "efficiency": null,
-      "efficiencyProvisional": false,
-      "valueScore": null,
-      "reliability": 63.8,
-      "visual": null,
-      "visualParts": null,
-      "visualEye": null,
-      "aaMatch": "aa-direct",
-      "needsAaFix": false,
-      "freeInOc": false,
-      "status": "not-in-go"
-    },
-    {
-      "name": "DeepSeek V4 Flash Vision (Max)",
-      "inGo": false,
-      "goModelId": null,
-      "inGoApi": false,
-      "creator": "DeepSeek",
-      "color": "#2243e6",
-      "logo": "https://artificialanalysis.ai/img/logos/deepseek.svg",
-      "aaSlug": "deepseek-v4-flash-vision",
-      "aaName": "DeepSeek V4 Flash Vision (Max)",
-      "aaUrl": "https://artificialanalysis.ai/models/deepseek-v4-flash-vision",
-      "intelligence": 34.8390628035969,
-      "intelligenceEstimated": false,
-      "costPerTask": 1.037910627432751,
-      "contextWindow": 1000000,
-      "isReasoning": true,
-      "isOpenWeights": false,
-      "go": null,
-      "efficiency": null,
-      "efficiencyProvisional": false,
-      "valueScore": null,
-      "reliability": 48,
-      "visual": null,
-      "visualParts": null,
-      "visualEye": null,
-      "aaMatch": "aa-direct",
-      "needsAaFix": false,
-      "freeInOc": false,
-      "status": "not-in-go"
-    },
-    {
-      "name": "JT-4.1 Flash 236B A21B (Reasoning)",
-      "inGo": false,
-      "goModelId": null,
-      "inGoApi": false,
-      "creator": "China Mobile",
-      "color": "#00b8ea",
-      "logo": "https://artificialanalysis.ai/img/logos/china-mobile.png",
-      "aaSlug": "jt-4-1-flash-236b-a21b",
-      "aaName": "JT-4.1 Flash 236B A21B (Reasoning)",
-      "aaUrl": "https://artificialanalysis.ai/models/jt-4-1-flash-236b-a21b",
-      "intelligence": 33.9172581709394,
-      "intelligenceEstimated": false,
-      "costPerTask": null,
-      "contextWindow": 262144,
-      "isReasoning": true,
-      "isOpenWeights": false,
-      "go": null,
-      "efficiency": null,
-      "efficiencyProvisional": false,
-      "valueScore": null,
-      "reliability": 44.7,
+      "reliability": 21.5,
       "visual": null,
       "visualParts": null,
       "visualEye": null,
@@ -3035,9 +2911,9 @@ window.AI_DATA = {
       "aaSlug": "qwen3-8-27b",
       "aaName": "Qwen3.8 27B (Xhigh)",
       "aaUrl": "https://artificialanalysis.ai/models/qwen3-8-27b",
-      "intelligence": 33.6762858057476,
+      "intelligence": 20.1068756031705,
       "intelligenceEstimated": false,
-      "costPerTask": 1.0074896941565943,
+      "costPerTask": 3.5295494751410654,
       "contextWindow": 256000,
       "isReasoning": true,
       "isOpenWeights": true,
@@ -3045,8 +2921,8 @@ window.AI_DATA = {
       "efficiency": null,
       "efficiencyProvisional": false,
       "valueScore": null,
-      "reliability": 54.8,
-      "visual": 67.7,
+      "reliability": 13.2,
+      "visual": 67.6,
       "visualParts": {
         "img2web": {
           "value": 1577.4376341509046,
@@ -3054,9 +2930,9 @@ window.AI_DATA = {
           "n": 6418
         },
         "webdev": {
-          "value": 1591.365758281203,
-          "rank": 32,
-          "n": 17186
+          "value": 1589.782268834193,
+          "rank": 34,
+          "n": 18752
         },
         "vision": {
           "value": 1269.463029799551,
@@ -3071,19 +2947,161 @@ window.AI_DATA = {
       "status": "not-in-go"
     },
     {
-      "name": "Motif 3",
+      "name": "K2 Horizon 375B A23B",
       "inGo": false,
       "goModelId": null,
       "inGoApi": false,
-      "creator": "Motif Technologies",
-      "color": "#6a93eb",
-      "logo": "https://artificialanalysis.ai/img/logos/motif.svg",
-      "aaSlug": "motif-3",
-      "aaName": "Motif 3",
-      "aaUrl": "https://artificialanalysis.ai/models/motif-3",
-      "intelligence": 33.566562209723,
-      "intelligenceEstimated": true,
-      "costPerTask": null,
+      "creator": "Institute of Foundation Models",
+      "color": "#1521a9",
+      "logo": "https://artificialanalysis.ai/img/logos/ifm.svg",
+      "aaSlug": "k2-horizon-375b-a23b",
+      "aaName": "K2 Horizon 375B A23B",
+      "aaUrl": "https://artificialanalysis.ai/models/k2-horizon-375b-a23b",
+      "intelligence": 17.8202731734027,
+      "intelligenceEstimated": false,
+      "costPerTask": 0,
+      "contextWindow": 524288,
+      "isReasoning": true,
+      "isOpenWeights": true,
+      "go": null,
+      "efficiency": null,
+      "efficiencyProvisional": false,
+      "valueScore": null,
+      "reliability": 16.6,
+      "visual": null,
+      "visualParts": null,
+      "visualEye": null,
+      "aaMatch": "aa-direct",
+      "needsAaFix": false,
+      "freeInOc": false,
+      "status": "not-in-go"
+    },
+    {
+      "name": "Nemotron 3.5 Super VL",
+      "inGo": false,
+      "goModelId": null,
+      "inGoApi": false,
+      "creator": "NVIDIA",
+      "color": "#76b900",
+      "logo": "https://artificialanalysis.ai/img/logos/nvidia.svg",
+      "aaSlug": "nemotron-3-5-super-vl",
+      "aaName": "Nemotron 3.5 Super VL",
+      "aaUrl": "https://artificialanalysis.ai/models/nemotron-3-5-super-vl",
+      "intelligence": 13.6203422723141,
+      "intelligenceEstimated": false,
+      "costPerTask": 0.5382257339551116,
+      "contextWindow": 1000000,
+      "isReasoning": true,
+      "isOpenWeights": true,
+      "go": null,
+      "efficiency": null,
+      "efficiencyProvisional": false,
+      "valueScore": null,
+      "reliability": 25,
+      "visual": null,
+      "visualParts": null,
+      "visualEye": null,
+      "aaMatch": "aa-direct",
+      "needsAaFix": false,
+      "freeInOc": false,
+      "status": "not-in-go"
+    },
+    {
+      "name": "Inkling Small",
+      "inGo": false,
+      "goModelId": null,
+      "inGoApi": false,
+      "creator": "Thinking Machines",
+      "color": "#676767",
+      "logo": "https://artificialanalysis.ai/img/logos/thinking-machines.svg",
+      "aaSlug": "inkling-small",
+      "aaName": "Inkling Small",
+      "aaUrl": "https://artificialanalysis.ai/models/inkling-small",
+      "intelligence": 12.9101620926084,
+      "intelligenceEstimated": false,
+      "costPerTask": 0.20316116043899832,
+      "contextWindow": 1000000,
+      "isReasoning": true,
+      "isOpenWeights": true,
+      "go": null,
+      "efficiency": null,
+      "efficiencyProvisional": false,
+      "valueScore": null,
+      "reliability": 25,
+      "visual": 20.8,
+      "visualParts": {
+        "img2web": {
+          "value": 1410.0181024237877,
+          "rank": 58,
+          "n": 1025
+        },
+        "webdev": {
+          "value": 1409.1376517895078,
+          "rank": 95,
+          "n": 5295
+        },
+        "vision": {
+          "value": 1236.796377631557,
+          "rank": 75,
+          "n": 8074
+        }
+      },
+      "visualEye": 0.908,
+      "aaMatch": "aa-direct",
+      "needsAaFix": false,
+      "freeInOc": false,
+      "status": "not-in-go"
+    },
+    {
+      "name": "Inkling (Xhigh)",
+      "inGo": false,
+      "goModelId": null,
+      "inGoApi": false,
+      "creator": "Thinking Machines",
+      "color": "#676767",
+      "logo": "https://artificialanalysis.ai/img/logos/thinking-machines.svg",
+      "aaSlug": "inkling",
+      "aaName": "Inkling (Xhigh)",
+      "aaUrl": "https://artificialanalysis.ai/models/inkling",
+      "intelligence": 12.4781698715401,
+      "intelligenceEstimated": false,
+      "costPerTask": 1.3519575079737436,
+      "contextWindow": 1000000,
+      "isReasoning": true,
+      "isOpenWeights": true,
+      "go": null,
+      "efficiency": null,
+      "efficiencyProvisional": false,
+      "valueScore": null,
+      "reliability": 25,
+      "visual": 1.9,
+      "visualParts": {
+        "webdev": {
+          "value": 1415.192007852744,
+          "rank": 94,
+          "n": 17073
+        }
+      },
+      "visualEye": 0.4,
+      "aaMatch": "aa-direct",
+      "needsAaFix": false,
+      "freeInOc": false,
+      "status": "not-in-go"
+    },
+    {
+      "name": "Nemotron 3 Ultra 550B A55B (Reasoning)",
+      "inGo": false,
+      "goModelId": null,
+      "inGoApi": false,
+      "creator": "NVIDIA",
+      "color": "#76b900",
+      "logo": "https://artificialanalysis.ai/img/logos/nvidia.svg",
+      "aaSlug": "nvidia-nemotron-3-ultra-550b-a55b",
+      "aaName": "Nemotron 3 Ultra 550B A55B (Reasoning)",
+      "aaUrl": "https://artificialanalysis.ai/models/nvidia-nemotron-3-ultra-550b-a55b",
+      "intelligence": 11.7592726308177,
+      "intelligenceEstimated": false,
+      "costPerTask": 2.2257365504312134,
       "contextWindow": 262144,
       "isReasoning": true,
       "isOpenWeights": true,
@@ -3091,7 +3109,7 @@ window.AI_DATA = {
       "efficiency": null,
       "efficiencyProvisional": false,
       "valueScore": null,
-      "reliability": 50.3,
+      "reliability": 3.8,
       "visual": null,
       "visualParts": null,
       "visualEye": null,
@@ -3102,6 +3120,36 @@ window.AI_DATA = {
     },
     {
       "name": "Big Pickle",
+      "inGo": false,
+      "goModelId": null,
+      "inGoApi": false,
+      "creator": "—",
+      "color": "#8A8A93",
+      "logo": null,
+      "aaSlug": null,
+      "aaName": null,
+      "aaUrl": null,
+      "intelligence": null,
+      "intelligenceEstimated": false,
+      "costPerTask": null,
+      "contextWindow": null,
+      "isReasoning": null,
+      "isOpenWeights": null,
+      "go": null,
+      "efficiency": null,
+      "efficiencyProvisional": false,
+      "valueScore": null,
+      "reliability": null,
+      "visual": null,
+      "visualParts": null,
+      "visualEye": null,
+      "aaMatch": null,
+      "needsAaFix": false,
+      "freeInOc": true,
+      "status": "free"
+    },
+    {
+      "name": "Pulse Alpha",
       "inGo": false,
       "goModelId": null,
       "inGoApi": false,
@@ -3201,9 +3249,9 @@ window.AI_DATA = {
       "aaSlug": "nemotron-3-5-lightning",
       "aaName": "Nemotron 3.5 Lightning",
       "aaUrl": "https://artificialanalysis.ai/models/nemotron-3-5-lightning",
-      "intelligence": 12.8572306217144,
+      "intelligence": 5.5346663903388,
       "intelligenceEstimated": false,
-      "costPerTask": 0.07948959749314857,
+      "costPerTask": 0.28980699398265014,
       "contextWindow": 1000000,
       "isReasoning": true,
       "isOpenWeights": true,
@@ -3211,37 +3259,7 @@ window.AI_DATA = {
       "efficiency": null,
       "efficiencyProvisional": false,
       "valueScore": null,
-      "reliability": 32.8,
-      "visual": null,
-      "visualParts": null,
-      "visualEye": null,
-      "aaMatch": "exact",
-      "needsAaFix": false,
-      "freeInOc": true,
-      "status": "free"
-    },
-    {
-      "name": "Nemotron 3.5 Super VL",
-      "inGo": false,
-      "goModelId": null,
-      "inGoApi": false,
-      "creator": "NVIDIA",
-      "color": "#76b900",
-      "logo": "https://artificialanalysis.ai/img/logos/nvidia.svg",
-      "aaSlug": "nemotron-3-5-super-vl",
-      "aaName": "Nemotron 3.5 Super VL",
-      "aaUrl": "https://artificialanalysis.ai/models/nemotron-3-5-super-vl",
-      "intelligence": 26.4910658661689,
-      "intelligenceEstimated": false,
-      "costPerTask": 0.18823665957318256,
-      "contextWindow": 1000000,
-      "isReasoning": true,
-      "isOpenWeights": true,
-      "go": null,
-      "efficiency": null,
-      "efficiencyProvisional": false,
-      "valueScore": null,
-      "reliability": 52.3,
+      "reliability": 25,
       "visual": null,
       "visualParts": null,
       "visualEye": null,

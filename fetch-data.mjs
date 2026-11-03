@@ -933,7 +933,11 @@ async function main() {
         const hit = layer.bySlug.get(slug);
         if (hit) return { m: hit, method: `${tag}override` };
       }
-      console.warn(`  ! override «${goName}» -> slug «${slug}» не найден ни в лидерборде, ни в добивке, пробую поиск по имени`);
+      // Override — явное решение владельца: «эта модель на AA вот этот slug».
+      // Если slug пуст (AA снял карточку), искать похожие по имени нельзя:
+      // каноника приведёт к другой ревизии (так «DeepSeek V4.1 Flash» 0910
+      // тянет цифры закреплённой строки 1017). Честнее прочерк, чем чужие цифры.
+      return null;
     }
     for (const [layer, tag] of layers) {
       const hit = matchAaByName(goName, layer);
@@ -977,7 +981,11 @@ async function main() {
       }
     }
 
-    const guessedCreator = aaModel ? null : guessCreator(goName);
+    // Подсказка вендора по названию. Нужна в двух случаях: модели нет на AA вовсе
+    // (по ней подставляется цвет) и модель нашлась через добивку — лидерборд и
+    // датасеты страниц не отдают создателя (там всегда «—»), а вендор у строки
+    // честнее определять по названию, чем сетевой «—».
+    const guessedCreator = guessCreator(goName);
 
     const req = requests.get(goName) || {};
     const mix = mixes.get(goName) || null;
@@ -1008,9 +1016,15 @@ async function main() {
       inGo: true,
       goModelId,
       inGoApi: goModelId ? apiIds.has(goModelId) : false,
-      creator: aaModel?.creator ?? guessedCreator ?? '—',
-      color: aaModel?.color ?? (guessedCreator ? creatorColors.get(guessedCreator) : null) ?? '#8A8A93',
-      logo: aaModel?.logo ?? null,
+      // Создатель: из карточки AA, а если карточка не знает ('—' у добивки) — hint.
+      creator: (aaModel && aaModel.creator !== '—' ? aaModel.creator : guessedCreator) ?? '—',
+      // Цвет: из карточки AA, иначе — цвет вендора из подсказки/сэмла AA.
+      color:
+        (aaModel && aaModel.creator !== '—' ? aaModel.color : null) ??
+        (guessedCreator ? creatorColors.get(guessedCreator) : null) ??
+        '#8A8A93',
+      // Логотип у добивки не доступен (AA его не отдаёт) — только у лидерборда.
+      logo: (aaModel && aaModel.creator !== '—' ? aaModel.logo : null) ?? null,
       aaSlug: aaModel?.slug ?? null,
       aaName: aaModel?.displayName ?? null,
       aaUrl: aaModel?.url ?? null,
@@ -1188,7 +1202,8 @@ async function main() {
     }
 
     const m = f.aaModel;
-    const guessedCreator = m ? null : guessCreator(f.base || f.name);
+    // Создатель через добивку приходит «—» — подсказываем по названию модели.
+    const guessedCreator = m && m.creator !== '—' ? null : guessCreator(f.base || f.name);
     const visual = m ? visualScore(arena, m.displayName) : { score: null, parts: null };
 
     freeOnlyItems.push({
@@ -1197,9 +1212,12 @@ async function main() {
       inGo: false,
       goModelId: null,
       inGoApi: false,
-      creator: m?.creator ?? guessedCreator ?? '—',
-      color: m?.color ?? (guessedCreator ? creatorColors.get(guessedCreator) : null) ?? '#8A8A93',
-      logo: m?.logo ?? null,
+      creator: (m && m.creator !== '—' ? m.creator : guessedCreator) ?? '—',
+      color:
+        (m && m.creator !== '—' ? m.color : null) ??
+        (guessedCreator ? creatorColors.get(guessedCreator) : null) ??
+        '#8A8A93',
+      logo: (m && m.creator !== '—' ? m.logo : null) ?? null,
       aaSlug: m?.slug ?? null,
       aaName: m?.name ?? null,
       aaUrl: m?.url ?? null,
