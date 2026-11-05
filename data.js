@@ -2,7 +2,7 @@
    Ручные правки будут перезаписаны. Настройки — в models.config.js. */
 window.AI_DATA = {
   "meta": {
-    "generatedAt": "2026-11-04T01:00:59.325Z",
+    "generatedAt": "2026-11-05T01:15:24.097Z",
     "plan": {
       "id": "go",
       "label": "OpenCode Go",
@@ -103,13 +103,13 @@ window.AI_DATA = {
       }
     },
     "counts": {
-      "total": 56,
-      "inGo": 30,
+      "total": 58,
+      "inGo": 31,
       "extraFromAA": 20,
-      "freeOnly": 6,
+      "freeOnly": 7,
       "unmatched": 7,
       "withoutIntelligence": 12,
-      "withVisual": 34,
+      "withVisual": 35,
       "freeInOc": 3,
       "freeAvailable": 6,
       "needsAaFix": 6
@@ -117,7 +117,7 @@ window.AI_DATA = {
     "matchMethods": {
       "exact": 11,
       "base": 6,
-      "fallback:base": 1,
+      "fallback:base": 2,
       "override": 4,
       "fallback:canon": 1
     },
@@ -203,6 +203,10 @@ window.AI_DATA = {
         ]
       },
       {
+        "name": "Hy4",
+        "suggestions": []
+      },
+      {
         "name": "Hy4 preview",
         "suggestions": [
           {
@@ -219,26 +223,6 @@ window.AI_DATA = {
             "slug": "gemini-3-1-pro-preview",
             "name": "Gemini 3.1 Pro Preview",
             "score": 0.17
-          }
-        ]
-      },
-      {
-        "name": "GPT 5.6 Luna",
-        "suggestions": [
-          {
-            "slug": "gpt-6-luna-xhigh",
-            "name": "GPT-6 Luna (Xhigh)",
-            "score": 0.6
-          },
-          {
-            "slug": "gpt-6-luna-medium",
-            "name": "GPT-6 Luna (Medium)",
-            "score": 0.6
-          },
-          {
-            "slug": "gpt-6-luna",
-            "name": "GPT-6 Luna (Max)",
-            "score": 0.6
           }
         ]
       }
@@ -1850,6 +1834,66 @@ window.AI_DATA = {
       "status": "active"
     },
     {
+      "name": "Hy4",
+      "inGo": true,
+      "goModelId": "hy4",
+      "inGoApi": true,
+      "creator": "Tencent",
+      "color": "#5CB9FF",
+      "logo": null,
+      "aaSlug": null,
+      "aaName": null,
+      "aaUrl": null,
+      "aaMatch": null,
+      "needsAaFix": true,
+      "intelligence": null,
+      "intelligenceEstimated": false,
+      "costPerTask": null,
+      "contextWindow": null,
+      "isReasoning": null,
+      "isOpenWeights": null,
+      "go": {
+        "input": 0.834,
+        "output": 2.501,
+        "cachedRead": 0.042,
+        "cachedWrite": null,
+        "monthlyLimit": 60,
+        "limitRaw": "$60",
+        "limitNote": null,
+        "tiers": [
+          {
+            "label": null,
+            "input": 0.834,
+            "output": 2.501,
+            "cachedRead": 0.042,
+            "monthlyLimit": 60
+          }
+        ],
+        "requests5h": 2710,
+        "requestsWeek": 6770,
+        "requestsMonth": 13500,
+        "unlimited": false,
+        "mix": {
+          "input": 830,
+          "cached": 71500,
+          "output": 295
+        },
+        "tokensPerRequest": 72625,
+        "costPerRequest": 0.004433014999999999,
+        "limit5hUsd": 12,
+        "tokensPer5h": 196813750
+      },
+      "efficiency": 2710,
+      "efficiencyProvisional": false,
+      "valueScore": null,
+      "reliability": null,
+      "visual": null,
+      "visualParts": null,
+      "visualEye": null,
+      "freeInOc": false,
+      "status": "active"
+    },
+    {
       "name": "Hy4 preview",
       "inGo": true,
       "goModelId": "hy4-preview",
@@ -2149,17 +2193,17 @@ window.AI_DATA = {
       "creator": "OpenAI",
       "color": "#1f1f1f",
       "logo": null,
-      "aaSlug": null,
-      "aaName": null,
-      "aaUrl": null,
-      "aaMatch": null,
-      "needsAaFix": true,
-      "intelligence": null,
+      "aaSlug": "gpt-5-6-luna",
+      "aaName": "GPT-5.6 Luna (Max)",
+      "aaUrl": "https://artificialanalysis.ai/models/gpt-5-6-luna",
+      "aaMatch": "fallback:base",
+      "needsAaFix": false,
+      "intelligence": 23.7902433286348,
       "intelligenceEstimated": false,
       "costPerTask": null,
-      "contextWindow": null,
-      "isReasoning": null,
-      "isOpenWeights": null,
+      "contextWindow": 1000000,
+      "isReasoning": true,
+      "isOpenWeights": false,
       "go": {
         "input": 0.2,
         "output": 1.2,
@@ -2200,11 +2244,27 @@ window.AI_DATA = {
       },
       "efficiency": 2050,
       "efficiencyProvisional": false,
-      "valueScore": null,
-      "reliability": null,
-      "visual": null,
-      "visualParts": null,
-      "visualEye": null,
+      "valueScore": 33,
+      "reliability": 41.5,
+      "visual": 45.4,
+      "visualParts": {
+        "img2web": {
+          "value": 1516.9857288035832,
+          "rank": 39,
+          "n": 4324
+        },
+        "webdev": {
+          "value": 1518.9116265563573,
+          "rank": 59,
+          "n": 12522
+        },
+        "vision": {
+          "value": 1257.1473899499424,
+          "rank": 58,
+          "n": 11055
+        }
+      },
+      "visualEye": 0.93,
       "freeInOc": false,
       "status": "active"
     },
@@ -2296,7 +2356,7 @@ window.AI_DATA = {
       "needsAaFix": false,
       "intelligence": 50.4121935905389,
       "intelligenceEstimated": false,
-      "costPerTask": 7.682671372515551,
+      "costPerTask": 9.946608711550533,
       "contextWindow": 1000000,
       "isReasoning": true,
       "isOpenWeights": false,
@@ -3120,6 +3180,36 @@ window.AI_DATA = {
     },
     {
       "name": "Big Pickle",
+      "inGo": false,
+      "goModelId": null,
+      "inGoApi": false,
+      "creator": "—",
+      "color": "#8A8A93",
+      "logo": null,
+      "aaSlug": null,
+      "aaName": null,
+      "aaUrl": null,
+      "intelligence": null,
+      "intelligenceEstimated": false,
+      "costPerTask": null,
+      "contextWindow": null,
+      "isReasoning": null,
+      "isOpenWeights": null,
+      "go": null,
+      "efficiency": null,
+      "efficiencyProvisional": false,
+      "valueScore": null,
+      "reliability": null,
+      "visual": null,
+      "visualParts": null,
+      "visualEye": null,
+      "aaMatch": null,
+      "needsAaFix": false,
+      "freeInOc": true,
+      "status": "free"
+    },
+    {
+      "name": "Crouton Alpha",
       "inGo": false,
       "goModelId": null,
       "inGoApi": false,
