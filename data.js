@@ -2,7 +2,7 @@
    Ручные правки будут перезаписаны. Настройки — в models.config.js. */
 window.AI_DATA = {
   "meta": {
-    "generatedAt": "2026-11-05T01:15:24.097Z",
+    "generatedAt": "2026-11-06T01:20:49.419Z",
     "plan": {
       "id": "go",
       "label": "OpenCode Go",
@@ -107,19 +107,20 @@ window.AI_DATA = {
       "inGo": 31,
       "extraFromAA": 20,
       "freeOnly": 7,
-      "unmatched": 7,
-      "withoutIntelligence": 12,
+      "unmatched": 6,
+      "withoutIntelligence": 11,
       "withVisual": 35,
       "freeInOc": 3,
       "freeAvailable": 6,
-      "needsAaFix": 6
+      "needsAaFix": 5
     },
     "matchMethods": {
       "exact": 11,
       "base": 6,
       "fallback:base": 2,
       "override": 4,
-      "fallback:canon": 1
+      "fallback:canon": 1,
+      "canon": 1
     },
     "needsAaFix": [
       {
@@ -203,12 +204,13 @@ window.AI_DATA = {
         ]
       },
       {
-        "name": "Hy4",
-        "suggestions": []
-      },
-      {
         "name": "Hy4 preview",
         "suggestions": [
+          {
+            "slug": "tencent-hy4",
+            "name": "Tencent Hy4",
+            "score": 0.33
+          },
           {
             "slug": "step-5",
             "name": "Step 5 Preview",
@@ -217,11 +219,6 @@ window.AI_DATA = {
           {
             "slug": "ernie-5-0-thinking-preview",
             "name": "ERNIE 5.0 Thinking Preview",
-            "score": 0.17
-          },
-          {
-            "slug": "gemini-3-1-pro-preview",
-            "name": "Gemini 3.1 Pro Preview",
             "score": 0.17
           }
         ]
@@ -483,7 +480,7 @@ window.AI_DATA = {
       "costPerTask": 3.6812002895742055,
       "contextWindow": 1000000,
       "isReasoning": true,
-      "isOpenWeights": false,
+      "isOpenWeights": true,
       "go": {
         "input": 2,
         "output": 10,
@@ -1840,18 +1837,18 @@ window.AI_DATA = {
       "inGoApi": true,
       "creator": "Tencent",
       "color": "#5CB9FF",
-      "logo": null,
-      "aaSlug": null,
-      "aaName": null,
-      "aaUrl": null,
-      "aaMatch": null,
-      "needsAaFix": true,
-      "intelligence": null,
+      "logo": "https://artificialanalysis.ai/img/logos/tencent-hy.svg",
+      "aaSlug": "tencent-hy4",
+      "aaName": "Tencent Hy4",
+      "aaUrl": "https://artificialanalysis.ai/models/tencent-hy4",
+      "aaMatch": "canon",
+      "needsAaFix": false,
+      "intelligence": 34.5552385392508,
       "intelligenceEstimated": false,
-      "costPerTask": null,
-      "contextWindow": null,
-      "isReasoning": null,
-      "isOpenWeights": null,
+      "costPerTask": 1.0311060706397974,
+      "contextWindow": 1048576,
+      "isReasoning": true,
+      "isOpenWeights": false,
       "go": {
         "input": 0.834,
         "output": 2.501,
@@ -1885,8 +1882,8 @@ window.AI_DATA = {
       },
       "efficiency": 2710,
       "efficiencyProvisional": false,
-      "valueScore": null,
-      "reliability": null,
+      "valueScore": 51.4,
+      "reliability": 61.7,
       "visual": null,
       "visualParts": null,
       "visualEye": null,
@@ -1960,7 +1957,7 @@ window.AI_DATA = {
       "inGoApi": true,
       "creator": "Tencent",
       "color": "#5CB9FF",
-      "logo": "https://artificialanalysis.ai/img/logos/tencent.svg",
+      "logo": "https://artificialanalysis.ai/img/logos/tencent-hy.svg",
       "aaSlug": "hy3",
       "aaName": "Hy3",
       "aaUrl": "https://artificialanalysis.ai/models/hy3",
@@ -2824,6 +2821,36 @@ window.AI_DATA = {
       "status": "not-in-go"
     },
     {
+      "name": "Inkling 2 Small",
+      "inGo": false,
+      "goModelId": null,
+      "inGoApi": false,
+      "creator": "Thinking Machines",
+      "color": "#676767",
+      "logo": "https://artificialanalysis.ai/img/logos/thinking-machines.svg",
+      "aaSlug": "inkling-2-small",
+      "aaName": "Inkling 2 Small",
+      "aaUrl": "https://artificialanalysis.ai/models/inkling-2-small",
+      "intelligence": 30.6286781498958,
+      "intelligenceEstimated": false,
+      "costPerTask": 1.1784281349617984,
+      "contextWindow": 1024000,
+      "isReasoning": true,
+      "isOpenWeights": false,
+      "go": null,
+      "efficiency": null,
+      "efficiencyProvisional": false,
+      "valueScore": null,
+      "reliability": 54.3,
+      "visual": null,
+      "visualParts": null,
+      "visualEye": null,
+      "aaMatch": "aa-direct",
+      "needsAaFix": false,
+      "freeInOc": false,
+      "status": "not-in-go"
+    },
+    {
       "name": "Ling 3.1 Flash 1019",
       "inGo": false,
       "goModelId": null,
@@ -2866,7 +2893,7 @@ window.AI_DATA = {
       "aaUrl": "https://artificialanalysis.ai/models/mistral-large-4",
       "intelligence": 26.1249946754784,
       "intelligenceEstimated": false,
-      "costPerTask": 2.061496607384404,
+      "costPerTask": 2.0617306268126856,
       "contextWindow": 1000000,
       "isReasoning": true,
       "isOpenWeights": true,
@@ -3143,36 +3170,6 @@ window.AI_DATA = {
         }
       },
       "visualEye": 0.4,
-      "aaMatch": "aa-direct",
-      "needsAaFix": false,
-      "freeInOc": false,
-      "status": "not-in-go"
-    },
-    {
-      "name": "Nemotron 3 Ultra 550B A55B (Reasoning)",
-      "inGo": false,
-      "goModelId": null,
-      "inGoApi": false,
-      "creator": "NVIDIA",
-      "color": "#76b900",
-      "logo": "https://artificialanalysis.ai/img/logos/nvidia.svg",
-      "aaSlug": "nvidia-nemotron-3-ultra-550b-a55b",
-      "aaName": "Nemotron 3 Ultra 550B A55B (Reasoning)",
-      "aaUrl": "https://artificialanalysis.ai/models/nvidia-nemotron-3-ultra-550b-a55b",
-      "intelligence": 11.7592726308177,
-      "intelligenceEstimated": false,
-      "costPerTask": 2.2257365504312134,
-      "contextWindow": 262144,
-      "isReasoning": true,
-      "isOpenWeights": true,
-      "go": null,
-      "efficiency": null,
-      "efficiencyProvisional": false,
-      "valueScore": null,
-      "reliability": 3.8,
-      "visual": null,
-      "visualParts": null,
-      "visualEye": null,
       "aaMatch": "aa-direct",
       "needsAaFix": false,
       "freeInOc": false,
