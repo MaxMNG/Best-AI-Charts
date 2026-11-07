@@ -2,7 +2,7 @@
    Ручные правки будут перезаписаны. Настройки — в models.config.js. */
 window.AI_DATA = {
   "meta": {
-    "generatedAt": "2026-11-06T01:20:49.419Z",
+    "generatedAt": "2026-11-07T00:34:50.127Z",
     "plan": {
       "id": "go",
       "label": "OpenCode Go",
@@ -103,12 +103,12 @@ window.AI_DATA = {
       }
     },
     "counts": {
-      "total": 58,
-      "inGo": 31,
+      "total": 59,
+      "inGo": 32,
       "extraFromAA": 20,
       "freeOnly": 7,
-      "unmatched": 6,
-      "withoutIntelligence": 11,
+      "unmatched": 7,
+      "withoutIntelligence": 12,
       "withVisual": 35,
       "freeInOc": 3,
       "freeAvailable": 6,
@@ -805,6 +805,62 @@ window.AI_DATA = {
       "visualEye": 0.938,
       "freeInOc": false,
       "status": "active"
+    },
+    {
+      "name": "Crouton Alpha Free",
+      "inGo": true,
+      "goModelId": "crouton-alpha-free",
+      "inGoApi": true,
+      "creator": "—",
+      "color": "#8A8A93",
+      "logo": null,
+      "aaSlug": null,
+      "aaName": null,
+      "aaUrl": null,
+      "aaMatch": null,
+      "needsAaFix": false,
+      "intelligence": null,
+      "intelligenceEstimated": false,
+      "costPerTask": null,
+      "contextWindow": null,
+      "isReasoning": null,
+      "isOpenWeights": null,
+      "go": {
+        "input": 0,
+        "output": 0,
+        "cachedRead": 0,
+        "cachedWrite": null,
+        "monthlyLimit": null,
+        "limitRaw": "Unlimited",
+        "limitNote": "limited time",
+        "tiers": [
+          {
+            "label": null,
+            "input": 0,
+            "output": 0,
+            "cachedRead": 0,
+            "monthlyLimit": null
+          }
+        ],
+        "requests5h": null,
+        "requestsWeek": null,
+        "requestsMonth": null,
+        "unlimited": true,
+        "mix": null,
+        "tokensPerRequest": null,
+        "costPerRequest": null,
+        "limit5hUsd": null,
+        "tokensPer5h": null
+      },
+      "efficiency": null,
+      "efficiencyProvisional": false,
+      "valueScore": null,
+      "reliability": null,
+      "visual": null,
+      "visualParts": null,
+      "visualEye": null,
+      "freeInOc": false,
+      "status": "unlimited"
     },
     {
       "name": "Beam Free",
@@ -3076,7 +3132,7 @@ window.AI_DATA = {
       "aaUrl": "https://artificialanalysis.ai/models/nemotron-3-5-super-vl",
       "intelligence": 13.6203422723141,
       "intelligenceEstimated": false,
-      "costPerTask": 0.5382257339551116,
+      "costPerTask": 0.5196327287868884,
       "contextWindow": 1000000,
       "isReasoning": true,
       "isOpenWeights": true,
@@ -3206,7 +3262,7 @@ window.AI_DATA = {
       "status": "free"
     },
     {
-      "name": "Crouton Alpha",
+      "name": "Iceman",
       "inGo": false,
       "goModelId": null,
       "inGoApi": false,
