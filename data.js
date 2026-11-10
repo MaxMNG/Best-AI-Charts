@@ -2,7 +2,7 @@
    Ручные правки будут перезаписаны. Настройки — в models.config.js. */
 window.AI_DATA = {
   "meta": {
-    "generatedAt": "2026-11-09T00:27:19.270Z",
+    "generatedAt": "2026-11-10T03:07:22.183Z",
     "plan": {
       "id": "go",
       "label": "OpenCode Go",
@@ -99,7 +99,7 @@ window.AI_DATA = {
             "category": "overall"
           }
         },
-        "asOf": "2026-11-06"
+        "asOf": "2026-11-08"
       }
     },
     "counts": {
@@ -109,9 +109,9 @@ window.AI_DATA = {
       "freeOnly": 6,
       "unmatched": 7,
       "withoutIntelligence": 12,
-      "withVisual": 36,
+      "withVisual": 33,
       "freeInOc": 3,
-      "freeAvailable": 7,
+      "freeAvailable": 8,
       "needsAaFix": 5
     },
     "matchMethods": {
@@ -240,10 +240,10 @@ window.AI_DATA = {
           "aaSlug": "inkling-2-small"
         },
         {
-          "name": "GLM-5.3-Flash Free",
-          "base": "GLM-5.3-Flash",
-          "intelligence": 27.803889160883,
-          "aaSlug": "glm-5-3-flash"
+          "name": "MiniMax M3.1 Flash Free",
+          "base": "MiniMax M3.1 Flash",
+          "intelligence": 29.0595214290458,
+          "aaSlug": "minimax-m3-1-flash"
         }
       ]
     },
@@ -318,26 +318,26 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 46.6,
       "reliability": 49,
-      "visual": 72.8,
+      "visual": 73,
       "visualParts": {
         "img2web": {
-          "value": 1581.4438402864375,
+          "value": 1582.0818883761262,
           "rank": 22,
-          "n": 8314
+          "n": 7803
         },
         "webdev": {
-          "value": 1606.5836157384558,
+          "value": 1608.5749106699982,
           "rank": 33,
-          "n": 24186
+          "n": 23253
         },
         "vision": {
-          "value": 1295.3113367361943,
+          "value": 1294.8500817678578,
           "rank": 23,
-          "n": 32368
+          "n": 31604
         }
       },
       "visualEye": 1.05,
-      "freeInOc": true,
+      "freeInOc": false,
       "status": "active"
     },
     {
@@ -394,12 +394,12 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 23.2,
       "reliability": 56.2,
-      "visual": 27.6,
+      "visual": 27.8,
       "visualParts": {
         "webdev": {
-          "value": 1620.690237511691,
+          "value": 1622.4520013427468,
           "rank": 28,
-          "n": 12658
+          "n": 12326
         }
       },
       "visualEye": 0.4,
@@ -516,12 +516,12 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 22.3,
       "reliability": 84,
-      "visual": 35.5,
+      "visual": 35.9,
       "visualParts": {
         "webdev": {
-          "value": 1683.935227449236,
+          "value": 1686.879865496191,
           "rank": 10,
-          "n": 4595
+          "n": 4651
         }
       },
       "visualEye": 0.4,
@@ -582,17 +582,17 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 3.1,
       "reliability": 29.5,
-      "visual": 26.9,
+      "visual": 27,
       "visualParts": {
         "img2web": {
-          "value": 1583.8471676935815,
+          "value": 1585.7679100339737,
           "rank": 21,
-          "n": 4809
+          "n": 4604
         },
         "webdev": {
-          "value": 1656.5133396725882,
-          "rank": 18,
-          "n": 22846
+          "value": 1656.842676214335,
+          "rank": 17,
+          "n": 22147
         }
       },
       "visualEye": 0.4,
@@ -656,14 +656,14 @@ window.AI_DATA = {
       "visual": 12,
       "visualParts": {
         "img2web": {
-          "value": 1512.9187276678476,
+          "value": 1512.2926724016734,
           "rank": 40,
-          "n": 919
+          "n": 905
         },
         "webdev": {
-          "value": 1473.4464187270783,
+          "value": 1473.8678601089218,
           "rank": 74,
-          "n": 4979
+          "n": 4891
         }
       },
       "visualEye": 0.4,
@@ -784,83 +784,27 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 28.4,
       "reliability": 50.4,
-      "visual": 55,
+      "visual": 55.1,
       "visualParts": {
         "img2web": {
-          "value": 1549.6368757220916,
+          "value": 1551.2675754630645,
           "rank": 28,
-          "n": 4509
+          "n": 4146
         },
         "webdev": {
-          "value": 1571.9927665717885,
+          "value": 1572.4164107163697,
           "rank": 43,
-          "n": 7465
+          "n": 7307
         },
         "vision": {
-          "value": 1264.407005709865,
-          "rank": 50,
-          "n": 3574
+          "value": 1263.4795074086041,
+          "rank": 51,
+          "n": 3555
         }
       },
-      "visualEye": 0.938,
+      "visualEye": 0.937,
       "freeInOc": false,
       "status": "active"
-    },
-    {
-      "name": "Crouton Alpha Free",
-      "inGo": true,
-      "goModelId": "crouton-alpha-free",
-      "inGoApi": true,
-      "creator": "—",
-      "color": "#8A8A93",
-      "logo": null,
-      "aaSlug": null,
-      "aaName": null,
-      "aaUrl": null,
-      "aaMatch": null,
-      "needsAaFix": false,
-      "intelligence": null,
-      "intelligenceEstimated": false,
-      "costPerTask": null,
-      "contextWindow": null,
-      "isReasoning": null,
-      "isOpenWeights": null,
-      "go": {
-        "input": 0,
-        "output": 0,
-        "cachedRead": 0,
-        "cachedWrite": null,
-        "monthlyLimit": null,
-        "limitRaw": "Unlimited",
-        "limitNote": "limited time",
-        "tiers": [
-          {
-            "label": null,
-            "input": 0,
-            "output": 0,
-            "cachedRead": 0,
-            "monthlyLimit": null
-          }
-        ],
-        "requests5h": null,
-        "requestsWeek": null,
-        "requestsMonth": null,
-        "unlimited": true,
-        "mix": null,
-        "tokensPerRequest": null,
-        "costPerRequest": null,
-        "limit5hUsd": null,
-        "tokensPer5h": null
-      },
-      "efficiency": null,
-      "efficiencyProvisional": false,
-      "valueScore": null,
-      "reliability": null,
-      "visual": null,
-      "visualParts": null,
-      "visualEye": null,
-      "freeInOc": false,
-      "status": "unlimited"
     },
     {
       "name": "Beam Free",
@@ -975,6 +919,62 @@ window.AI_DATA = {
       "status": "unlimited"
     },
     {
+      "name": "LongCat 2.5 Free",
+      "inGo": true,
+      "goModelId": "longcat-2.5-free",
+      "inGoApi": true,
+      "creator": "Meituan",
+      "color": "#8A8A93",
+      "logo": null,
+      "aaSlug": null,
+      "aaName": null,
+      "aaUrl": null,
+      "aaMatch": null,
+      "needsAaFix": false,
+      "intelligence": null,
+      "intelligenceEstimated": false,
+      "costPerTask": null,
+      "contextWindow": null,
+      "isReasoning": null,
+      "isOpenWeights": null,
+      "go": {
+        "input": 0,
+        "output": 0,
+        "cachedRead": 0,
+        "cachedWrite": null,
+        "monthlyLimit": null,
+        "limitRaw": "Unlimited",
+        "limitNote": "limited time",
+        "tiers": [
+          {
+            "label": null,
+            "input": 0,
+            "output": 0,
+            "cachedRead": 0,
+            "monthlyLimit": null
+          }
+        ],
+        "requests5h": null,
+        "requestsWeek": null,
+        "requestsMonth": null,
+        "unlimited": true,
+        "mix": null,
+        "tokensPerRequest": null,
+        "costPerRequest": null,
+        "limit5hUsd": null,
+        "tokensPer5h": null
+      },
+      "efficiency": null,
+      "efficiencyProvisional": false,
+      "valueScore": null,
+      "reliability": null,
+      "visual": null,
+      "visualParts": null,
+      "visualEye": null,
+      "freeInOc": false,
+      "status": "unlimited"
+    },
+    {
       "name": "MiMo-V2.6-Flash",
       "inGo": true,
       "goModelId": "mimo-v2.6-flash",
@@ -1028,22 +1028,22 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 52.3,
       "reliability": 47,
-      "visual": 65,
+      "visual": 64.9,
       "visualParts": {
         "img2web": {
-          "value": 1593.1105547674954,
+          "value": 1593.7680211042862,
           "rank": 18,
-          "n": 3457
+          "n": 3260
         },
         "webdev": {
-          "value": 1636.3290242109547,
+          "value": 1635.9130855290086,
           "rank": 23,
-          "n": 8904
+          "n": 8651
         },
         "vision": {
-          "value": 1259.984745349855,
-          "rank": 55,
-          "n": 6920
+          "value": 1259.30827557375,
+          "rank": 56,
+          "n": 6950
         }
       },
       "visualEye": 0.933,
@@ -1104,25 +1104,25 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 46.1,
       "reliability": 52.9,
-      "visual": 73.1,
+      "visual": 65.2,
       "visualParts": {
         "img2web": {
-          "value": 1597.38269608366,
-          "rank": 16,
-          "n": 3842
+          "value": 1594.9613023533902,
+          "rank": 17,
+          "n": 3580
         },
         "webdev": {
-          "value": 1623.503406790277,
-          "rank": 27,
-          "n": 8647
+          "value": 1624.330863709186,
+          "rank": 26,
+          "n": 8481
         },
         "vision": {
-          "value": 1266.028706672753,
-          "rank": 47,
-          "n": 1854
+          "value": 1265.6232538638947,
+          "rank": 48,
+          "n": 1827
         }
       },
-      "visualEye": 1.05,
+      "visualEye": 0.94,
       "freeInOc": false,
       "status": "active"
     },
@@ -1303,13 +1303,13 @@ window.AI_DATA = {
       "visual": 22.8,
       "visualParts": {
         "webdev": {
-          "value": 1582.013986096166,
+          "value": 1582.3253364255256,
           "rank": 39,
-          "n": 4601
+          "n": 4516
         }
       },
       "visualEye": 0.4,
-      "freeInOc": false,
+      "freeInOc": true,
       "status": "active"
     },
     {
@@ -1373,22 +1373,22 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 23.5,
       "reliability": 32.3,
-      "visual": 35.9,
+      "visual": 36.1,
       "visualParts": {
         "img2web": {
-          "value": 1472.5483623106006,
+          "value": 1473.5648188790815,
           "rank": 46,
-          "n": 6529
+          "n": 6254
         },
         "webdev": {
-          "value": 1484.120638094494,
-          "rank": 70,
-          "n": 21776
+          "value": 1484.098281094304,
+          "rank": 71,
+          "n": 21059
         },
         "vision": {
-          "value": 1248.6443052716168,
+          "value": 1248.9155673392972,
           "rank": 63,
-          "n": 21478
+          "n": 21151
         }
       },
       "visualEye": 0.921,
@@ -1449,22 +1449,22 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 73.5,
       "reliability": 65.5,
-      "visual": 86.3,
+      "visual": 86.5,
       "visualParts": {
         "img2web": {
-          "value": 1637.3708614811292,
+          "value": 1638.4303831882444,
           "rank": 8,
-          "n": 6916
+          "n": 6406
         },
         "webdev": {
-          "value": 1653.5661472648244,
+          "value": 1654.1404707908573,
           "rank": 19,
-          "n": 12103
+          "n": 11827
         },
         "vision": {
-          "value": 1308.3961939544977,
+          "value": 1308.6277377951203,
           "rank": 12,
-          "n": 7785
+          "n": 7723
         }
       },
       "visualEye": 1.05,
@@ -1585,22 +1585,22 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 18.9,
       "reliability": 59.5,
-      "visual": 88.9,
+      "visual": 89,
       "visualParts": {
         "img2web": {
-          "value": 1636.1673292510357,
+          "value": 1637.3677829427465,
           "rank": 9,
-          "n": 1154
+          "n": 1091
         },
         "webdev": {
-          "value": 1677.1137853070659,
+          "value": 1676.8828902608307,
           "rank": 13,
-          "n": 22197
+          "n": 21409
         },
         "vision": {
-          "value": 1312.5237893924257,
+          "value": 1312.0753272013394,
           "rank": 10,
-          "n": 9958
+          "n": 9839
         }
       },
       "visualEye": 1.05,
@@ -1661,12 +1661,12 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": null,
       "reliability": 14.7,
-      "visual": 28.1,
+      "visual": 28,
       "visualParts": {
         "webdev": {
-          "value": 1625.1267134391355,
-          "rank": 25,
-          "n": 11274
+          "value": 1624.1778501394501,
+          "rank": 27,
+          "n": 11008
         }
       },
       "visualEye": 0.4,
@@ -1737,9 +1737,9 @@ window.AI_DATA = {
       "visual": null,
       "visualParts": {
         "vision": {
-          "value": 1276.6449369239513,
+          "value": 1277.099131983012,
           "rank": 39,
-          "n": 15421
+          "n": 15141
         }
       },
       "visualEye": null,
@@ -1807,12 +1807,12 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 66.1,
       "reliability": 58,
-      "visual": 33.1,
+      "visual": 33,
       "visualParts": {
         "webdev": {
-          "value": 1665.1375988732734,
+          "value": 1664.2479539310802,
           "rank": 16,
-          "n": 13670
+          "n": 13449
         }
       },
       "visualEye": 0.4,
@@ -2060,12 +2060,12 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": null,
       "reliability": 14.7,
-      "visual": 13.1,
+      "visual": 13.2,
       "visualParts": {
         "webdev": {
-          "value": 1505.1859916645344,
+          "value": 1505.904572064106,
           "rank": 65,
-          "n": 7434
+          "n": 7240
         }
       },
       "visualEye": 0.4,
@@ -2133,25 +2133,25 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 21,
       "reliability": 49.1,
-      "visual": 59.2,
+      "visual": 59.6,
       "visualParts": {
         "img2web": {
-          "value": 1585.8488438272043,
+          "value": 1590.57783374878,
           "rank": 20,
-          "n": 2052
+          "n": 1928
         },
         "webdev": {
-          "value": 1638.2773480471428,
+          "value": 1639.6901321985783,
           "rank": 22,
-          "n": 8077
+          "n": 7875
         },
         "vision": {
-          "value": 1231.0477259250583,
+          "value": 1229.7093647712911,
           "rank": 79,
-          "n": 6260
+          "n": 6230
         }
       },
-      "visualEye": 0.901,
+      "visualEye": 0.9,
       "freeInOc": false,
       "status": "active"
     },
@@ -2219,19 +2219,19 @@ window.AI_DATA = {
       "visual": 48.8,
       "visualParts": {
         "img2web": {
-          "value": 1566.8276947305103,
+          "value": 1567.2539620612379,
           "rank": 25,
-          "n": 7938
+          "n": 7198
         },
         "webdev": {
-          "value": 1578.252819314701,
+          "value": 1577.3040737626297,
           "rank": 42,
-          "n": 31727
+          "n": 30097
         },
         "vision": {
-          "value": 1211.2006091715357,
+          "value": 1211.349253640358,
           "rank": 88,
-          "n": 6281
+          "n": 6246
         }
       },
       "visualEye": 0.879,
@@ -2299,25 +2299,25 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 33,
       "reliability": 41.5,
-      "visual": 45.3,
+      "visual": 45.2,
       "visualParts": {
         "img2web": {
-          "value": 1517.3071588783528,
+          "value": 1517.2777740168406,
           "rank": 39,
-          "n": 4309
+          "n": 4132
         },
         "webdev": {
-          "value": 1518.6773745529886,
+          "value": 1518.911264194091,
           "rank": 60,
-          "n": 12571
+          "n": 12228
         },
         "vision": {
-          "value": 1256.8049692361617,
+          "value": 1255.8321804697168,
           "rank": 58,
-          "n": 11261
+          "n": 11073
         }
       },
-      "visualEye": 0.93,
+      "visualEye": 0.929,
       "freeInOc": false,
       "status": "active"
     },
@@ -2382,12 +2382,12 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 56.7,
       "reliability": 65.3,
-      "visual": 24,
+      "visual": 24.4,
       "visualParts": {
         "webdev": {
-          "value": 1592.3596469964282,
+          "value": 1594.9160580879757,
           "rank": 35,
-          "n": 6349
+          "n": 6243
         }
       },
       "visualEye": 0.4,
@@ -2444,17 +2444,47 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 46.3,
       "reliability": 91.4,
-      "visual": 35.3,
+      "visual": 35.4,
       "visualParts": {
         "webdev": {
-          "value": 1682.730503374457,
+          "value": 1682.813897494314,
           "rank": 11,
-          "n": 4702
+          "n": 4677
         }
       },
       "visualEye": 0.4,
       "freeInOc": false,
       "status": "active"
+    },
+    {
+      "name": "Claude Fable 5.2 (Max)",
+      "inGo": false,
+      "goModelId": null,
+      "inGoApi": false,
+      "creator": "Anthropic",
+      "color": "#cc785c",
+      "logo": "https://artificialanalysis.ai/img/logos/anthropic.svg",
+      "aaSlug": "claude-fable-5-2",
+      "aaName": "Claude Fable 5.2 (Max, Default Fallback)",
+      "aaUrl": "https://artificialanalysis.ai/models/claude-fable-5-2",
+      "intelligence": 64.563595756626,
+      "intelligenceEstimated": false,
+      "costPerTask": 26.53855780398091,
+      "contextWindow": 1000000,
+      "isReasoning": true,
+      "isOpenWeights": false,
+      "go": null,
+      "efficiency": null,
+      "efficiencyProvisional": false,
+      "valueScore": null,
+      "reliability": 100,
+      "visual": null,
+      "visualParts": null,
+      "visualEye": null,
+      "aaMatch": "aa-direct",
+      "needsAaFix": false,
+      "freeInOc": false,
+      "status": "not-in-go"
     },
     {
       "name": "Gemini 4 Carbon (High)",
@@ -2481,9 +2511,9 @@ window.AI_DATA = {
       "visual": 40,
       "visualParts": {
         "webdev": {
-          "value": 1767.2109623977199,
-          "rank": 4,
-          "n": 2240
+          "value": 1768.08496412975,
+          "rank": 3,
+          "n": 2130
         }
       },
       "visualEye": 0.4,
@@ -2517,19 +2547,19 @@ window.AI_DATA = {
       "visual": 100,
       "visualParts": {
         "img2web": {
-          "value": 1747.7216896950645,
+          "value": 1750.7192238032708,
           "rank": 1,
-          "n": 1275
+          "n": 1200
         },
         "webdev": {
-          "value": 1814.3381392023157,
+          "value": 1818.1871919358268,
           "rank": 1,
-          "n": 4132
+          "n": 4034
         },
         "vision": {
-          "value": 1324.1481781418217,
+          "value": 1323.6515107668165,
           "rank": 2,
-          "n": 4826
+          "n": 4829
         }
       },
       "visualEye": 1.05,
@@ -2563,19 +2593,19 @@ window.AI_DATA = {
       "visual": 100,
       "visualParts": {
         "img2web": {
-          "value": 1718.1702251526622,
+          "value": 1720.991045307056,
           "rank": 4,
-          "n": 4104
+          "n": 3864
         },
         "webdev": {
-          "value": 1769.8137359567181,
-          "rank": 3,
-          "n": 8364
+          "value": 1766.9330731100313,
+          "rank": 4,
+          "n": 8161
         },
         "vision": {
-          "value": 1280.079839037148,
-          "rank": 36,
-          "n": 5565
+          "value": 1278.9698105223902,
+          "rank": 37,
+          "n": 5567
         }
       },
       "visualEye": 1.05,
@@ -2606,22 +2636,22 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": null,
       "reliability": 99.3,
-      "visual": 97.7,
+      "visual": 98,
       "visualParts": {
         "img2web": {
-          "value": 1694.5157205885362,
+          "value": 1696.6807854184835,
           "rank": 5,
-          "n": 2895
+          "n": 2671
         },
         "webdev": {
-          "value": 1741.8099237477113,
+          "value": 1742.6410163912174,
           "rank": 6,
-          "n": 5342
+          "n": 5283
         },
         "vision": {
-          "value": 1286.2479166712626,
+          "value": 1285.8122070933691,
           "rank": 30,
-          "n": 3994
+          "n": 4034
         }
       },
       "visualEye": 1.05,
@@ -2652,22 +2682,22 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": null,
       "reliability": 99.1,
-      "visual": 99.8,
+      "visual": 100,
       "visualParts": {
         "img2web": {
-          "value": 1744.5565819655474,
+          "value": 1743.6504522974474,
           "rank": 2,
-          "n": 2456
+          "n": 2309
         },
         "webdev": {
-          "value": 1711.1712398911386,
+          "value": 1713.3977768045884,
           "rank": 8,
-          "n": 7777
+          "n": 7582
         },
         "vision": {
-          "value": 1282.5785383326975,
+          "value": 1284.4459006466632,
           "rank": 32,
-          "n": 4311
+          "n": 4290
         }
       },
       "visualEye": 1.05,
@@ -2698,12 +2728,12 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": null,
       "reliability": 93.1,
-      "visual": 35,
+      "visual": 34.8,
       "visualParts": {
         "webdev": {
-          "value": 1679.751199354737,
+          "value": 1678.3649049886876,
           "rank": 12,
-          "n": 3603
+          "n": 3626
         }
       },
       "visualEye": 0.4,
@@ -2737,58 +2767,12 @@ window.AI_DATA = {
       "visual": 40,
       "visualParts": {
         "webdev": {
-          "value": 1725.9856847802869,
+          "value": 1723.7079086285971,
           "rank": 7,
-          "n": 2280
+          "n": 2080
         }
       },
       "visualEye": 0.4,
-      "aaMatch": "aa-direct",
-      "needsAaFix": false,
-      "freeInOc": false,
-      "status": "not-in-go"
-    },
-    {
-      "name": "Claude Fable 5.1 (Xhigh)",
-      "inGo": false,
-      "goModelId": null,
-      "inGoApi": false,
-      "creator": "Anthropic",
-      "color": "#cc785c",
-      "logo": "https://artificialanalysis.ai/img/logos/anthropic.svg",
-      "aaSlug": "claude-fable-5-1-xhigh",
-      "aaName": "Claude Fable 5.1 (Xhigh, Default Fallback)",
-      "aaUrl": "https://artificialanalysis.ai/models/claude-fable-5-1-xhigh",
-      "intelligence": 50.0216384248632,
-      "intelligenceEstimated": false,
-      "costPerTask": 10.847474706140272,
-      "contextWindow": 1000000,
-      "isReasoning": true,
-      "isOpenWeights": false,
-      "go": null,
-      "efficiency": null,
-      "efficiencyProvisional": false,
-      "valueScore": null,
-      "reliability": 90.7,
-      "visual": 100,
-      "visualParts": {
-        "img2web": {
-          "value": 1724.8958170937074,
-          "rank": 3,
-          "n": 3574
-        },
-        "webdev": {
-          "value": 1745.6544210964503,
-          "rank": 5,
-          "n": 9764
-        },
-        "vision": {
-          "value": 1320.6853619776432,
-          "rank": 3,
-          "n": 6344
-        }
-      },
-      "visualEye": 1.05,
       "aaMatch": "aa-direct",
       "needsAaFix": false,
       "freeInOc": false,
@@ -2819,12 +2803,42 @@ window.AI_DATA = {
       "visual": 31.2,
       "visualParts": {
         "webdev": {
-          "value": 1649.4669722087165,
+          "value": 1649.6929365034662,
           "rank": 20,
-          "n": 5018
+          "n": 4940
         }
       },
       "visualEye": 0.4,
+      "aaMatch": "aa-direct",
+      "needsAaFix": false,
+      "freeInOc": false,
+      "status": "not-in-go"
+    },
+    {
+      "name": "Muse Ember (Max)",
+      "inGo": false,
+      "goModelId": null,
+      "inGoApi": false,
+      "creator": "Meta",
+      "color": "#0089f4",
+      "logo": "https://artificialanalysis.ai/img/logos/meta.svg",
+      "aaSlug": "muse-ember",
+      "aaName": "Muse Ember (Max)",
+      "aaUrl": "https://artificialanalysis.ai/models/muse-ember",
+      "intelligence": 36.0212987864912,
+      "intelligenceEstimated": false,
+      "costPerTask": 0.1359356168986363,
+      "contextWindow": 1048576,
+      "isReasoning": true,
+      "isOpenWeights": false,
+      "go": null,
+      "efficiency": null,
+      "efficiencyProvisional": false,
+      "valueScore": null,
+      "reliability": 64.4,
+      "visual": null,
+      "visualParts": null,
+      "visualEye": null,
       "aaMatch": "aa-direct",
       "needsAaFix": false,
       "freeInOc": false,
@@ -2852,22 +2866,22 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": null,
       "reliability": 54.7,
-      "visual": 74.1,
+      "visual": 74.6,
       "visualParts": {
         "img2web": {
-          "value": 1591.2350854355025,
+          "value": 1593.6286153925103,
           "rank": 19,
-          "n": 3445
+          "n": 3215
         },
         "webdev": {
-          "value": 1582.970427756538,
+          "value": 1583.6076891759162,
           "rank": 38,
-          "n": 13983
+          "n": 13537
         },
         "vision": {
-          "value": 1315.8861022210901,
+          "value": 1316.7587442172908,
           "rank": 6,
-          "n": 7683
+          "n": 7682
         }
       },
       "visualEye": 1.05,
@@ -2898,12 +2912,12 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": null,
       "reliability": 54.3,
-      "visual": 31,
+      "visual": 31.1,
       "visualParts": {
         "webdev": {
-          "value": 1647.7718111578304,
+          "value": 1648.5741189010614,
           "rank": 21,
-          "n": 831
+          "n": 967
         }
       },
       "visualEye": 0.4,
@@ -2964,20 +2978,20 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": null,
       "reliability": 45.9,
-      "visual": 55.8,
+      "visual": 55.9,
       "visualParts": {
         "webdev": {
-          "value": 1560.416518956095,
+          "value": 1563.2505843559047,
           "rank": 44,
-          "n": 1300
+          "n": 1466
         },
         "vision": {
-          "value": 1243.6930911514442,
-          "rank": 70,
-          "n": 2041
+          "value": 1242.6498146353417,
+          "rank": 71,
+          "n": 2153
         }
       },
-      "visualEye": 0.915,
+      "visualEye": 0.914,
       "aaMatch": "aa-direct",
       "needsAaFix": false,
       "freeInOc": false,
@@ -3005,15 +3019,45 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": null,
       "reliability": 43.5,
-      "visual": 15.8,
+      "visual": 16,
       "visualParts": {
         "webdev": {
-          "value": 1526.0820150774528,
+          "value": 1528.0141466465298,
           "rank": 56,
-          "n": 1986
+          "n": 1799
         }
       },
       "visualEye": 0.4,
+      "aaMatch": "aa-direct",
+      "needsAaFix": false,
+      "freeInOc": false,
+      "status": "not-in-go"
+    },
+    {
+      "name": "Agnes 2.5 Pro Theta",
+      "inGo": false,
+      "goModelId": null,
+      "inGoApi": false,
+      "creator": "Sapiens AI",
+      "color": "#1521a9",
+      "logo": "https://artificialanalysis.ai/img/logos/sapiens.svg",
+      "aaSlug": "agnes-2-5-pro-theta",
+      "aaName": "Agnes 2.5 Pro Theta",
+      "aaUrl": "https://artificialanalysis.ai/models/agnes-2-5-pro-theta",
+      "intelligence": 24.029012523359,
+      "intelligenceEstimated": false,
+      "costPerTask": 0.5746675567739363,
+      "contextWindow": 1000000,
+      "isReasoning": true,
+      "isOpenWeights": false,
+      "go": null,
+      "efficiency": null,
+      "efficiencyProvisional": false,
+      "valueScore": null,
+      "reliability": 41.9,
+      "visual": null,
+      "visualParts": null,
+      "visualEye": null,
       "aaMatch": "aa-direct",
       "needsAaFix": false,
       "freeInOc": false,
@@ -3071,22 +3115,22 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": null,
       "reliability": 13.2,
-      "visual": 67,
+      "visual": 67.4,
       "visualParts": {
         "img2web": {
-          "value": 1574.6761566728376,
+          "value": 1574.41203717684,
           "rank": 24,
-          "n": 8233
+          "n": 7834
         },
         "webdev": {
-          "value": 1590.46683166724,
+          "value": 1590.6338386882076,
           "rank": 36,
-          "n": 21065
+          "n": 20482
         },
         "vision": {
-          "value": 1267.279177997886,
-          "rank": 46,
-          "n": 9736
+          "value": 1270.7642034700993,
+          "rank": 42,
+          "n": 9682
         }
       },
       "visualEye": 1.05,
@@ -3150,88 +3194,6 @@ window.AI_DATA = {
       "visual": null,
       "visualParts": null,
       "visualEye": null,
-      "aaMatch": "aa-direct",
-      "needsAaFix": false,
-      "freeInOc": false,
-      "status": "not-in-go"
-    },
-    {
-      "name": "Inkling Small",
-      "inGo": false,
-      "goModelId": null,
-      "inGoApi": false,
-      "creator": "Thinking Machines",
-      "color": "#676767",
-      "logo": "https://artificialanalysis.ai/img/logos/thinking-machines.svg",
-      "aaSlug": "inkling-small",
-      "aaName": "Inkling Small",
-      "aaUrl": "https://artificialanalysis.ai/models/inkling-small",
-      "intelligence": 12.9101620926084,
-      "intelligenceEstimated": false,
-      "costPerTask": 0.20316116043899832,
-      "contextWindow": 1000000,
-      "isReasoning": true,
-      "isOpenWeights": true,
-      "go": null,
-      "efficiency": null,
-      "efficiencyProvisional": false,
-      "valueScore": null,
-      "reliability": 25,
-      "visual": 20.5,
-      "visualParts": {
-        "img2web": {
-          "value": 1409.5416185921913,
-          "rank": 58,
-          "n": 1024
-        },
-        "webdev": {
-          "value": 1407.6433334545286,
-          "rank": 96,
-          "n": 5350
-        },
-        "vision": {
-          "value": 1235.9499123926116,
-          "rank": 74,
-          "n": 9438
-        }
-      },
-      "visualEye": 0.907,
-      "aaMatch": "aa-direct",
-      "needsAaFix": false,
-      "freeInOc": false,
-      "status": "not-in-go"
-    },
-    {
-      "name": "Inkling (Xhigh)",
-      "inGo": false,
-      "goModelId": null,
-      "inGoApi": false,
-      "creator": "Thinking Machines",
-      "color": "#676767",
-      "logo": "https://artificialanalysis.ai/img/logos/thinking-machines.svg",
-      "aaSlug": "inkling",
-      "aaName": "Inkling (Xhigh)",
-      "aaUrl": "https://artificialanalysis.ai/models/inkling",
-      "intelligence": 12.4781698715401,
-      "intelligenceEstimated": false,
-      "costPerTask": 1.3519575079737436,
-      "contextWindow": 1000000,
-      "isReasoning": true,
-      "isOpenWeights": true,
-      "go": null,
-      "efficiency": null,
-      "efficiencyProvisional": false,
-      "valueScore": null,
-      "reliability": 25,
-      "visual": 1.8,
-      "visualParts": {
-        "webdev": {
-          "value": 1414.6051185006745,
-          "rank": 95,
-          "n": 17828
-        }
-      },
-      "visualEye": 0.4,
       "aaMatch": "aa-direct",
       "needsAaFix": false,
       "freeInOc": false,
@@ -3370,7 +3332,7 @@ window.AI_DATA = {
       "aaUrl": "https://artificialanalysis.ai/models/nemotron-3-5-lightning",
       "intelligence": 5.5346663903388,
       "intelligenceEstimated": false,
-      "costPerTask": 0.28980699398265014,
+      "costPerTask": 0.31445225066768195,
       "contextWindow": 1000000,
       "isReasoning": true,
       "isOpenWeights": true,
