@@ -2,7 +2,7 @@
    Ручные правки будут перезаписаны. Настройки — в models.config.js. */
 window.AI_DATA = {
   "meta": {
-    "generatedAt": "2026-11-11T00:58:49.585Z",
+    "generatedAt": "2026-11-12T02:07:12.911Z",
     "plan": {
       "id": "go",
       "label": "OpenCode Go",
@@ -99,7 +99,7 @@ window.AI_DATA = {
             "category": "overall"
           }
         },
-        "asOf": "2026-11-09"
+        "asOf": "2026-11-10"
       }
     },
     "counts": {
@@ -108,8 +108,8 @@ window.AI_DATA = {
       "extraFromAA": 20,
       "freeOnly": 7,
       "unmatched": 7,
-      "withoutIntelligence": 12,
-      "withVisual": 34,
+      "withoutIntelligence": 11,
+      "withVisual": 35,
       "freeInOc": 3,
       "freeAvailable": 8,
       "needsAaFix": 5
@@ -318,17 +318,17 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 46.6,
       "reliability": 49,
-      "visual": 72.9,
+      "visual": 73,
       "visualParts": {
         "img2web": {
-          "value": 1581.8593098272913,
-          "rank": 22,
-          "n": 7783
+          "value": 1582.268945582824,
+          "rank": 23,
+          "n": 7909
         },
         "webdev": {
-          "value": 1608.5722243893867,
-          "rank": 33,
-          "n": 23185
+          "value": 1608.8678960639156,
+          "rank": 35,
+          "n": 23554
         },
         "vision": {
           "value": 1294.6970050128477,
@@ -397,9 +397,9 @@ window.AI_DATA = {
       "visual": 27.8,
       "visualParts": {
         "webdev": {
-          "value": 1622.1725295349365,
-          "rank": 28,
-          "n": 12263
+          "value": 1622.2915959585985,
+          "rank": 29,
+          "n": 12605
         }
       },
       "visualEye": 0.4,
@@ -519,9 +519,9 @@ window.AI_DATA = {
       "visual": 36,
       "visualParts": {
         "webdev": {
-          "value": 1687.8493852688055,
-          "rank": 10,
-          "n": 4591
+          "value": 1687.6629938937679,
+          "rank": 11,
+          "n": 4916
         }
       },
       "visualEye": 0.4,
@@ -585,14 +585,14 @@ window.AI_DATA = {
       "visual": 27.1,
       "visualParts": {
         "img2web": {
-          "value": 1586.0656417573532,
-          "rank": 21,
-          "n": 4587
+          "value": 1586.0086462463537,
+          "rank": 22,
+          "n": 4678
         },
         "webdev": {
-          "value": 1657.053070608074,
-          "rank": 17,
-          "n": 22114
+          "value": 1657.887220828157,
+          "rank": 18,
+          "n": 22405
         }
       },
       "visualEye": 0.4,
@@ -656,14 +656,14 @@ window.AI_DATA = {
       "visual": 12,
       "visualParts": {
         "img2web": {
-          "value": 1512.282678864844,
-          "rank": 40,
+          "value": 1512.29694134523,
+          "rank": 41,
           "n": 905
         },
         "webdev": {
-          "value": 1473.8626113707874,
-          "rank": 75,
-          "n": 4891
+          "value": 1474.254093735679,
+          "rank": 77,
+          "n": 4887
         }
       },
       "visualEye": 0.4,
@@ -787,14 +787,14 @@ window.AI_DATA = {
       "visual": 55.1,
       "visualParts": {
         "img2web": {
-          "value": 1551.5801163920278,
-          "rank": 28,
-          "n": 4130
+          "value": 1551.3545993670068,
+          "rank": 29,
+          "n": 4207
         },
         "webdev": {
-          "value": 1572.462526596988,
-          "rank": 44,
-          "n": 7267
+          "value": 1573.366842613324,
+          "rank": 46,
+          "n": 7583
         },
         "vision": {
           "value": 1263.190951062395,
@@ -1028,17 +1028,17 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 52.3,
       "reliability": 47,
-      "visual": 64.9,
+      "visual": 65,
       "visualParts": {
         "img2web": {
-          "value": 1593.3135460940657,
-          "rank": 19,
-          "n": 3254
+          "value": 1593.182586795926,
+          "rank": 20,
+          "n": 3318
         },
         "webdev": {
-          "value": 1636.5241887930122,
-          "rank": 23,
-          "n": 8576
+          "value": 1637.6334155673217,
+          "rank": 24,
+          "n": 8890
         },
         "vision": {
           "value": 1259.559769384553,
@@ -1104,17 +1104,17 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 46.1,
       "reliability": 52.9,
-      "visual": 65.1,
+      "visual": 65.4,
       "visualParts": {
         "img2web": {
-          "value": 1593.951069346247,
-          "rank": 17,
-          "n": 3558
+          "value": 1596.7081849178358,
+          "rank": 18,
+          "n": 3653
         },
         "webdev": {
-          "value": 1623.9078612873764,
+          "value": 1624.2596470039277,
           "rank": 27,
-          "n": 8402
+          "n": 8790
         },
         "vision": {
           "value": 1265.8849206588607,
@@ -1300,12 +1300,12 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 45.9,
       "reliability": 51.4,
-      "visual": 22.7,
+      "visual": 23.1,
       "visualParts": {
         "webdev": {
-          "value": 1581.5920483519747,
+          "value": 1584.5472739685158,
           "rank": 41,
-          "n": 4421
+          "n": 4838
         }
       },
       "visualEye": 0.4,
@@ -1376,14 +1376,14 @@ window.AI_DATA = {
       "visual": 36.1,
       "visualParts": {
         "img2web": {
-          "value": 1473.5286822351372,
-          "rank": 46,
-          "n": 6254
+          "value": 1473.4612633172324,
+          "rank": 47,
+          "n": 6237
         },
         "webdev": {
-          "value": 1484.1692444196613,
-          "rank": 72,
-          "n": 21077
+          "value": 1483.9073610066007,
+          "rank": 74,
+          "n": 21048
         },
         "vision": {
           "value": 1249.1551057128574,
@@ -1449,17 +1449,17 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 73.5,
       "reliability": 65.5,
-      "visual": 86.6,
+      "visual": 86.5,
       "visualParts": {
         "img2web": {
-          "value": 1638.0346466589303,
-          "rank": 8,
-          "n": 6388
+          "value": 1637.383648220698,
+          "rank": 9,
+          "n": 6498
         },
         "webdev": {
-          "value": 1654.276960559017,
-          "rank": 19,
-          "n": 11758
+          "value": 1655.0894755572256,
+          "rank": 20,
+          "n": 12122
         },
         "vision": {
           "value": 1309.5641076675493,
@@ -1588,14 +1588,14 @@ window.AI_DATA = {
       "visual": 89,
       "visualParts": {
         "img2web": {
-          "value": 1637.3450773882869,
-          "rank": 9,
-          "n": 1091
+          "value": 1638.167271447172,
+          "rank": 8,
+          "n": 1083
         },
         "webdev": {
-          "value": 1676.6962104508616,
-          "rank": 13,
-          "n": 21354
+          "value": 1675.815341212013,
+          "rank": 14,
+          "n": 21951
         },
         "vision": {
           "value": 1312.00895414155,
@@ -1620,9 +1620,9 @@ window.AI_DATA = {
       "aaUrl": "https://artificialanalysis.ai/models/qwen3-8-flash-next",
       "aaMatch": "override",
       "needsAaFix": false,
-      "intelligence": null,
+      "intelligence": 28.5750026655353,
       "intelligenceEstimated": false,
-      "costPerTask": null,
+      "costPerTask": 0.5693810918846318,
       "contextWindow": 256000,
       "isReasoning": true,
       "isOpenWeights": true,
@@ -1659,14 +1659,14 @@ window.AI_DATA = {
       },
       "efficiency": 5400,
       "efficiencyProvisional": false,
-      "valueScore": null,
-      "reliability": 14.7,
-      "visual": 28.1,
+      "valueScore": 47.1,
+      "reliability": 29.1,
+      "visual": 27.9,
       "visualParts": {
         "webdev": {
-          "value": 1624.4724393364959,
-          "rank": 26,
-          "n": 10939
+          "value": 1623.513467279906,
+          "rank": 28,
+          "n": 11325
         }
       },
       "visualEye": 0.4,
@@ -1807,12 +1807,17 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 66.1,
       "reliability": 58,
-      "visual": 33,
+      "visual": 29.1,
       "visualParts": {
+        "img2web": {
+          "value": 1609.1730946323773,
+          "rank": 13,
+          "n": 3881
+        },
         "webdev": {
-          "value": 1664.1997802009837,
-          "rank": 16,
-          "n": 13241
+          "value": 1663.6468968993684,
+          "rank": 17,
+          "n": 13952
         }
       },
       "visualEye": 0.4,
@@ -2063,9 +2068,9 @@ window.AI_DATA = {
       "visual": 13.2,
       "visualParts": {
         "webdev": {
-          "value": 1505.6702548967664,
-          "rank": 66,
-          "n": 7207
+          "value": 1505.6848901671433,
+          "rank": 68,
+          "n": 7259
         }
       },
       "visualEye": 0.4,
@@ -2136,14 +2141,14 @@ window.AI_DATA = {
       "visual": 59.6,
       "visualParts": {
         "img2web": {
-          "value": 1589.9998059696513,
-          "rank": 20,
-          "n": 1912
+          "value": 1588.7555765128936,
+          "rank": 21,
+          "n": 1986
         },
         "webdev": {
-          "value": 1639.3567743085766,
-          "rank": 22,
-          "n": 7816
+          "value": 1640.9523854361044,
+          "rank": 23,
+          "n": 8125
         },
         "vision": {
           "value": 1230.0212125163798,
@@ -2216,17 +2221,17 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 44.4,
       "reliability": 49.1,
-      "visual": 48.8,
+      "visual": 48.6,
       "visualParts": {
         "img2web": {
-          "value": 1567.4844845604084,
-          "rank": 25,
-          "n": 7171
+          "value": 1565.9057899087911,
+          "rank": 26,
+          "n": 7382
         },
         "webdev": {
-          "value": 1578.24847193679,
-          "rank": 43,
-          "n": 29989
+          "value": 1577.4745098321855,
+          "rank": 45,
+          "n": 30498
         },
         "vision": {
           "value": 1211.1836426875775,
@@ -2302,14 +2307,14 @@ window.AI_DATA = {
       "visual": 45.2,
       "visualParts": {
         "img2web": {
-          "value": 1517.2432172531726,
-          "rank": 39,
-          "n": 4132
+          "value": 1517.362504390599,
+          "rank": 40,
+          "n": 4118
         },
         "webdev": {
-          "value": 1519.00051051031,
-          "rank": 61,
-          "n": 12231
+          "value": 1519.107009135049,
+          "rank": 62,
+          "n": 12222
         },
         "vision": {
           "value": 1255.8233155180828,
@@ -2382,12 +2387,12 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 56.7,
       "reliability": 65.3,
-      "visual": 24.4,
+      "visual": 24.2,
       "visualParts": {
         "webdev": {
-          "value": 1595.1249332109746,
-          "rank": 36,
-          "n": 6174
+          "value": 1593.8366340131136,
+          "rank": 38,
+          "n": 6549
         }
       },
       "visualEye": 0.4,
@@ -2447,9 +2452,9 @@ window.AI_DATA = {
       "visual": 35.3,
       "visualParts": {
         "webdev": {
-          "value": 1682.5898379923094,
-          "rank": 11,
-          "n": 4626
+          "value": 1682.0626481939332,
+          "rank": 12,
+          "n": 4933
         }
       },
       "visualEye": 0.4,
@@ -2478,9 +2483,15 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": null,
       "reliability": 100,
-      "visual": null,
-      "visualParts": null,
-      "visualEye": null,
+      "visual": 40,
+      "visualParts": {
+        "webdev": {
+          "value": 1835.7616196356087,
+          "rank": 1,
+          "n": 994
+        }
+      },
+      "visualEye": 0.4,
       "aaMatch": "aa-direct",
       "needsAaFix": false,
       "freeInOc": false,
@@ -2511,9 +2522,9 @@ window.AI_DATA = {
       "visual": 40,
       "visualParts": {
         "webdev": {
-          "value": 1767.9774053927595,
-          "rank": 3,
-          "n": 2128
+          "value": 1768.1626867367634,
+          "rank": 4,
+          "n": 2120
         }
       },
       "visualEye": 0.4,
@@ -2547,14 +2558,14 @@ window.AI_DATA = {
       "visual": 100,
       "visualParts": {
         "img2web": {
-          "value": 1750.135383726698,
+          "value": 1751.938620793294,
           "rank": 1,
-          "n": 1196
+          "n": 1240
         },
         "webdev": {
-          "value": 1817.7020683417634,
-          "rank": 1,
-          "n": 4009
+          "value": 1814.2816520204044,
+          "rank": 2,
+          "n": 4187
         },
         "vision": {
           "value": 1323.800208469898,
@@ -2593,14 +2604,14 @@ window.AI_DATA = {
       "visual": 100,
       "visualParts": {
         "img2web": {
-          "value": 1721.5452375403966,
+          "value": 1722.1348966536166,
           "rank": 4,
-          "n": 3848
+          "n": 3947
         },
         "webdev": {
-          "value": 1766.8366304457595,
-          "rank": 4,
-          "n": 8117
+          "value": 1764.4344013988034,
+          "rank": 5,
+          "n": 8425
         },
         "vision": {
           "value": 1278.516695238096,
@@ -2639,14 +2650,14 @@ window.AI_DATA = {
       "visual": 97.9,
       "visualParts": {
         "img2web": {
-          "value": 1696.2358616233537,
+          "value": 1695.8772780106806,
           "rank": 5,
-          "n": 2658
+          "n": 2750
         },
         "webdev": {
-          "value": 1742.8409384107854,
+          "value": 1743.0164492394315,
           "rank": 6,
-          "n": 5250
+          "n": 5539
         },
         "vision": {
           "value": 1285.9391490403186,
@@ -2685,14 +2696,14 @@ window.AI_DATA = {
       "visual": 100,
       "visualParts": {
         "img2web": {
-          "value": 1743.1707385556106,
+          "value": 1744.107268780091,
           "rank": 2,
-          "n": 2291
+          "n": 2376
         },
         "webdev": {
-          "value": 1713.237834026659,
-          "rank": 8,
-          "n": 7541
+          "value": 1715.3325585922225,
+          "rank": 9,
+          "n": 7881
         },
         "vision": {
           "value": 1284.2588078119034,
@@ -2731,9 +2742,9 @@ window.AI_DATA = {
       "visual": 34.8,
       "visualParts": {
         "webdev": {
-          "value": 1678.73376536417,
-          "rank": 12,
-          "n": 3559
+          "value": 1678.5030121257882,
+          "rank": 13,
+          "n": 3944
         }
       },
       "visualEye": 0.4,
@@ -2767,9 +2778,9 @@ window.AI_DATA = {
       "visual": 40,
       "visualParts": {
         "webdev": {
-          "value": 1723.8923215619152,
-          "rank": 7,
-          "n": 2080
+          "value": 1723.43699935368,
+          "rank": 8,
+          "n": 2069
         }
       },
       "visualEye": 0.4,
@@ -2800,12 +2811,12 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": null,
       "reliability": 78.6,
-      "visual": 31.3,
+      "visual": 31.1,
       "visualParts": {
         "webdev": {
-          "value": 1650.274155835606,
-          "rank": 20,
-          "n": 4875
+          "value": 1648.594525957809,
+          "rank": 21,
+          "n": 5232
         }
       },
       "visualEye": 0.4,
@@ -2836,12 +2847,12 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": null,
       "reliability": 64.4,
-      "visual": 26,
+      "visual": 26.1,
       "visualParts": {
         "webdev": {
-          "value": 1608.1469077901104,
-          "rank": 34,
-          "n": 1345
+          "value": 1608.5969820140517,
+          "rank": 36,
+          "n": 1337
         }
       },
       "visualEye": 0.4,
@@ -2872,17 +2883,17 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": null,
       "reliability": 54.7,
-      "visual": 74.6,
+      "visual": 74.5,
       "visualParts": {
         "img2web": {
-          "value": 1593.7183857094592,
-          "rank": 18,
-          "n": 3202
+          "value": 1593.700517381434,
+          "rank": 19,
+          "n": 3293
         },
         "webdev": {
-          "value": 1583.7993516040567,
-          "rank": 39,
-          "n": 13485
+          "value": 1582.6459847298686,
+          "rank": 42,
+          "n": 13847
         },
         "vision": {
           "value": 1316.7805997775436,
@@ -2918,12 +2929,12 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": null,
       "reliability": 54.3,
-      "visual": 31.2,
+      "visual": 30.8,
       "visualParts": {
         "webdev": {
-          "value": 1649.4721697731702,
-          "rank": 21,
-          "n": 964
+          "value": 1646.2292537459377,
+          "rank": 22,
+          "n": 983
         }
       },
       "visualEye": 0.4,
@@ -2984,12 +2995,12 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": null,
       "reliability": 45.9,
-      "visual": 56.1,
+      "visual": 56.4,
       "visualParts": {
         "webdev": {
-          "value": 1562.2142106803124,
-          "rank": 45,
-          "n": 1409
+          "value": 1564.4547065443332,
+          "rank": 47,
+          "n": 1725
         },
         "vision": {
           "value": 1244.0002941431524,
@@ -3028,9 +3039,9 @@ window.AI_DATA = {
       "visual": 15.8,
       "visualParts": {
         "webdev": {
-          "value": 1526.1688692943765,
-          "rank": 57,
-          "n": 1780
+          "value": 1526.3071505553191,
+          "rank": 59,
+          "n": 1824
         }
       },
       "visualEye": 0.4,
@@ -3121,17 +3132,17 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": null,
       "reliability": 13.2,
-      "visual": 67.3,
+      "visual": 67.2,
       "visualParts": {
         "img2web": {
-          "value": 1574.5366573757287,
-          "rank": 24,
-          "n": 7813
+          "value": 1574.3882236207337,
+          "rank": 25,
+          "n": 7985
         },
         "webdev": {
-          "value": 1590.5146973832218,
-          "rank": 37,
-          "n": 20408
+          "value": 1590.2337412279537,
+          "rank": 39,
+          "n": 20791
         },
         "vision": {
           "value": 1269.6178149192242,
@@ -3140,6 +3151,36 @@ window.AI_DATA = {
         }
       },
       "visualEye": 1.05,
+      "aaMatch": "aa-direct",
+      "needsAaFix": false,
+      "freeInOc": false,
+      "status": "not-in-go"
+    },
+    {
+      "name": "JT-4.1 Flash 236B A21B",
+      "inGo": false,
+      "goModelId": null,
+      "inGoApi": false,
+      "creator": "China Mobile",
+      "color": "#00b8ea",
+      "logo": "https://artificialanalysis.ai/img/logos/china-mobile.png",
+      "aaSlug": "jt-4-1-flash-236b-a21b",
+      "aaName": "JT-4.1 Flash 236B A21B",
+      "aaUrl": "https://artificialanalysis.ai/models/jt-4-1-flash-236b-a21b",
+      "intelligence": 18.952876906667,
+      "intelligenceEstimated": false,
+      "costPerTask": null,
+      "contextWindow": 262144,
+      "isReasoning": true,
+      "isOpenWeights": false,
+      "go": null,
+      "efficiency": null,
+      "efficiencyProvisional": false,
+      "valueScore": null,
+      "reliability": 11.3,
+      "visual": null,
+      "visualParts": null,
+      "visualEye": null,
       "aaMatch": "aa-direct",
       "needsAaFix": false,
       "freeInOc": false,
@@ -3167,36 +3208,6 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": null,
       "reliability": 16.6,
-      "visual": null,
-      "visualParts": null,
-      "visualEye": null,
-      "aaMatch": "aa-direct",
-      "needsAaFix": false,
-      "freeInOc": false,
-      "status": "not-in-go"
-    },
-    {
-      "name": "Apodex 1.1",
-      "inGo": false,
-      "goModelId": null,
-      "inGoApi": false,
-      "creator": "Apodex",
-      "color": "#0FD9D2",
-      "logo": "https://artificialanalysis.ai/img/logos/apodex.svg",
-      "aaSlug": "apodex-1-1",
-      "aaName": "Apodex 1.1",
-      "aaUrl": "https://artificialanalysis.ai/models/apodex-1-1",
-      "intelligence": 13.6712884627289,
-      "intelligenceEstimated": false,
-      "costPerTask": 0.764236100822604,
-      "contextWindow": 256000,
-      "isReasoning": true,
-      "isOpenWeights": false,
-      "go": null,
-      "efficiency": null,
-      "efficiencyProvisional": false,
-      "valueScore": null,
-      "reliability": 3.7,
       "visual": null,
       "visualParts": null,
       "visualEye": null,
