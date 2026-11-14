@@ -2,7 +2,7 @@
    Ручные правки будут перезаписаны. Настройки — в models.config.js. */
 window.AI_DATA = {
   "meta": {
-    "generatedAt": "2026-11-13T01:38:15.780Z",
+    "generatedAt": "2026-11-14T01:12:54.620Z",
     "plan": {
       "id": "go",
       "label": "OpenCode Go",
@@ -99,7 +99,7 @@ window.AI_DATA = {
             "category": "overall"
           }
         },
-        "asOf": "2026-11-10"
+        "asOf": "2026-11-11"
       }
     },
     "counts": {
@@ -109,7 +109,7 @@ window.AI_DATA = {
       "freeOnly": 7,
       "unmatched": 7,
       "withoutIntelligence": 11,
-      "withVisual": 35,
+      "withVisual": 36,
       "freeInOc": 3,
       "freeAvailable": 8,
       "needsAaFix": 5
@@ -326,9 +326,9 @@ window.AI_DATA = {
           "n": 7909
         },
         "webdev": {
-          "value": 1608.8678960639156,
-          "rank": 35,
-          "n": 23554
+          "value": 1608.7856095415655,
+          "rank": 36,
+          "n": 23608
         },
         "vision": {
           "value": 1294.6970050128477,
@@ -397,9 +397,9 @@ window.AI_DATA = {
       "visual": 27.8,
       "visualParts": {
         "webdev": {
-          "value": 1622.2915959585985,
-          "rank": 29,
-          "n": 12605
+          "value": 1622.4527854707603,
+          "rank": 30,
+          "n": 12695
         }
       },
       "visualEye": 0.4,
@@ -516,12 +516,12 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 22.3,
       "reliability": 84,
-      "visual": 36,
+      "visual": 35.9,
       "visualParts": {
         "webdev": {
-          "value": 1687.6629938937679,
-          "rank": 11,
-          "n": 4916
+          "value": 1687.2226472628417,
+          "rank": 12,
+          "n": 4977
         }
       },
       "visualEye": 0.4,
@@ -590,9 +590,9 @@ window.AI_DATA = {
           "n": 4678
         },
         "webdev": {
-          "value": 1657.887220828157,
-          "rank": 18,
-          "n": 22405
+          "value": 1657.7561945999978,
+          "rank": 19,
+          "n": 22448
         }
       },
       "visualEye": 0.4,
@@ -661,9 +661,9 @@ window.AI_DATA = {
           "n": 905
         },
         "webdev": {
-          "value": 1474.254093735679,
-          "rank": 77,
-          "n": 4887
+          "value": 1474.228721264956,
+          "rank": 78,
+          "n": 4884
         }
       },
       "visualEye": 0.4,
@@ -792,9 +792,9 @@ window.AI_DATA = {
           "n": 4207
         },
         "webdev": {
-          "value": 1573.366842613324,
-          "rank": 46,
-          "n": 7583
+          "value": 1572.5421273617105,
+          "rank": 47,
+          "n": 7659
         },
         "vision": {
           "value": 1263.190951062395,
@@ -1028,7 +1028,7 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 52.3,
       "reliability": 47,
-      "visual": 65,
+      "visual": 65.1,
       "visualParts": {
         "img2web": {
           "value": 1593.182586795926,
@@ -1036,9 +1036,9 @@ window.AI_DATA = {
           "n": 3318
         },
         "webdev": {
-          "value": 1637.6334155673217,
-          "rank": 24,
-          "n": 8890
+          "value": 1638.0623167609676,
+          "rank": 25,
+          "n": 8944
         },
         "vision": {
           "value": 1259.559769384553,
@@ -1104,7 +1104,7 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 46.1,
       "reliability": 52.9,
-      "visual": 65.4,
+      "visual": 65.5,
       "visualParts": {
         "img2web": {
           "value": 1596.7081849178358,
@@ -1112,9 +1112,9 @@ window.AI_DATA = {
           "n": 3653
         },
         "webdev": {
-          "value": 1624.2596470039277,
-          "rank": 27,
-          "n": 8790
+          "value": 1625.0160105731081,
+          "rank": 28,
+          "n": 8846
         },
         "vision": {
           "value": 1265.8849206588607,
@@ -1300,12 +1300,12 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 45.9,
       "reliability": 51.4,
-      "visual": 23.1,
+      "visual": 23,
       "visualParts": {
         "webdev": {
-          "value": 1584.5472739685158,
-          "rank": 41,
-          "n": 4838
+          "value": 1583.8905512329295,
+          "rank": 42,
+          "n": 4904
         }
       },
       "visualEye": 0.4,
@@ -1381,9 +1381,9 @@ window.AI_DATA = {
           "n": 6237
         },
         "webdev": {
-          "value": 1483.9073610066007,
-          "rank": 74,
-          "n": 21048
+          "value": 1484.072688185737,
+          "rank": 75,
+          "n": 21058
         },
         "vision": {
           "value": 1249.1551057128574,
@@ -1449,7 +1449,7 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 73.5,
       "reliability": 65.5,
-      "visual": 86.5,
+      "visual": 86.6,
       "visualParts": {
         "img2web": {
           "value": 1637.383648220698,
@@ -1457,9 +1457,9 @@ window.AI_DATA = {
           "n": 6498
         },
         "webdev": {
-          "value": 1655.0894755572256,
-          "rank": 20,
-          "n": 12122
+          "value": 1655.0987996781687,
+          "rank": 21,
+          "n": 12177
         },
         "vision": {
           "value": 1309.5641076675493,
@@ -1593,9 +1593,9 @@ window.AI_DATA = {
           "n": 1083
         },
         "webdev": {
-          "value": 1675.815341212013,
-          "rank": 14,
-          "n": 21951
+          "value": 1676.3355074822152,
+          "rank": 15,
+          "n": 22099
         },
         "vision": {
           "value": 1312.00895414155,
@@ -1661,12 +1661,12 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 47.1,
       "reliability": 29.1,
-      "visual": 27.9,
+      "visual": 28,
       "visualParts": {
         "webdev": {
-          "value": 1623.513467279906,
-          "rank": 28,
-          "n": 11325
+          "value": 1623.7131373151285,
+          "rank": 29,
+          "n": 11380
         }
       },
       "visualEye": 0.4,
@@ -1815,9 +1815,9 @@ window.AI_DATA = {
           "n": 3881
         },
         "webdev": {
-          "value": 1663.6468968993684,
-          "rank": 17,
-          "n": 13952
+          "value": 1663.6515358275167,
+          "rank": 18,
+          "n": 14108
         }
       },
       "visualEye": 0.4,
@@ -2068,9 +2068,9 @@ window.AI_DATA = {
       "visual": 13.2,
       "visualParts": {
         "webdev": {
-          "value": 1505.6848901671433,
-          "rank": 68,
-          "n": 7259
+          "value": 1505.4320232709683,
+          "rank": 69,
+          "n": 7274
         }
       },
       "visualEye": 0.4,
@@ -2138,7 +2138,7 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 21,
       "reliability": 49.1,
-      "visual": 59.6,
+      "visual": 59.5,
       "visualParts": {
         "img2web": {
           "value": 1588.7555765128936,
@@ -2146,9 +2146,9 @@ window.AI_DATA = {
           "n": 1986
         },
         "webdev": {
-          "value": 1640.9523854361044,
-          "rank": 23,
-          "n": 8125
+          "value": 1640.6962858563677,
+          "rank": 24,
+          "n": 8186
         },
         "vision": {
           "value": 1230.0212125163798,
@@ -2229,9 +2229,9 @@ window.AI_DATA = {
           "n": 7382
         },
         "webdev": {
-          "value": 1577.4745098321855,
-          "rank": 45,
-          "n": 30498
+          "value": 1577.2140806726663,
+          "rank": 46,
+          "n": 30581
         },
         "vision": {
           "value": 1211.1836426875775,
@@ -2312,9 +2312,9 @@ window.AI_DATA = {
           "n": 4118
         },
         "webdev": {
-          "value": 1519.107009135049,
-          "rank": 62,
-          "n": 12222
+          "value": 1519.2192744272488,
+          "rank": 63,
+          "n": 12214
         },
         "vision": {
           "value": 1255.8233155180828,
@@ -2390,9 +2390,9 @@ window.AI_DATA = {
       "visual": 24.2,
       "visualParts": {
         "webdev": {
-          "value": 1593.8366340131136,
-          "rank": 38,
-          "n": 6549
+          "value": 1593.4483670522147,
+          "rank": 39,
+          "n": 6643
         }
       },
       "visualEye": 0.4,
@@ -2449,12 +2449,12 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 46.3,
       "reliability": 91.4,
-      "visual": 35.3,
+      "visual": 35.1,
       "visualParts": {
         "webdev": {
-          "value": 1682.0626481939332,
-          "rank": 12,
-          "n": 4933
+          "value": 1681.0304640340785,
+          "rank": 13,
+          "n": 4991
         }
       },
       "visualEye": 0.4,
@@ -2486,9 +2486,9 @@ window.AI_DATA = {
       "visual": 40,
       "visualParts": {
         "webdev": {
-          "value": 1835.7616196356087,
+          "value": 1837.808306458596,
           "rank": 1,
-          "n": 994
+          "n": 1215
         }
       },
       "visualEye": 0.4,
@@ -2522,7 +2522,7 @@ window.AI_DATA = {
       "visual": 40,
       "visualParts": {
         "webdev": {
-          "value": 1768.1626867367634,
+          "value": 1768.2252020707176,
           "rank": 4,
           "n": 2120
         }
@@ -2563,9 +2563,9 @@ window.AI_DATA = {
           "n": 1240
         },
         "webdev": {
-          "value": 1814.2816520204044,
+          "value": 1814.6504732652713,
           "rank": 2,
-          "n": 4187
+          "n": 4208
         },
         "vision": {
           "value": 1323.800208469898,
@@ -2609,9 +2609,9 @@ window.AI_DATA = {
           "n": 3947
         },
         "webdev": {
-          "value": 1764.4344013988034,
+          "value": 1763.760987795171,
           "rank": 5,
-          "n": 8425
+          "n": 8470
         },
         "vision": {
           "value": 1278.516695238096,
@@ -2655,9 +2655,9 @@ window.AI_DATA = {
           "n": 2750
         },
         "webdev": {
-          "value": 1743.0164492394315,
+          "value": 1743.2624849606134,
           "rank": 6,
-          "n": 5539
+          "n": 5590
         },
         "vision": {
           "value": 1285.9391490403186,
@@ -2701,9 +2701,9 @@ window.AI_DATA = {
           "n": 2376
         },
         "webdev": {
-          "value": 1715.3325585922225,
+          "value": 1715.1914718635655,
           "rank": 9,
-          "n": 7881
+          "n": 7940
         },
         "vision": {
           "value": 1284.2588078119034,
@@ -2739,9 +2739,15 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": null,
       "reliability": 98,
-      "visual": null,
-      "visualParts": null,
-      "visualEye": null,
+      "visual": 38,
+      "visualParts": {
+        "webdev": {
+          "value": 1704.2132594994491,
+          "rank": 10,
+          "n": 1997
+        }
+      },
+      "visualEye": 0.4,
       "aaMatch": "aa-direct",
       "needsAaFix": false,
       "freeInOc": false,
@@ -2772,9 +2778,9 @@ window.AI_DATA = {
       "visual": 34.8,
       "visualParts": {
         "webdev": {
-          "value": 1678.5030121257882,
-          "rank": 13,
-          "n": 3944
+          "value": 1678.1468685760526,
+          "rank": 14,
+          "n": 4016
         }
       },
       "visualEye": 0.4,
@@ -2808,9 +2814,9 @@ window.AI_DATA = {
       "visual": 40,
       "visualParts": {
         "webdev": {
-          "value": 1723.43699935368,
+          "value": 1723.4638585089585,
           "rank": 8,
-          "n": 2069
+          "n": 2068
         }
       },
       "visualEye": 0.4,
@@ -2841,12 +2847,12 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": null,
       "reliability": 78.6,
-      "visual": 31.1,
+      "visual": 30.9,
       "visualParts": {
         "webdev": {
-          "value": 1648.594525957809,
-          "rank": 21,
-          "n": 5232
+          "value": 1647.398907135767,
+          "rank": 22,
+          "n": 5296
         }
       },
       "visualEye": 0.4,
@@ -2880,9 +2886,9 @@ window.AI_DATA = {
       "visual": 26.1,
       "visualParts": {
         "webdev": {
-          "value": 1608.5969820140517,
-          "rank": 36,
-          "n": 1337
+          "value": 1608.7542785259513,
+          "rank": 37,
+          "n": 1339
         }
       },
       "visualEye": 0.4,
@@ -2913,7 +2919,7 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": null,
       "reliability": 54.7,
-      "visual": 74.5,
+      "visual": 74.6,
       "visualParts": {
         "img2web": {
           "value": 1593.700517381434,
@@ -2921,9 +2927,9 @@ window.AI_DATA = {
           "n": 3293
         },
         "webdev": {
-          "value": 1582.6459847298686,
-          "rank": 42,
-          "n": 13847
+          "value": 1583.464963253387,
+          "rank": 43,
+          "n": 13914
         },
         "vision": {
           "value": 1316.7805997775436,
@@ -2959,12 +2965,12 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": null,
       "reliability": 54.3,
-      "visual": 30.8,
+      "visual": 30.9,
       "visualParts": {
         "webdev": {
-          "value": 1646.2292537459377,
-          "rank": 22,
-          "n": 983
+          "value": 1647.081709798455,
+          "rank": 23,
+          "n": 990
         }
       },
       "visualEye": 0.4,
@@ -3028,9 +3034,9 @@ window.AI_DATA = {
       "visual": 56.4,
       "visualParts": {
         "webdev": {
-          "value": 1564.4547065443332,
-          "rank": 47,
-          "n": 1725
+          "value": 1564.4613706641235,
+          "rank": 48,
+          "n": 1777
         },
         "vision": {
           "value": 1244.0002941431524,
@@ -3069,9 +3075,9 @@ window.AI_DATA = {
       "visual": 15.8,
       "visualParts": {
         "webdev": {
-          "value": 1526.3071505553191,
-          "rank": 59,
-          "n": 1824
+          "value": 1526.2535368610345,
+          "rank": 60,
+          "n": 1831
         }
       },
       "visualEye": 0.4,
@@ -3170,9 +3176,9 @@ window.AI_DATA = {
           "n": 7985
         },
         "webdev": {
-          "value": 1590.2337412279537,
-          "rank": 39,
-          "n": 20791
+          "value": 1589.724268081238,
+          "rank": 40,
+          "n": 20860
         },
         "vision": {
           "value": 1269.6178149192242,
