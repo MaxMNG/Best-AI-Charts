@@ -2,7 +2,7 @@
    Ручные правки будут перезаписаны. Настройки — в models.config.js. */
 window.AI_DATA = {
   "meta": {
-    "generatedAt": "2026-11-16T00:40:08.710Z",
+    "generatedAt": "2026-11-17T03:22:15.013Z",
     "plan": {
       "id": "go",
       "label": "OpenCode Go",
@@ -99,24 +99,24 @@ window.AI_DATA = {
             "category": "overall"
           }
         },
-        "asOf": "2026-11-11"
+        "asOf": "2026-11-15"
       }
     },
     "counts": {
-      "total": 40,
-      "inGo": 32,
+      "total": 42,
+      "inGo": 34,
       "extraFromAA": 0,
       "freeOnly": 8,
-      "unmatched": 10,
-      "withoutIntelligence": 14,
-      "withVisual": 18,
+      "unmatched": 13,
+      "withoutIntelligence": 16,
+      "withVisual": 17,
       "freeInOc": 2,
       "freeAvailable": 8,
-      "needsAaFix": 25
+      "needsAaFix": 26
     },
     "matchMethods": {
       "exact": 11,
-      "base": 6,
+      "base": 5,
       "fallback:override": 4,
       "canon": 1
     },
@@ -188,6 +188,15 @@ window.AI_DATA = {
           {
             "name": "Muse Wonder (Max)",
             "score": 0.17
+          }
+        ]
+      },
+      {
+        "name": "Qwen4 Max",
+        "suggestions": [
+          {
+            "name": "Muse Wonder (Max)",
+            "score": 0.25
           }
         ]
       },
@@ -329,17 +338,17 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 46.6,
       "reliability": 49,
-      "visual": 73,
+      "visual": 73.1,
       "visualParts": {
         "img2web": {
-          "value": 1582.268945582824,
-          "rank": 23,
-          "n": 7909
+          "value": 1582.4525832675718,
+          "rank": 24,
+          "n": 8125
         },
         "webdev": {
-          "value": 1608.7856095415655,
-          "rank": 36,
-          "n": 23608
+          "value": 1609.106095262355,
+          "rank": 37,
+          "n": 23917
         },
         "vision": {
           "value": 1294.6970050128477,
@@ -408,9 +417,9 @@ window.AI_DATA = {
       "visual": 27.8,
       "visualParts": {
         "webdev": {
-          "value": 1622.4527854707603,
-          "rank": 30,
-          "n": 12695
+          "value": 1622.2656789436146,
+          "rank": 31,
+          "n": 12995
         }
       },
       "visualEye": 0.4,
@@ -527,12 +536,12 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 22.3,
       "reliability": 84,
-      "visual": 35.9,
+      "visual": 35.8,
       "visualParts": {
         "webdev": {
-          "value": 1687.2226472628417,
-          "rank": 12,
-          "n": 4977
+          "value": 1686.2251930517164,
+          "rank": 13,
+          "n": 5215
         }
       },
       "visualEye": 0.4,
@@ -656,14 +665,14 @@ window.AI_DATA = {
       "visual": 12,
       "visualParts": {
         "img2web": {
-          "value": 1512.29694134523,
-          "rank": 41,
-          "n": 905
+          "value": 1511.8308629486778,
+          "rank": 42,
+          "n": 903
         },
         "webdev": {
-          "value": 1474.228721264956,
-          "rank": 78,
-          "n": 4884
+          "value": 1474.472206513007,
+          "rank": 79,
+          "n": 4879
         }
       },
       "visualEye": 0.4,
@@ -784,17 +793,17 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 28.4,
       "reliability": 50.4,
-      "visual": 55.1,
+      "visual": 55,
       "visualParts": {
         "img2web": {
-          "value": 1551.3545993670068,
-          "rank": 29,
-          "n": 4207
+          "value": 1551.390968134236,
+          "rank": 30,
+          "n": 4302
         },
         "webdev": {
-          "value": 1572.5421273617105,
-          "rank": 47,
-          "n": 7659
+          "value": 1571.752641636183,
+          "rank": 48,
+          "n": 7959
         },
         "vision": {
           "value": 1263.190951062395,
@@ -975,6 +984,62 @@ window.AI_DATA = {
       "status": "unlimited"
     },
     {
+      "name": "Hy4 flash Free",
+      "inGo": true,
+      "goModelId": "hy4-flash-free",
+      "inGoApi": true,
+      "creator": "Tencent",
+      "color": "#5CB9FF",
+      "logo": null,
+      "aaSlug": null,
+      "aaName": null,
+      "aaUrl": null,
+      "aaMatch": null,
+      "needsAaFix": false,
+      "intelligence": null,
+      "intelligenceEstimated": false,
+      "costPerTask": null,
+      "contextWindow": null,
+      "isReasoning": null,
+      "isOpenWeights": null,
+      "go": {
+        "input": 0,
+        "output": 0,
+        "cachedRead": 0,
+        "cachedWrite": null,
+        "monthlyLimit": null,
+        "limitRaw": "Unlimited",
+        "limitNote": "limited time",
+        "tiers": [
+          {
+            "label": null,
+            "input": 0,
+            "output": 0,
+            "cachedRead": 0,
+            "monthlyLimit": null
+          }
+        ],
+        "requests5h": null,
+        "requestsWeek": null,
+        "requestsMonth": null,
+        "unlimited": true,
+        "mix": null,
+        "tokensPerRequest": null,
+        "costPerRequest": null,
+        "limit5hUsd": null,
+        "tokensPer5h": null
+      },
+      "efficiency": null,
+      "efficiencyProvisional": false,
+      "valueScore": null,
+      "reliability": null,
+      "visual": null,
+      "visualParts": null,
+      "visualEye": null,
+      "freeInOc": false,
+      "status": "unlimited"
+    },
+    {
       "name": "MiMo-V2.6-Flash",
       "inGo": true,
       "goModelId": "mimo-v2.6-flash",
@@ -1031,14 +1096,14 @@ window.AI_DATA = {
       "visual": 65.1,
       "visualParts": {
         "img2web": {
-          "value": 1593.182586795926,
-          "rank": 20,
-          "n": 3318
+          "value": 1593.241474581923,
+          "rank": 21,
+          "n": 3437
         },
         "webdev": {
-          "value": 1638.0623167609676,
-          "rank": 25,
-          "n": 8944
+          "value": 1638.534308059064,
+          "rank": 26,
+          "n": 9239
         },
         "vision": {
           "value": 1259.559769384553,
@@ -1104,17 +1169,17 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 46.1,
       "reliability": 52.9,
-      "visual": 65.5,
+      "visual": 65.4,
       "visualParts": {
         "img2web": {
-          "value": 1596.7081849178358,
-          "rank": 18,
-          "n": 3653
+          "value": 1597.0692938525992,
+          "rank": 19,
+          "n": 3790
         },
         "webdev": {
-          "value": 1625.0160105731081,
-          "rank": 28,
-          "n": 8846
+          "value": 1623.8353645079155,
+          "rank": 30,
+          "n": 9234
         },
         "vision": {
           "value": 1265.8849206588607,
@@ -1300,12 +1365,12 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 45.9,
       "reliability": 51.4,
-      "visual": 23,
+      "visual": 22.8,
       "visualParts": {
         "webdev": {
-          "value": 1583.8905512329295,
-          "rank": 42,
-          "n": 4904
+          "value": 1582.0343291399042,
+          "rank": 44,
+          "n": 5182
         }
       },
       "visualEye": 0.4,
@@ -1376,14 +1441,14 @@ window.AI_DATA = {
       "visual": 36.1,
       "visualParts": {
         "img2web": {
-          "value": 1473.4612633172324,
-          "rank": 47,
-          "n": 6237
+          "value": 1473.4800381077987,
+          "rank": 48,
+          "n": 6228
         },
         "webdev": {
-          "value": 1484.072688185737,
-          "rank": 75,
-          "n": 21058
+          "value": 1484.0559016425682,
+          "rank": 76,
+          "n": 21031
         },
         "vision": {
           "value": 1249.1551057128574,
@@ -1516,24 +1581,95 @@ window.AI_DATA = {
       "status": "active"
     },
     {
+      "name": "Qwen4 Max",
+      "inGo": true,
+      "goModelId": "qwen4-max",
+      "inGoApi": true,
+      "creator": "Alibaba",
+      "color": "#ff7018",
+      "logo": "https://artificialanalysis.ai/img/logos/alibaba.svg",
+      "aaSlug": null,
+      "aaName": "Qwen4 Max",
+      "aaUrl": "https://artificialanalysis.ai/models/undefined",
+      "aaMatch": "exact",
+      "needsAaFix": true,
+      "intelligence": 42.8914543287565,
+      "intelligenceEstimated": false,
+      "costPerTask": 3.2681327300897323,
+      "contextWindow": 983616,
+      "isReasoning": true,
+      "isOpenWeights": false,
+      "go": {
+        "input": 1.5,
+        "output": 4.5,
+        "cachedRead": 0.075,
+        "cachedWrite": 1.875,
+        "monthlyLimit": 15,
+        "limitRaw": "$15",
+        "limitNote": null,
+        "tiers": [
+          {
+            "label": null,
+            "input": 1.5,
+            "output": 4.5,
+            "cachedRead": 0.075,
+            "monthlyLimit": 15
+          }
+        ],
+        "requests5h": 460,
+        "requestsWeek": 1160,
+        "requestsMonth": 2310,
+        "unlimited": false,
+        "mix": {
+          "input": 420,
+          "cached": 66000,
+          "output": 200
+        },
+        "tokensPerRequest": 66620,
+        "costPerRequest": 0.00648,
+        "limit5hUsd": 3,
+        "tokensPer5h": 30645200
+      },
+      "efficiency": 460,
+      "efficiencyProvisional": false,
+      "valueScore": 41.7,
+      "reliability": 76.8,
+      "visual": 36.7,
+      "visualParts": {
+        "img2web": {
+          "value": 1673.5482260394501,
+          "rank": 6,
+          "n": 1474
+        },
+        "webdev": {
+          "value": 1749.814651229602,
+          "rank": 6,
+          "n": 1814
+        }
+      },
+      "visualEye": 0.4,
+      "freeInOc": false,
+      "status": "active"
+    },
+    {
       "name": "Qwen3.8 Max",
       "inGo": true,
       "goModelId": "qwen3.8-max",
       "inGoApi": true,
       "creator": "Alibaba",
       "color": "#ff7018",
-      "logo": "https://artificialanalysis.ai/img/logos/alibaba.svg",
+      "logo": null,
       "aaSlug": null,
-      "aaName": "Qwen3.8 Max (0902)",
-      "aaUrl": "https://artificialanalysis.ai/models/undefined",
-      "aaMatch": "base",
+      "aaName": null,
+      "aaUrl": null,
+      "aaMatch": null,
       "needsAaFix": true,
-      "intelligence": 33.6545627367888,
+      "intelligence": null,
       "intelligenceEstimated": false,
-      "costPerTask": 10.023891571541945,
-      "contextWindow": 983616,
-      "isReasoning": true,
-      "isOpenWeights": false,
+      "costPerTask": null,
+      "contextWindow": null,
+      "isReasoning": null,
+      "isOpenWeights": null,
       "go": {
         "input": 2,
         "output": 6,
@@ -1567,27 +1703,11 @@ window.AI_DATA = {
       },
       "efficiency": 160,
       "efficiencyProvisional": false,
-      "valueScore": 18.9,
-      "reliability": 59.5,
-      "visual": 89,
-      "visualParts": {
-        "img2web": {
-          "value": 1638.167271447172,
-          "rank": 8,
-          "n": 1083
-        },
-        "webdev": {
-          "value": 1676.3355074822152,
-          "rank": 15,
-          "n": 22099
-        },
-        "vision": {
-          "value": 1312.00895414155,
-          "rank": 11,
-          "n": 9842
-        }
-      },
-      "visualEye": 1.05,
+      "valueScore": null,
+      "reliability": null,
+      "visual": null,
+      "visualParts": null,
+      "visualEye": null,
       "freeInOc": false,
       "status": "active"
     },
@@ -1645,12 +1765,12 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 47.1,
       "reliability": 29.1,
-      "visual": 28,
+      "visual": 28.1,
       "visualParts": {
         "webdev": {
-          "value": 1623.7131373151285,
+          "value": 1624.528279368876,
           "rank": 29,
-          "n": 11380
+          "n": 11671
         }
       },
       "visualEye": 0.4,
@@ -1791,17 +1911,17 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 66.1,
       "reliability": 58,
-      "visual": 29.1,
+      "visual": 28.9,
       "visualParts": {
         "img2web": {
-          "value": 1609.1730946323773,
-          "rank": 13,
-          "n": 3881
+          "value": 1608.915041305481,
+          "rank": 14,
+          "n": 4164
         },
         "webdev": {
-          "value": 1663.6515358275167,
-          "rank": 18,
-          "n": 14108
+          "value": 1661.4090008988376,
+          "rank": 19,
+          "n": 15385
         }
       },
       "visualEye": 0.4,
@@ -2002,18 +2122,18 @@ window.AI_DATA = {
       "inGoApi": true,
       "creator": "Tencent",
       "color": "#5CB9FF",
-      "logo": "https://artificialanalysis.ai/img/logos/tencent-hy.svg",
+      "logo": null,
       "aaSlug": null,
-      "aaName": "Hy3",
-      "aaUrl": "https://artificialanalysis.ai/models/undefined",
-      "aaMatch": "exact",
+      "aaName": null,
+      "aaUrl": null,
+      "aaMatch": null,
       "needsAaFix": true,
       "intelligence": null,
       "intelligenceEstimated": false,
       "costPerTask": null,
-      "contextWindow": 256000,
-      "isReasoning": true,
-      "isOpenWeights": true,
+      "contextWindow": null,
+      "isReasoning": null,
+      "isOpenWeights": null,
       "go": {
         "input": 0.14,
         "output": 0.58,
@@ -2048,16 +2168,10 @@ window.AI_DATA = {
       "efficiency": 4300,
       "efficiencyProvisional": false,
       "valueScore": null,
-      "reliability": 14.7,
-      "visual": 13.2,
-      "visualParts": {
-        "webdev": {
-          "value": 1505.4320232709683,
-          "rank": 69,
-          "n": 7274
-        }
-      },
-      "visualEye": 0.4,
+      "reliability": null,
+      "visual": null,
+      "visualParts": null,
+      "visualEye": null,
       "freeInOc": false,
       "status": "active"
     },
@@ -2122,17 +2236,17 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 21,
       "reliability": 49.1,
-      "visual": 59.5,
+      "visual": 59.4,
       "visualParts": {
         "img2web": {
-          "value": 1588.7555765128936,
-          "rank": 21,
-          "n": 1986
+          "value": 1587.695649387963,
+          "rank": 22,
+          "n": 2087
         },
         "webdev": {
-          "value": 1640.6962858563677,
-          "rank": 24,
-          "n": 8186
+          "value": 1640.0851740078472,
+          "rank": 25,
+          "n": 8488
         },
         "vision": {
           "value": 1230.0212125163798,
@@ -2208,14 +2322,14 @@ window.AI_DATA = {
       "visual": 48.6,
       "visualParts": {
         "img2web": {
-          "value": 1565.9057899087911,
-          "rank": 26,
-          "n": 7382
+          "value": 1566.8887547046586,
+          "rank": 27,
+          "n": 7715
         },
         "webdev": {
-          "value": 1577.2140806726663,
-          "rank": 46,
-          "n": 30581
+          "value": 1576.631492574981,
+          "rank": 47,
+          "n": 31066
         },
         "vision": {
           "value": 1211.1836426875775,
@@ -2358,9 +2472,9 @@ window.AI_DATA = {
       "visual": 24.2,
       "visualParts": {
         "webdev": {
-          "value": 1593.4483670522147,
-          "rank": 39,
-          "n": 6643
+          "value": 1593.2157732209616,
+          "rank": 40,
+          "n": 7147
         }
       },
       "visualEye": 0.4,
@@ -2417,12 +2531,12 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": 46.3,
       "reliability": 91.4,
-      "visual": 35.1,
+      "visual": 34.9,
       "visualParts": {
         "webdev": {
-          "value": 1681.0304640340785,
-          "rank": 13,
-          "n": 4991
+          "value": 1679.1201066237227,
+          "rank": 15,
+          "n": 5231
         }
       },
       "visualEye": 0.4,
@@ -2511,12 +2625,12 @@ window.AI_DATA = {
       "efficiencyProvisional": false,
       "valueScore": null,
       "reliability": 54.3,
-      "visual": 30.9,
+      "visual": 30.6,
       "visualParts": {
         "webdev": {
-          "value": 1647.081709798455,
-          "rank": 23,
-          "n": 990
+          "value": 1644.6760395957338,
+          "rank": 24,
+          "n": 1077
         }
       },
       "visualEye": 0.4,
